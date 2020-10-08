@@ -1,0 +1,31 @@
+{
+  "name": "gridiron-consumer-nuxt",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate",
+    "build:framevuerk": "framevuerk-builder -c ./framevuerk-config.js",
+    "prepublish": "yarn build:framevuerk"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/apollo": "^4.0.1-rc.3",
+    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/pwa": "^3.0.2",
+    "@vue/apollo-composable": "^4.0.0-alpha.10",
+    "core-js": "^3.6.5",
+    "framevuerk": "^2.4.2",
+    "moment": "^2.29.1",
+    "nuxt": "^2.14.6",
+    "vue-apollo": "^3.0.4"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.14.6",
+    "@nuxt/typescript-build": "^2.0.3",
+    "framevuerk-builder": "^2.0.8"
+  }
+}
