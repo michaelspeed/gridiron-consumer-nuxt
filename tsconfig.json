@@ -14,6 +14,9 @@
     "strict": true,
     "noEmit": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "~/*": [
@@ -25,7 +28,11 @@
     },
     "types": [
       "@types/node",
-      "@nuxt/types"
+      "@nuxt/types",
+      "@nuxt/vue-app",
+      "@nuxtjs/axios",
+      "@nuxtjs/apollo",
+      "vue-apollo"
     ]
   },
   "exclude": [

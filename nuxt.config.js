@@ -1,5 +1,9 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
+  server: {
+    host: '0.0.0.0',
+    port: 9090, // default: 3000
+  },
   head: {
     title: 'gridiron-consumer-nuxt',
     meta: [
@@ -7,24 +11,51 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
+    script: [
+      {src: '/js/jquery.js', body: true},
+      {src: '/js/bootstrap.js', body: true},
+      {src: '/js/owl.carousel.min.js', body: true},
+      {src: '/js/slick.js', body: true},
+      {src: '/js/countdown.js', body: true},
+      {src: '/js/main.js', body: true},
+    ],
     link: [
       {
         rel: 'stylesheet',
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {
+        rel: 'stylesheet',
+        href:
+          'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
+      },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: '/css/owl.carousel.min.css'},
+      { rel: 'stylesheet', href: '/css/slick.css'},
+      { rel: 'stylesheet', href: '/css/slick-theme.css'},
+      { rel: 'stylesheet', href: '/css/owl.theme.default.min.css'},
+      { rel: 'stylesheet', href: '/css/style.css'},
     ]
   },
+  vue: {
+    config: {
+      devtools: true
+    }
+  },
+
+  loading: {color: '#41b883'},
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'framevuerk/dist/framevuerk-nuxt.min.css'
+    'framevuerk/dist/framevuerk-nuxt.min.css',
+    {src: 'ant-design-vue/dist/antd.less', lang: 'less'},
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '@/plugins/framevuerk'
+    '@/plugins/framevuerk',
+    '~/plugins/antd-vue-plugin.ts',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -42,12 +73,43 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/apollo'
   ],
+
+  apollo: {
+    tokenName: 'gridiron-key',
+    cookieAttributes: {
+      secure: false,
+    },
+    authenticationType: 'Basic',
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://45.118.132.119:5588/shop-api'
+        /*httpEndpoint: 'http://localhost:5588/admin-api',*/
+      }
+    },
+    defaultOptions: {
+      $query: {
+        loadingKey: 'loading'
+      },
+    },
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    loaders: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+          modifyVars: {
+            'primary-color': '#41b883',
+            'component-background': '#ffffff'
+          }
+        }
+      }
+    }
   }
 }

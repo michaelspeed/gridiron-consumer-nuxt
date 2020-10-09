@@ -8,7 +8,8 @@
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
     "build:framevuerk": "framevuerk-builder -c ./framevuerk-config.js",
-    "prepublish": "yarn build:framevuerk"
+    "prepublish": "yarn build:framevuerk",
+    "gql": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
@@ -17,15 +18,25 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.0.2",
     "@vue/apollo-composable": "^4.0.0-alpha.10",
+    "ant-design-vue": "^1.6.5",
     "core-js": "^3.6.5",
     "framevuerk": "^2.4.2",
+    "less": "^3.12.2",
     "moment": "^2.29.1",
     "nuxt": "^2.14.6",
+    "nuxt-property-decorator": "^2.8.8",
     "vue-apollo": "^3.0.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.17.7",
+    "@graphql-codegen/typescript": "1.17.7",
+    "@graphql-codegen/typescript-document-nodes": "1.17.7",
+    "@graphql-codegen/typescript-graphql-files-modules": "1.17.7",
+    "@graphql-codegen/typescript-operations": "^1.13.4",
+    "@graphql-codegen/typescript-vue-apollo": "^2.1.0",
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
-    "framevuerk-builder": "^2.0.8"
+    "framevuerk-builder": "^2.0.8",
+    "less-loader": "^7.0.1"
   }
 }

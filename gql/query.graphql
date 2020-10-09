@@ -1,0 +1,423 @@
+query GetMenu {
+    GetMenu {
+        menu
+    }
+}
+
+query getAllCollection {
+    getAllCollection {
+        id
+        name
+        description
+    }
+}
+
+query getHomePage {
+    getHomePage {
+        id
+        title
+        targetId
+        single
+        list
+    }
+}
+
+query getSingleProductVariant($id: ID!){
+    getSingleProductVariant(id: $id){
+        id
+        name
+        rating
+        specs {
+            id
+            specs
+        }
+        product {
+            id
+            productName
+            slug
+            options {
+                id
+                name
+                code
+                options {
+                    id
+                    name
+                    code
+                }
+            }
+            description
+            variants{
+                id
+                name
+            }
+            collection{
+                id
+                name
+                seo {
+                    urlKey
+                    metadesc
+                    metatitle
+                    metakeywords
+                }
+            }
+            facets {
+                id
+                code
+                facet {
+                    id
+                    name
+                    code
+                }
+            }
+            assets {
+                id
+                asset{
+                    id
+                    preview
+                    source
+                }
+            }
+        }
+        asset {
+            id
+            asset{
+                id
+                preview
+                source
+            }
+        }
+        price{
+            id
+            price
+            store {
+                id
+                storeName
+            }
+        }
+        seo {
+            id
+            urlKey
+            metatitle
+            metadesc
+            metakeywords
+        }
+        reviews {
+            id
+            createdAt
+            stars
+            text
+        }
+    }
+}
+
+query getProductAsset($prodId: ID, $variantId: ID) {
+    getProductAsset(prodId: $prodId, variantId: $variantId) {
+        id
+        preview
+        source
+    }
+}
+
+query GetDefaultStore {
+    GetDefaultStore {
+        id
+        storeName
+        phoneNumber
+        officialemail
+    }
+}
+
+query GetCollectionTree {
+    GetCollectionTree {
+        id
+        name
+        children {
+            id
+            name
+            children {
+                id
+                name
+            }
+        }
+    }
+}
+
+query GetSingleCollection($id: ID!){
+    GetSingleCollection(id: $id) {
+        collection {
+            id
+            name
+            description
+            children {
+                id
+                name
+            }
+        }
+        facetValues {
+            id
+            code
+            facet {
+                id
+                code
+                name
+            }
+        }
+    }
+}
+
+query GetFacetsByCollection($id: ID!) {
+    GetFacetsByCollection(id: $id){
+        id
+        code
+        facet {
+            id
+            name
+            code
+        }
+    }
+}
+
+query GetProductVariantForCollection($id: ID!, $limit: Int, $search: String){
+    GetProductVariantForCollection(id: $id, limit: $limit, search: $search) {
+        id
+        name
+        rating
+        price {
+            id
+            price
+        }
+        asset{
+            id
+            asset{
+                id
+                preview
+                source
+            }
+        }
+    }
+}
+
+query GetCurrentUser {
+    GetCurrentUser {
+        id
+        email
+        verified
+        verificationToken
+        lastLogin
+        firstName
+        lastName
+        phoneNumber
+        cart {
+            id
+            items {
+                id
+                variant {
+                    id
+                    name
+                    asset{
+                        id
+                        asset {
+                            preview
+                        }
+                    }
+                }
+                store {
+                    id
+                    storeName
+                }
+                price {
+                    id
+                    price
+                }
+            }
+        }
+        address {
+            id
+            fullName
+            addressLine
+            city
+            state
+            landmark
+            postalCode
+            phoneNumber
+            addressType
+        }
+    }
+}
+
+query GetUserAddress {
+    GetUserAddress {
+        id
+        fullName
+        addressLine
+        city
+        state
+        landmark
+        postalCode
+        phoneNumber
+        addressType
+    }
+}
+
+query getProductVariantByProduct($id: ID!){
+    getProductVariantByProduct(id: $id) {
+        id
+        name
+        rating
+        product {
+            id
+            productName
+            options {
+                id
+                name
+                code
+                options {
+                    id
+                    name
+                    code
+                }
+            }
+        }
+        asset {
+            id
+            asset{
+                id
+                preview
+                source
+            }
+        }
+        price{
+            id
+            price
+            store {
+                id
+                storeName
+            }
+        }
+        seo {
+            id
+            urlKey
+            metatitle
+            metadesc
+            metakeywords
+        }
+    }
+}
+
+query QueryFacet($id: ID!, $collection: ID){
+    queryFacet(id: $id, collection: $collection){
+        id
+        productName
+        slug
+        collection {
+            id
+            name
+        }
+        featuredAsset {
+            id
+            preview
+            source
+        }
+    }
+}
+
+query singProductInfo($id: ID!) {
+    singProductInfo(id: $id) {
+        id
+        productName
+    }
+}
+
+query SingProductPrice($id: ID!){
+    singProductPrice(id: $id){
+        id
+        price {
+            id
+            price
+            promoprice {
+                id
+                priceType
+                value
+            }
+            taxIncluded
+            store {
+                id
+                storeName
+                vendor {
+                    id
+                }
+            }
+        }
+    }
+}
+
+query GetStocksAndZipAvailability($zipf: Int!, $variantId: ID!){
+    GetStocksAndZipAvailability(zipf: $zipf, variantId:$variantId) {
+      id
+    }
+}
+
+query getPaymentCodes {
+    getPaymentCodes {
+        id
+        api
+    }
+}
+
+query getMyOrders {
+    getMyOrders {
+        id
+        address
+        createdAt
+        totalPrice
+        mode
+        line {
+            id
+            item {
+                productVariant{
+                    id
+                    name
+                }
+            }
+        }
+    }
+}
+
+query getSingleOrder($id: ID!){
+    getSingleOrder(id: $id) {
+        id
+        address
+        createdAt
+        totalPrice
+        mode
+        line {
+            id
+            stage
+            priceField
+            store {
+                id
+                storeName
+            }
+            item {
+                id
+                productVariant{
+                    id
+                    name
+                }
+                quantity
+            }
+        }
+    }
+}
+
+query GetFacetDocument($id:ID!){
+    GetFacetDocument(id: $id){
+        id
+        code
+        facet {
+            id
+            name
+            code
+        }
+    }
+}

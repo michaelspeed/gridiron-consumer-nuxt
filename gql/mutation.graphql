@@ -1,0 +1,91 @@
+mutation LoginUser($email: String!, $password: String!) {
+    LoginUser(email: $email, password: $password){
+        user {
+            id
+            email
+            verified
+            verificationToken
+            lastLogin
+            firstName
+            lastName
+            phoneNumber
+        }
+        token
+    }
+}
+
+mutation UpdateAccountInfo($lname: String!, $fname: String!, $phone: String!) {
+    UpdateAccountInfo(lname: $lname, fname: $fname, phone: $phone) {
+        id
+        email
+    }
+}
+
+mutation CreateNewAddress($fullName: String!, $addressLine: String!, $city: String!, $state: String!, $landmark: String!, $postalCode: String!, $phoneNumber: String!, $type: AddressType!){
+    CreateNewAddress(
+        fullName: $fullName,
+        addressLine: $addressLine,
+        city: $city,
+        state: $state,
+        landmark: $landmark,
+        postalCode: $postalCode,
+        phoneNumber: $phoneNumber,
+        type:$type
+    ) {
+        id
+    }
+}
+
+mutation CreateUser($fname: String!, $lname: String!, $phone: String!, $password: String!, $email: String!){
+    CreateUser(fname: $fname, lname: $lname, phone: $phone, password: $password, email: $email){
+        user {
+            id
+            email
+            phoneNumber
+            verified
+            firstName
+            lastName
+        }
+        token
+    }
+}
+
+mutation AddToCart($userId: ID!, $store: ID!, $variant: ID!, $price: ID!, $quantity: Int!) {
+    addToCart(userId: $userId, store: $store, variant: $variant, price: $price, quantity: $quantity){
+        id
+    }
+}
+
+mutation RemoveCartItem($cartId: ID!){
+    removeCartItem(cartId: $cartId) {
+        id
+    }
+}
+
+mutation createShopOrder($address: String!, $transaction: String, $orderLineDto: [CartItemDto!]!){
+    createShopOrder(
+        address: $address,
+        transaction: $transaction,
+        orderLineDto: $orderLineDto
+    ) {
+        id
+    }
+}
+
+mutation ShiftProductVariant($prodId: String!, $name: String!){
+    ShiftProductVariant(prodId: $prodId, name: $name) {
+        id
+    }
+}
+
+mutation createReview($text: String!, $stars: Float!, $varId: String!){
+    creteReview(text: $text, stars: $stars, varId:$varId) {
+        id
+    }
+}
+
+mutation createView($id: String!, $variant: String!) {
+    createView(id: $id, variant: $variant) {
+        id
+    }
+}
