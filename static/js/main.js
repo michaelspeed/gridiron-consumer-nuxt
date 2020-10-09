@@ -12,13 +12,13 @@ jQuery(document).ready(function($) {
         }
     });
     // close quickview
-    
+
     $(".quickview-close").on("click", function() {
         $('.quickview-wrapper').hide();
         $('.quickview-wrapper').removeClass('open');
         $('.quick-modal').removeClass('show');
     });
-    // open Vertical menu 
+    // open Vertical menu
     $(".js-vertical-menu").on("click", function() {
         $('.vertical-wrapper').slideToggle(200);
         $(this).toggleClass('active');
@@ -149,7 +149,7 @@ jQuery(document).ready(function($) {
         $('.js-number').val(quantity + 1);
 
 
-        // Increment    
+        // Increment
     });
 
     $('.js-minus').on("click", function(e) {
@@ -726,9 +726,9 @@ jQuery(document).ready(function($) {
 
     // slider home 3 and home 2
     $('.js-slider-3items').slick({
-        autoplay: false,
-        infinite: false,
-        arrows: false,
+        autoplay: true,
+        infinite: true,
+        arrows: true,
         dots: true
     });
     // js blogpost
@@ -762,7 +762,7 @@ jQuery(document).ready(function($) {
         nextArrow: '<span class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
     });
 
-    // JS owl team Carousel 
+    // JS owl team Carousel
     $('.js-owl-test').owlCarousel({
         items: 1,
         singleItem: true,

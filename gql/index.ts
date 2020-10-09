@@ -4643,7 +4643,14 @@ export type GetProductVariantForCollectionQuery = (
     & { price?: Maybe<Array<(
       { __typename?: 'ProductVariantPrice' }
       & Pick<ProductVariantPrice, 'id' | 'price'>
-    )>>, asset: (
+    )>>, product: (
+      { __typename?: 'Product' }
+      & Pick<Product, 'id' | 'productName'>
+      & { collection?: Maybe<(
+        { __typename?: 'Collection' }
+        & Pick<Collection, 'id' | 'name'>
+      )> }
+    ), asset: (
       { __typename?: 'ProductVariantAsset' }
       & Pick<ProductVariantAsset, 'id'>
       & { asset: (
@@ -5188,6 +5195,14 @@ export const GetProductVariantForCollectionDocument = gql`
     price {
       id
       price
+    }
+    product {
+      id
+      productName
+      collection {
+        id
+        name
+      }
     }
     asset {
       id

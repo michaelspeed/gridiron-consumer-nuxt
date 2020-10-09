@@ -14,9 +14,11 @@ export default {
     script: [
       {src: '/js/jquery.js', body: true},
       {src: '/js/bootstrap.js', body: true},
+
       {src: '/js/owl.carousel.min.js', body: true},
       {src: '/js/slick.js', body: true},
       {src: '/js/countdown.js', body: true},
+      {src: '/js/bootstrap-slider.min.js', body: true},
       {src: '/js/main.js', body: true},
     ],
     link: [
@@ -29,6 +31,11 @@ export default {
         rel: 'stylesheet',
         href:
           'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          '/css/bootstrap-slider.css'
       },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: '/css/owl.carousel.min.css'},
@@ -56,6 +63,7 @@ export default {
   plugins: [
     '@/plugins/framevuerk',
     '~/plugins/antd-vue-plugin.ts',
+    {src: '~/plugins/jquery-plugin.ts', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

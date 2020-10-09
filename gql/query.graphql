@@ -186,6 +186,14 @@ query GetProductVariantForCollection($id: ID!, $limit: Int, $search: String){
             id
             price
         }
+        product {
+          id
+          productName
+          collection{
+            id
+            name
+          }
+        }
         asset{
             id
             asset{

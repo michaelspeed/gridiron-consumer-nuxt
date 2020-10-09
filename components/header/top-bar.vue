@@ -31,10 +31,10 @@
         </div>
         <div class="row flex" v-if="!$apollo.queries.GetDefaultStore.loading">
           <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 v-center header-logo">
-            <a href="#"><h2 class="text-success">{{ GetDefaultStore.storeName }}</h2></a>
+            <a href="/"><h1 style="font-weight: bolder">{{ GetDefaultStore.storeName }}</h1></a>
           </div>
           <div class="col-lg-7 col-md-7 v-center">
-            <a-input-search placeholder="input search text" style="width: 100%" />
+            <a-input-search size="large" placeholder="Search ..." style="width: 100%" />
           </div>
           <div class="col-lg-3  col-md-3 col-sm-6 col-xs-6 v-center header-sub">
             <div class="right-panel">
@@ -115,7 +115,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "nuxt-property-decorator";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {GetDefaultStoreDocument, Store} from "~/gql";
 
 @Component({
@@ -128,6 +128,5 @@ import {GetDefaultStoreDocument, Store} from "~/gql";
 export default class TopBar extends Vue {
   private GetDefaultStore: Store
   private search = ''
-
 }
 </script>
