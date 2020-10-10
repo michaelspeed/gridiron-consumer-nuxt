@@ -4,6 +4,8 @@ export default {
     host: '0.0.0.0',
     port: 9090, // default: 3000
   },
+  mode: 'universal',
+  target: 'server',
   head: {
     title: 'gridiron-consumer-nuxt',
     meta: [
@@ -64,6 +66,7 @@ export default {
     '@/plugins/framevuerk',
     '~/plugins/antd-vue-plugin.ts',
     {src: '~/plugins/jquery-plugin.ts', mode: 'client'},
+    {src: '~/plugins/slick-plugin.ts', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

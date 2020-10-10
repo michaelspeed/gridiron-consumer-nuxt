@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
     "use strict";
     // Ajax search
-    $('.ajax-search input[type="text"]').on('blur',function(){
+    /*$('.ajax-search input[type="text"]').on('blur',function(){
         $('.list-product-search').removeClass('active');
     });
     $('.ajax-search input[type="text"]').on('keydown',function(){
@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
         }else{
             $('.list-product-search').addClass('active');
         }
-    });
+    });*/
     // close quickview
 
     $(".quickview-close").on("click", function() {
@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
 
 
     // Push menu home 5
-    var menuLeft = $('.pushmenu-left');
+    /*var menuLeft = $('.pushmenu-left');
     var menuHome6 = $('.menu-home5');
     var nav_list = $('.open-cart');
     var nav_click = $('.icon-pushmenu');
@@ -133,7 +133,7 @@ jQuery(document).ready(function($) {
     $(".close-left").on("click", function() {
         $('body').removeClass('pushmenu-push-toleft');
         menuHome6.removeClass('pushmenu-open');
-    });
+    });*/
     // SHOPPING CART Quantity increment buttons
 
     var quantitiy = 0;
@@ -725,14 +725,14 @@ jQuery(document).ready(function($) {
     //  Show more
 
     // slider home 3 and home 2
-    $('.js-slider-3items').slick({
+    $('.js-slider-3items').not('.slick-initialized').slick({
         autoplay: true,
         infinite: true,
         arrows: true,
         dots: true
     });
     // js blogpost
-    $('.js-single-post').slick({
+    $('.js-single-post').not('.slick-initialized').slick({
         autoplay: false,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -741,7 +741,7 @@ jQuery(document).ready(function($) {
         dots: true
     });
     // js quickview
-    $('.js-quickview-slide').slick({
+    $('.js-quickview-slide').not('.slick-initialized').slick({
         autoplay: false,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -752,7 +752,7 @@ jQuery(document).ready(function($) {
         dots: true
     });
     // slider home 1
-    $('.js-slider-home2').slick({
+    $('.js-slider-home2').not('.slick-initialized').slick({
         autoplay: false,
         slidesToShow: 1,
         slidesToScroll: 1,

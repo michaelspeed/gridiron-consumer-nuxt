@@ -16,7 +16,7 @@
           <p class="product-cate">Computers &amp; Accessories</p>
           <h3 class="product-title">
             <a href="#" @click="onClickSelection" v-if="item.type.key === 'product'">{{item.target.target.productName}}</a>
-            <a href="#" @click="onClickSelection" v-if="item.type.key === 'variant'">{{item.target.target.name}}</a>
+            <a href="#" @click="onClickSelection" v-else-if="item.type.key === 'variant'">{{item.target.target.name}}</a>
           </h3>
           <div class="product-bottom">
             <div class="product-price"><span>$1,215.00</span></div>
