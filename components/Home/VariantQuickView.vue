@@ -29,7 +29,7 @@
                 </span>
                 <h3 class="product-title"><a href="javascript:;" @click="onGoToProdRoute(variants.id)">{{variants.name}}</a></h3>
                 <div class="product-bottom">
-                  <div class="product-price" v-if="lowPrice(variants) !== 0"><span>${{lowPrice(variants)}}</span></div>
+                  <div class="product-price" v-if="lowPrice(variants) !== 0"><span>₹ {{lowPrice(variants)}}</span></div>
                   <div class="product-price" v-if="lowPrice(variants) === 0"><span>Unavailable</span></div>
                   <a href="#" class="btn-icon btn-view">
                     <span class="icon-bg icon-view"></span>

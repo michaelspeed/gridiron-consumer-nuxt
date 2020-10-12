@@ -62,21 +62,16 @@
         <div class="col-lg-9 widget-left">
           <div class="flex lr">
             <nav class="main-menu flex align-center">
-              <button type="button" class="icon-mobile e-icon-menu icon-pushmenu js-push-menu">
-                <span class="navbar-toggler-bar"></span>
-                <span class="navbar-toggler-bar"></span>
-                <span class="navbar-toggler-bar"></span>
-              </button>
               <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav js-menubar">
                   <li class="level1" v-for="(menuitem, index) of menu" :class="{'dropdown': true}" :key="index">
-                    <a href="#">{{menuitem.title}}</a>
+                    <a href="javascript:;" @click="OnClickMenu(menuitem)">{{menuitem.title}}</a>
                     <span class="plus js-plus-icon"></span>
                     <div class="menu-level-1 dropdown-menu" v-if="menuitem.children && menuitem.children.length > 0">
                       <ul class="level1">
                         <li class="level2 col-12" style="padding-left: 15px">
                           <ul class="menu-level-2">
-                            <li class="level3" v-for="subitem of menuitem.children"><a href="shop_full.html" title="">{{subitem.title}}</a></li>
+                            <li class="level3" v-for="subitem of menuitem.children"><a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a></li>
                           </ul>
                         </li>
                       </ul>
@@ -96,6 +91,7 @@
 <script lang="ts">
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {Collection, GetCollectionTreeDocument, GetMenuDocument} from "~/gql";
+import {getCollectionRoute, getFacetRoute} from "~/utils/routingUtils";
 
 @Component({
   apollo: {
@@ -115,6 +111,14 @@ export default class MenuBar extends Vue {
   @Watch('GetMenu')
   onGetMenu() {
     this.menu = JSON.parse(this.GetMenu.menu)
+  }
+
+  OnClickMenu(item) {
+    if (item.target === 'COLLECTION') {
+      this.$router.push(getCollectionRoute(item.targetId))
+    } else if (item.target === 'FACET') {
+      this.$router.push(getFacetRoute(item.targetId))
+    }
   }
 
 }

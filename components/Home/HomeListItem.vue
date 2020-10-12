@@ -4,43 +4,49 @@
          style="display: flex; justify-content: center; align-items: center">
       <fvLoading/>
     </div>
-    <div class="pd-bd product-inner" v-if="!$apollo.queries.getProductAsset.loading">
+    <div class="pd-bd" v-if="!$apollo.queries.getProductAsset.loading">
       <div class="product-img">
-        <a href="#" @click="onClickSelection"><img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive"></a>
+        <a href="javascript:;" @click="onClickSelection"><img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive"></a>
       </div>
       <div class="product-info">
         <div class="color-group"></div>
 
-        <div class="element-list element-list-middle">
+        <div class="element-list">
 
           <p class="product-cate">Computers &amp; Accessories</p>
           <h3 class="product-title">
-            <a href="#" @click="onClickSelection" v-if="item.type.key === 'product'">{{item.target.target.productName}}</a>
-            <a href="#" @click="onClickSelection" v-else-if="item.type.key === 'variant'">{{item.target.target.name}}</a>
+            <a href="javascript:;" @click="onClickSelection" v-if="item.type.key === 'product'">{{item.target.target.productName.substring(0, 30)}}</a>
+            <a href="javascript:;" @click="onClickSelection" v-else-if="item.type.key === 'variant'">{{item.target.target.name.substring(0, 30)}}</a>
           </h3>
           <div class="product-bottom">
-            <div class="product-price"><span>$1,215.00</span></div>
+            <div class="product-price">
+              <span v-if="item.type.key === 'product'"><a class="btn-gradient btn-sm" href="javascript:;"  @click="view = true">See Variants</a></span>
+              <div v-if="!$apollo.queries.singProductPrice.loading">
+                <span v-if="item.type.key === 'variant' && lowPrice !== 0">₹ {{lowPrice}}</span>
+                <span v-if="item.type.key === 'variant' && lowPrice === 0" class="text-danger">Unavailable</span>
+              </div>
+            </div>
           </div>
           <div class="product-bottom-group">
-            <a href="#" class="btn-icon">
+            <a href="javascript:;" class="btn-icon">
               <span class="icon-bg icon-cart"></span>
             </a>
-            <a href="#" class="btn-icon" @click="view = true">
+            <a href="javascript:;" class="btn-icon" v-if="item.type.key === 'product'" @click="view = true">
               <span class="icon-bg icon-view"></span>
             </a>
-            <a href="#" class="btn-icon">
+            <a href="javascript:;" class="btn-icon">
               <span class="icon-bg icon-compare"></span>
             </a>
           </div>
         </div>
         <div class="product-button-group">
-          <a href="#" class="btn-icon">
+          <a href="javascript:;" class="btn-icon">
             <span class="icon-bg icon-cart"></span>
           </a>
-          <a href="#" class="btn-icon" @click="view = true">
+          <a href="javascript:;" v-if="item.type.key === 'product'" class="btn-icon" @click="view = true">
             <span class="icon-bg icon-view"></span>
           </a>
-          <a href="#" class="btn-icon">
+          <a href="javascript:;" class="btn-icon">
             <span class="icon-bg icon-compare"></span>
           </a>
         </div>
@@ -60,7 +66,7 @@
 
 <script lang="ts">
 import {Component, Prop, Vue, Watch} from "nuxt-property-decorator";
-import {GetProductAssetDocument} from "~/gql";
+import {GetProductAssetDocument, SingProductPriceDocument} from "~/gql";
 import {assetsURL} from "~/utils/global-constants";
 import VariantQuickView from "~/components/Home/VariantQuickView.vue";
 import {getProdRoute, getVariantRoute} from "~/utils/routingUtils";
@@ -73,7 +79,6 @@ import {getProdRoute, getVariantRoute} from "~/utils/routingUtils";
     getProductAsset: {
       query: GetProductAssetDocument,
       variables() {
-
         if(this.item.type.key === 'variant') {
           return {
             variantId: this.item.target.target.id
@@ -84,22 +89,44 @@ import {getProdRoute, getVariantRoute} from "~/utils/routingUtils";
           }
         }
       }
+    },
+    singProductPrice: {
+      query: SingProductPriceDocument,
+      variables() {
+        if(this.item.type.key === 'variant') {
+          return {
+            id: this.item.target.target.id
+          }
+        }
+      }
     }
   }
 })
 export default class HomeListItem extends Vue {
   @Prop() item
   private getProductAsset
+  private singProductPrice
 
   private assetLink = assetsURL
-
   private view: boolean = false
+  private lowPrice = 0
+
+  @Watch('singProductPrice')
+  onGetPrice() {
+    for (const prs of this.singProductPrice.price) {
+      if (this.lowPrice === 0) {
+        this.lowPrice = prs.price
+      } else if (this.lowPrice > prs.price) {
+        this.lowPrice = prs.price
+      }
+    }
+  }
 
   onClickSelection() {
     if (this.item.type.key === 'variant') {
-      this.$router.push(getProdRoute(this.item.target.id))
+      this.$router.push(getProdRoute(this.item.target.target.id))
     } else if (this.item.type.key === 'product') {
-      this.$router.push(getVariantRoute(this.item.target.id))
+      this.$router.push(getVariantRoute(this.item.target.target.id))
     }
   }
 }

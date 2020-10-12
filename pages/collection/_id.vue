@@ -51,51 +51,53 @@
           </div>
         </div>
         <div class="col-md-9 col-sm-12 col-xs-12 collection-list">
-          <div class="e-product">
-            <div class="pd-banner">
-              <a href="#" class="image-bd effect_img2"><img src="/img/o-banner2.jpg" alt="" class="img-reponsive"></a>
-            </div>
-            <div class="bestseller">
-              <div class="ecome-heading style3v2 spc3">
-                <h1>BestSellers</h1>
-                <a href="#" class="btn-show">Shop more<i class="ion-ios-arrow-forward"></i></a>
+          <client-only>
+            <div class="e-product" ref="slider">
+              <div class="pd-banner">
+                <a href="#" class="image-bd effect_img2"><img src="/img/o-banner2.jpg" alt="" class="img-reponsive"></a>
               </div>
-              <div class="owl-carousel owl-theme owl-cate v2 js-owl-cate2">
+              <div class="bestseller">
+                <div class="ecome-heading style3v2 spc3">
+                  <h1>BestSellers</h1>
+                  <a href="#" class="btn-show">Shop more<i class="ion-ios-arrow-forward"></i></a>
+                </div>
+                <div class="owl-carousel owl-theme owl-cate v2 js-owl-cate2">
 
-                <div class="product-item" v-for="vars of variants" :key="vars.id">
-                  <div class="pd-bd product-inner">
-                    <div class="product-img">
-                      <a href="#"><img :src="`${assetLink}/${vars.asset.asset.preview}`" alt="" class="img-reponsive" style="height: 320px;object-fit: contain"></a>
-                    </div>
-                    <div class="product-info">
-                      <div class="color-group">
+                  <div class="product-item" v-for="vars of variants" :key="vars.id">
+                    <div class="pd-bd product-inner">
+                      <div class="product-img">
+                        <a href="#"><img :src="`${assetLink}/${vars.asset.asset.preview}`" alt="" class="img-reponsive" style="height: 320px;object-fit: contain"></a>
                       </div>
-                      <div class="element-list element-list-left">
-                      </div>
-                      <div class="element-list element-list-middle">
-                        <p class="product-cate">{{vars.product.productName}}</p>
-                        <h3 class="product-title"><a href="#">{{vars.name}}</a></h3>
-                        <div class="product-bottom">
-                          <div class="product-price">
-                            <span v-if="getPrice(vars) !== 0">₹ {{getPrice(vars)}}</span>
-                            <span v-if="getPrice(vars) === 0" class="text-danger">Unavailable</span>
+                      <div class="product-info">
+                        <div class="color-group">
+                        </div>
+                        <div class="element-list element-list-left">
+                        </div>
+                        <div class="element-list element-list-middle">
+                          <p class="product-cate">{{vars.product.productName}}</p>
+                          <h3 class="product-title"><a href="#">{{vars.name}}</a></h3>
+                          <div class="product-bottom">
+                            <div class="product-price">
+                              <span v-if="getPrice(vars) !== 0">₹ {{getPrice(vars)}}</span>
+                              <span v-if="getPrice(vars) === 0" class="text-danger">Unavailable</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="product-button-group">
-                        <a href="#" class="btn-icon" v-if="getPrice(vars) !== 0">
-                          <span class="icon-bg icon-cart"></span>
-                        </a>
-                        <a href="#" class="btn-icon">
-                          <span class="icon-bg icon-compare"></span>
-                        </a>
+                        <div class="product-button-group">
+                          <a href="#" class="btn-icon" v-if="getPrice(vars) !== 0">
+                            <span class="icon-bg icon-cart"></span>
+                          </a>
+                          <a href="#" class="btn-icon">
+                            <span class="icon-bg icon-compare"></span>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </client-only>
         </div>
       </div>
     </div>
@@ -103,7 +105,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "nuxt-property-decorator";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {
   Collection,
   GetFacetsByCollectionDocument,
@@ -151,6 +153,10 @@ export default class CollectionId extends Vue {
 
   private assetLink = assetsURL
 
+  $refs: {
+    slider: HTMLDivElement
+  }
+
   onClickCollection(id){
     this.$router.push(getCollectionRoute(id))
   }
@@ -161,6 +167,35 @@ export default class CollectionId extends Vue {
       price = variant.price![0].price
     }
     return price
+  }
+
+  updated() {
+    (<any>$('.js-owl-cate2')).owlCarousel({
+      margin: 30,
+      autoplay: false,
+      autoplayTimeout: 3000,
+      loop: true,
+      dots: true,
+      nav: false,
+      responsive: {
+        0: {
+          items: 1
+        },
+        480: {
+          items: 2
+        },
+        1024: {
+          items: 3
+        },
+        1200: {
+          items: 3
+        },
+        1600: {
+          items: 3,
+          margin: 40
+        }
+      }
+    });
   }
 
   mounted() {

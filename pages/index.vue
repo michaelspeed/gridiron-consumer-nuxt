@@ -9,11 +9,11 @@
               <VueSlickCarousel :arrows="true" :dots="true" :autoplay="true" :infinite="true" :adaptiveHeight="true" class="e-slide v2">
                 <div class="e-slide-img bg-gradient" v-for="mainitems of getHomePage.single.main" @click="onClickCarousel(mainitems)" style="height: 500px !important;">
                   <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
-                    <img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain"></a>
+                    <img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4"></a>
                   <div class="slide-content v2">
-                    <h3 class="v2" v-if="mainitems.type === 'product'">{{mainitems.target.productName}}</h3>
-                    <h3 class="v2" v-else-if="mainitems.type === 'variant'">{{mainitems.target.name}}</h3>
-                    <h3 class="v2" v-else-if="mainitems.type === 'category'">{{mainitems.target.name}}</h3>
+                    <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-if="mainitems.type === 'product'">{{mainitems.target.productName.substring(0, 30)}}</h2>
+                    <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-else-if="mainitems.type === 'variant'">{{mainitems.target.name.substring(0, 30)}}</h2>
+                    <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-else-if="mainitems.type === 'category'">{{mainitems.target.name.substring(0, 30)}}</h2>
                     <a href="#" class="slide-btn e-yl-gradient">Shop now<i class="ion-ios-arrow-forward"></i></a>
                   </div>
                 </div>
@@ -87,7 +87,7 @@
               <li v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}">
                 <a data-toggle="tab" href="#" aria-expanded="true" @click="listIndex = index">
                   <div class="tab-link-info flex align-center">
-                    <img src="img/category/1.png" alt="">
+                    <!--<img src="img/category/1.png" alt="">-->
                     <span>{{listitem.name}}</span>
                   </div>
                 </a>

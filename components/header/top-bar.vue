@@ -41,7 +41,7 @@
             <div class="right-panel">
               <div class="header-sub-element hidden-xs hidden-sm">
                 <div class="sub-left">
-                  <i class="fas fa-phone-volume" style="font-size: 35px"></i>
+                  <i class="fas fa-phone-volume icon-top-bar" style="font-size: 35px"></i>
                 </div>
                 <div class="sub-right">
                   <span>Call Us Free</span>
@@ -49,19 +49,19 @@
                 </div>
               </div>
               <div class="header-sub-element row">
-                <a class="hidden-xs hidden-sm" href="">
-                  <i class="fas fa-user" style="font-size: 25px"></i>
+                <a class="hidden-xs hidden-sm" href="javascript:;" @click="onClickAccount">
+                  <i class="fas fa-user icon-top-bar" style="font-size: 25px"></i>
                 </a>
                 <!--<a href="#"><img src="img/icon-heart.png" alt=""></a>-->
-                <a href="#"><i class="fas fa-search" style="font-size: 25px"></i></a>
+                <a href="#"><i class="fas fa-search icon-top-bar" style="font-size: 25px"></i></a>
                 <div class="cart">
                   <a href="#">
-                    <i class="fas fa-shopping-cart" style="font-size: 25px"></i>
-                    <span class="count cart-count">0</span>
+                    <i class="fas fa-shopping-cart icon-top-bar" style="font-size: 25px"></i>
+                    <span class="count cart-count">{{cart.length}}</span>
                   </a>
                 </div>
                 <a href="#" class="hidden-md hidden-lg icon-pushmenu js-push-menu">
-                  <i class="fa fa-bars f-15"></i>
+                  <i class="fa fa-bars icon-top-bar"></i>
                 </a>
               </div>
             </div>
@@ -86,5 +86,29 @@ import {GetDefaultStoreDocument, Store} from "~/gql";
 export default class TopBar extends Vue {
   private GetDefaultStore: Store
   private search = ''
+
+  user() {
+    return this.$store.state.user.user
+  }
+
+  cart() {
+    return this.$store.state.cart.cart
+  }
+
+  onClickAccount() {
+    if (this.user() === undefined) {
+      this.$router.push('/login')
+    } {
+      this.$router.push('/accounts')
+    }
+  }
 }
 </script>
+
+<style scoped>
+.icon-top-bar {
+  background: -webkit-linear-gradient(#D9F66B, #8CC209);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
