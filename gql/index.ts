@@ -2052,7 +2052,7 @@ export type ProductVariant = {
   rating: Scalars['Float'];
   product: Product;
   trackInventory: Scalars['Boolean'];
-  asset: ProductVariantAsset;
+  asset?: Maybe<ProductVariantAsset>;
   price?: Maybe<Array<ProductVariantPrice>>;
   specs?: Maybe<ProductVariantSpecs>;
   seo?: Maybe<Seo>;
@@ -2539,6 +2539,7 @@ export type Query = {
   GetStocksAndZipAvailability: Array<ProductVariantPrice>;
   getProductVariantByProduct: Array<ProductVariant>;
   getProductAsset: Asset;
+  GetSingleProductPrice: ProductVariantPrice;
   GetDefaultStore: Store;
   GetCurrentUser: User;
   GetUserAddress: Array<Address>;
@@ -2598,6 +2599,11 @@ export type QueryGetProductVariantByProductArgs = {
 export type QueryGetProductAssetArgs = {
   prodId?: Maybe<Scalars['ID']>;
   variantId?: Maybe<Scalars['ID']>;
+};
+
+
+export type QueryGetSingleProductPriceArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -4516,14 +4522,14 @@ export type GetSingleProductVariantQuery = (
           & Pick<Asset, 'id' | 'preview' | 'source'>
         ) }
       )>> }
-    ), asset: (
+    ), asset?: Maybe<(
       { __typename?: 'ProductVariantAsset' }
       & Pick<ProductVariantAsset, 'id'>
       & { asset: (
         { __typename?: 'Asset' }
         & Pick<Asset, 'id' | 'preview' | 'source'>
       ) }
-    ), price?: Maybe<Array<(
+    )>, price?: Maybe<Array<(
       { __typename?: 'ProductVariantPrice' }
       & Pick<ProductVariantPrice, 'id' | 'price'>
       & { store?: Maybe<(
@@ -4650,14 +4656,14 @@ export type GetProductVariantForCollectionQuery = (
         { __typename?: 'Collection' }
         & Pick<Collection, 'id' | 'name'>
       )> }
-    ), asset: (
+    ), asset?: Maybe<(
       { __typename?: 'ProductVariantAsset' }
       & Pick<ProductVariantAsset, 'id'>
       & { asset: (
         { __typename?: 'Asset' }
         & Pick<Asset, 'id' | 'preview' | 'source'>
       ) }
-    ) }
+    )> }
   )> }
 );
 
@@ -4678,14 +4684,14 @@ export type GetCurrentUserQuery = (
         & { variant: (
           { __typename?: 'ProductVariant' }
           & Pick<ProductVariant, 'id' | 'name'>
-          & { asset: (
+          & { asset?: Maybe<(
             { __typename?: 'ProductVariantAsset' }
             & Pick<ProductVariantAsset, 'id'>
             & { asset: (
               { __typename?: 'Asset' }
               & Pick<Asset, 'preview'>
             ) }
-          ) }
+          )> }
         ), store: (
           { __typename?: 'Store' }
           & Pick<Store, 'id' | 'storeName'>
@@ -4733,14 +4739,14 @@ export type GetProductVariantByProductQuery = (
           & Pick<ProductOption, 'id' | 'name' | 'code'>
         )> }
       )> }
-    ), asset: (
+    ), asset?: Maybe<(
       { __typename?: 'ProductVariantAsset' }
       & Pick<ProductVariantAsset, 'id'>
       & { asset: (
         { __typename?: 'Asset' }
         & Pick<Asset, 'id' | 'preview' | 'source'>
       ) }
-    ), price?: Maybe<Array<(
+    )>, price?: Maybe<Array<(
       { __typename?: 'ProductVariantPrice' }
       & Pick<ProductVariantPrice, 'id' | 'price'>
       & { store?: Maybe<(
@@ -4826,7 +4832,11 @@ export type GetStocksAndZipAvailabilityQuery = (
   { __typename?: 'Query' }
   & { GetStocksAndZipAvailability: Array<(
     { __typename?: 'ProductVariantPrice' }
-    & Pick<ProductVariantPrice, 'id'>
+    & Pick<ProductVariantPrice, 'id' | 'price'>
+    & { store?: Maybe<(
+      { __typename?: 'Store' }
+      & Pick<Store, 'id' | 'storeName'>
+    )> }
   )> }
 );
 
@@ -5379,6 +5389,11 @@ export const GetStocksAndZipAvailabilityDocument = gql`
     query GetStocksAndZipAvailability($zipf: Int!, $variantId: ID!) {
   GetStocksAndZipAvailability(zipf: $zipf, variantId: $variantId) {
     id
+    price
+    store {
+      id
+      storeName
+    }
   }
 }
     `;

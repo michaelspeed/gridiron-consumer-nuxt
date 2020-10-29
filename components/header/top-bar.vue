@@ -55,7 +55,7 @@
                 <!--<a href="#"><img src="img/icon-heart.png" alt=""></a>-->
                 <a href="#"><i class="fas fa-search icon-top-bar" style="font-size: 25px"></i></a>
                 <div class="cart">
-                  <a href="#">
+                  <a href="javascript:;" @click="onClickCart">
                     <i class="fas fa-shopping-cart icon-top-bar" style="font-size: 25px"></i>
                     <span class="count cart-count">{{cart.length}}</span>
                   </a>
@@ -64,6 +64,31 @@
                   <i class="fa fa-bars icon-top-bar"></i>
                 </a>
               </div>
+              <a-drawer width="640" placement="right" :visible="cartOpen" :closable="true" @close="onClickCart">
+                <h3>Cart</h3>
+                <div>
+                  <ul class="mini-products-list">
+                    <li class="item-cart" v-for="(cartitems, index) of cart" :key="cartitems.variant.id">
+                      <div class="product-img-wrap">
+                        <a href="#"><img :src="cartitems.variant.assetUrl" alt="" class="img-reponsive"></a>
+                      </div>
+                      <div class="product-details" style="width: 100%;">
+                        <div class="inner-left">
+                          <div class="product-name" style="width: 100%;"><a href="#">{{cartitems.variant.name}} </a></div>
+                          <div class="product-price">
+                            ₹ {{cartitems.price.price}} <span>( x{{cartitems.quantity}})</span>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="javascript:;" @click="onRemoveItem(index)" class="e-del"><i class="ion-ios-close-empty"></i></a>
+                    </li>
+                  </ul>
+                  <div class="button-cart">
+                    <a-button type="dashed" @click="onGoToCart">View Cart</a-button>
+                    <a-button type="primary">Checkout</a-button>
+                  </div>
+                </div>
+              </a-drawer>
             </div>
           </div>
         </div>
@@ -75,13 +100,20 @@
 <script lang="ts">
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {GetDefaultStoreDocument, Store} from "~/gql";
+import {mapState} from "vuex";
 
 @Component({
   apollo: {
     GetDefaultStore: {
       query: GetDefaultStoreDocument
     }
-  }
+  },
+  computed: {
+    ...mapState({
+      cart: (state: any) => state.cart.cart,
+      cartOpen: (state: any) => state.cart.cartOpen
+    })
+  },
 })
 export default class TopBar extends Vue {
   private GetDefaultStore: Store
@@ -91,8 +123,17 @@ export default class TopBar extends Vue {
     return this.$store.state.user.user
   }
 
-  cart() {
-    return this.$store.state.cart.cart
+  onGoToCart() {
+    this.$router.push('/cart')
+    this.$store.dispatch('cart/toggleCart')
+  }
+
+  onClickCart() {
+    this.$store.dispatch('cart/toggleCart')
+  }
+
+  onRemoveItem(index) {
+    this.$store.dispatch('cart/removeFromCart', index)
   }
 
   onClickAccount() {

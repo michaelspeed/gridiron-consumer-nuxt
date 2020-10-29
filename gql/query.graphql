@@ -362,6 +362,11 @@ query SingProductPrice($id: ID!){
 query GetStocksAndZipAvailability($zipf: Int!, $variantId: ID!){
     GetStocksAndZipAvailability(zipf: $zipf, variantId:$variantId) {
       id
+      price
+      store {
+        id
+        storeName
+      }
     }
 }
 

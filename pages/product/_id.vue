@@ -43,7 +43,7 @@
                   <span class="star star-1"></span>
                   <div class="number-rating">( 896 reviews )</div>
                 </div>
-                <h3 class="product-title"><a href="#">{{variant.name}}</a></h3>
+                <h3 class="product-title"><a>{{variant.name}}</a></h3>
                 <div class="product-price" v-if="lowPrice() !== 0">
                   <span>₹ {{ lowPrice() }}</span>
                 </div>
@@ -57,30 +57,53 @@
                   <label>{{facet.facet.name}} :</label>
                   <span>{{facet.code}}</span>
                 </div>
-                <div class="color-group">
-                  <label>Color :</label>
-                  <a href="#" class="circle black"></a>
-                  <a href="#" class="circle red"></a>
-                  <a href="#" class="circle gray"></a>
+                <div style="margin-bottom: 10px">
+                  <div class="color-group" v-for="opts of variant.product.options" :key="opts.id">
+                    <div style="margin-bottom: 5px">
+                      <label>{{opts.name}} :</label>
+                    </div>
+                    <div>
+                    <span v-for="miniopts of opts.options"
+                          style="border: 0.5px solid lightgray; padding: 5px; margin: 4px; border-radius: 4px" :key="miniopts.id"
+                          :style="{'background-color': optColor(miniopts.code).back}">
+                    <a href="javascript:;" @click="splitNames(miniopts.code)"
+                       :style="{'color': optColor(miniopts.code).color}">
+                    {{miniopts.name}}
+                  </a>
+                  </span>
+                    </div>
+                  </div>
                 </div>
-
-                <div class="single-product-button-group">
-                  <div class="e-btn cart-qtt btn-gradient">
-                    <div class="e-quantity">
-                      <input type="number" step="1" min="1" max="999" name="quantity" v-model="quantity" title="Qty" class="qty input-text js-number" size="4">
-                      <div class="tc pa">
-                        <a class="js-plus quantity-right-plus"><i class="fa fa-caret-up"></i></a>
-                        <a class="js-minus quantity-left-minus"><i class="fa fa-caret-down"></i></a>
+                <div style="margin-top: 10px">
+                  <div v-if="gettingPrice">
+                    <a-spin>
+                      <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
+                    </a-spin>
+                  </div>
+                  <div v-if="!priceRequested && availablePrice.length === 0">
+                    <div >
+                      <div>
+                        <span>Please enter zip code</span>
+                      </div>
+                      <div style="display: flex; justify-content: space-between; align-items: center">
+                        <a-input placeholder="Please enter your zipcode" v-model="zipcode"></a-input>
+                        <div>
+                          <a-button type="primary" style="margin-left: 6px" @click="getProductPrices">
+                            Apply
+                          </a-button>
+                        </div>
                       </div>
                     </div>
-                    <a href="#" class="btn-add-cart">Add to cart <span class="icon-bg icon-cart v2"></span></a>
                   </div>
-                  <a href="#" class="e-btn btn-icon">
-                    <span class="icon-bg icon-wishlist"></span>
-                  </a>
-                  <a href="#" class="e-btn btn-icon">
-                    <span class="icon-bg icon-compare"></span>
-                  </a>
+                  <div v-if="priceRequested && !gettingPrice && availablePrice.length > 0">
+
+                    <a-card :title="`Available with ${availablePrice.length} Seller`" style="margin-top: 10px">
+                      <div style="display: flex; justify-content: space-between; align-items: center" v-for="price of availablePrice">
+                        <span>{{price.store.storeName}}</span>
+                        <a-button type="primary" @click="onClickAddToCart(price)">Add To Cart</a-button>
+                      </div>
+                    </a-card>
+                  </div>
                 </div>
               </div>
               <div class="single-product-feature s-50 hidden-xs hidden-sm">
@@ -155,8 +178,16 @@
 
 <script lang="ts">
 import {Component, Vue} from "nuxt-property-decorator";
-import {GetSingleProductVariantDocument, ProductVariant, SingProductPriceDocument} from "~/gql";
+import {
+  GetSingleProductVariantDocument, GetStocksAndZipAvailabilityDocument,
+  ProductVariant, ProductVariantPrice,
+  ShiftProductVariantDocument,
+  SingProductPriceDocument, Store
+} from "~/gql";
 import {assetsURL} from "~/utils/global-constants";
+import {myTheme} from "~/utils/custom-theme";
+import {getProdRoute} from "~/utils/routingUtils";
+import {ICartItem} from "~/store/cart";
 
 @Component({
   layout: 'default',
@@ -191,6 +222,11 @@ export default class ProductView extends Vue {
   private price
 
   private quantity = 1
+  private zipcode = ''
+
+  private gettingPrice = false
+  private availablePrice: ProductVariantPrice[] = []
+  private priceRequested = false
 
   lowPrice () {
     let mainPrice = 0
@@ -204,8 +240,63 @@ export default class ProductView extends Vue {
     return mainPrice
   }
 
-  mounted() {
-    (<any>$('.js-click-product')).slick({
+  optColor(name){
+    const namesplit = name.split(" ")
+    const varsplit = this.variant.name.replace(/[^a-zA-Z0-9 ]/gi, '').split(" ")
+    if (!namesplit.every(elm => varsplit.includes(elm))) {
+      return {
+        back: '#FFFFFF',
+        color: myTheme["color-success-900"]
+      }
+    } else {
+      return {
+        back: myTheme["color-success-900"],
+        color: '#FFFFFF'
+      }
+    }
+  }
+
+  onClickAddToCart(price: ProductVariantPrice) {
+    const item :ICartItem = {
+      variant: {
+        id: this.variant.id,
+        name: this.variant.name,
+        assetUrl: `${this.assetLink}/${this.variant.asset!.asset.preview}`
+      },
+      store:{
+        id: price.store!.id,
+        storeName: price.store!.storeName
+      },
+      price: {
+        id: price.id,
+        price: price.price
+      },
+      quantity: 1
+    }
+    this.$store.dispatch('cart/addToCart', item)
+  }
+
+  getProductPrices(){
+    this.gettingPrice = true
+    this.$apollo.mutate({
+      mutation: GetStocksAndZipAvailabilityDocument,
+      variables:{
+        variantId: this.variant.id,
+        zipf: Number(this.zipcode)
+      }
+    }).then(value => {
+      this.gettingPrice = false
+      this.availablePrice = value.data.GetStocksAndZipAvailability
+      console.log(this.availablePrice)
+      this.priceRequested = true
+    }).catch(error => {
+      this.gettingPrice = false
+      console.log(error)
+    })
+  }
+
+  updated() {
+    (<any>$('.js-click-product')).not('.slick-initialized').slick({
       slidesToShow: 4,
       slidesToScroll: 1,
       asNavFor: '.js-product-slider',
@@ -224,12 +315,55 @@ export default class ProductView extends Vue {
         }
       ]
     });
-    (<any>$('.js-product-slider')).slick({
+    (<any>$('.js-product-slider')).not('.slick-initialized').slick({
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
       asNavFor: '.js-click-product'
     });
+  }
+
+  mounted() {
+    console.log(this.variant);
+
+    (<any>$('.js-click-product')).not('.slick-initialized').slick({
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      asNavFor: '.js-product-slider',
+      dots: false,
+      focusOnSelect: true,
+      infinite: true,
+      arrows: false,
+      vertical: true,
+      responsive: [
+
+        {
+          breakpoint: 1367,
+          settings: {
+            vertical: false
+          }
+        }
+      ]
+    });
+    (<any>$('.js-product-slider')).not('.slick-initialized').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      asNavFor: '.js-click-product'
+    });
+  }
+
+  splitNames(name) {
+    this.$apollo.mutate({
+      mutation: ShiftProductVariantDocument,
+      variables: {
+        prodId: this.variant.product.id,
+        name: name
+      }
+    }).then(value => {
+      this.$router.push(getProdRoute(value.data.ShiftProductVariant.id))
+    }).catch(error => {
+    })
   }
 
 }

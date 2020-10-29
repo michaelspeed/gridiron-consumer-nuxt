@@ -9,12 +9,18 @@
               <VueSlickCarousel :arrows="true" :dots="true" :autoplay="true" :infinite="true" :adaptiveHeight="true" class="e-slide v2">
                 <div class="e-slide-img bg-gradient" v-for="mainitems of getHomePage.single.main" @click="onClickCarousel(mainitems)" style="height: 500px !important;">
                   <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
-                    <img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4"></a>
+                    <!--<img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4">-->
+                    <v-img :src="`${assetLink}/${mainitems.preview.preview}`" contain height="450px" gradient="to top right, rgba(255,0,0,0), #A7FFEB"></v-img>
+                  </a>
                   <div class="slide-content v2">
                     <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-if="mainitems.type === 'product'">{{mainitems.target.productName.substring(0, 30)}}</h2>
                     <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-else-if="mainitems.type === 'variant'">{{mainitems.target.name.substring(0, 30)}}</h2>
                     <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-else-if="mainitems.type === 'category'">{{mainitems.target.name.substring(0, 30)}}</h2>
-                    <a href="#" class="slide-btn e-yl-gradient">Shop now<i class="ion-ios-arrow-forward"></i></a>
+                    <v-btn
+                      elevation="2"
+                      rounded
+                      color="primary"
+                    >Shop Now</v-btn>
                   </div>
                 </div>
               </VueSlickCarousel>

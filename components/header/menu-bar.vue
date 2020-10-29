@@ -4,7 +4,14 @@
       <div class="row">
         <div class="col-lg-3 widget-verticalmenu">
           <div class="navbar-vertical" v-if="$route.path === '/'">
-            <button class="navbar-toggles"><span>All Departments</span></button>
+            <v-btn
+              elevation="2"
+              raised
+              rounded
+              large
+              color="primary"
+              style="width: 100%"
+            >All Departments</v-btn>
           </div>
           <a-popover placement="bottomLeft" v-if="$route.path !== '/'">
             <template slot="content">
@@ -32,7 +39,7 @@
               </div>
             </template>
             <div class="navbar-vertical" >
-              <button class="navbar-toggles"><span>All Departments</span></button>
+              <button class="navbar-toggles"><span></span></button>
             </div>
           </a-popover>
 
@@ -92,8 +99,14 @@
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {Collection, GetCollectionTreeDocument, GetMenuDocument} from "~/gql";
 import {getCollectionRoute, getFacetRoute} from "~/utils/routingUtils";
+import { mapState } from "vuex";
 
 @Component({
+  computed: {
+    ...mapState({
+      cart: (state: any) => state.cart.cart
+    })
+  },
   apollo: {
     GetMenu: {
       query: GetMenuDocument

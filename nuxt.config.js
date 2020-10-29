@@ -76,7 +76,21 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    ['@nuxtjs/vuetify', {}]
   ],
+
+  vuetify: {
+    theme: {
+      dark: false,
+      themes: {
+        light: {
+          primary: '#41b883', // #E53935
+          secondary: '#004D40',
+          accent: '#A7FFEB', // #3F51B5
+        },
+      },
+    },
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [

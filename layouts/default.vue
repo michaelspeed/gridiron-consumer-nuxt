@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <div class="h3-bg">
       <div class="wrappage">
         <client-only>
@@ -12,7 +12,7 @@
         <Footer/>
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script lang="ts">
