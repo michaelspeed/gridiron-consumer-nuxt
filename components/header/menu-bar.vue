@@ -1,16 +1,14 @@
 <template>
-  <div class="header-bottom hidden-xs hidden-sm">
+  <v-app-bar elevation="0" class="header-bottom hidden-xs hidden-sm" style="margin-top: 65px; background: white; ">
     <div class="container container-240">
       <div class="row">
         <div class="col-lg-3 widget-verticalmenu">
           <div class="navbar-vertical" v-if="$route.path === '/'">
             <v-btn
-              elevation="2"
-              raised
+              text
               rounded
-              large
               color="primary"
-              style="width: 100%"
+              style="width: 100%;"
             >All Departments</v-btn>
           </div>
           <a-popover placement="bottomLeft" v-if="$route.path !== '/'">
@@ -39,7 +37,11 @@
               </div>
             </template>
             <div class="navbar-vertical" >
-              <button class="navbar-toggles"><span></span></button>
+              <v-btn
+                rounded
+                color="primary"
+                style="width: 100%;"
+              >All Departments</v-btn>
             </div>
           </a-popover>
 
@@ -67,23 +69,44 @@
           </div>
         </div>
         <div class="col-lg-9 widget-left">
-          <div class="flex lr">
+          <div class="flex lr" style="margin-top: -12px">
             <nav class="main-menu flex align-center">
               <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav js-menubar">
                   <li class="level1" v-for="(menuitem, index) of menu" :class="{'dropdown': true}" :key="index">
-                    <a href="javascript:;" @click="OnClickMenu(menuitem)">{{menuitem.title}}</a>
-                    <span class="plus js-plus-icon"></span>
-                    <div class="menu-level-1 dropdown-menu" v-if="menuitem.children && menuitem.children.length > 0">
-                      <ul class="level1">
-                        <li class="level2 col-12" style="padding-left: 15px">
-                          <ul class="menu-level-2">
-                            <li class="level3" v-for="subitem of menuitem.children"><a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                      <div class="clearfix"></div>
-                    </div>
+                    <a href="javascript:;" @click="OnClickMenu(menuitem)" v-if="!menuitem.children || menuitem.children.length === 0">{{menuitem.title}}</a>
+                    <v-menu
+                      open-on-hover
+                      offset-y
+                      transition="scale-transition"
+                      v-if="menuitem.children && menuitem.children.length > 0"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <a href="javascript:;" @click="OnClickMenu(menuitem)" v-bind="attrs"
+                           v-on="on">{{menuitem.title}}</a>
+                      </template>
+                      <v-list>
+                        <v-list-item
+                          v-for="(subitem, subindex) of menuitem.children"
+                          :key="subindex"
+                          @click="OnClickMenu(menuitem)"
+                        >
+                          <v-list-item-title>{{subitem.title}}</v-list-item-title>
+                          <!--<a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a>-->
+                        </v-list-item>
+                      </v-list>
+                      <!--<div class="menu-level-1 dropdown-menu" v-if="menuitem.children && menuitem.children.length > 0">
+                        <ul class="level1">
+                          <li class="level2 col-12" style="padding-left: 15px">
+                            <ul class="menu-level-2">
+                              <li class="level3" v-for="subitem of menuitem.children"><a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>-->
+                    </v-menu>
+
                   </li>
                 </ul>
               </div>
@@ -92,7 +115,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </v-app-bar>
 </template>
 
 <script lang="ts">

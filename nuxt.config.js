@@ -84,9 +84,9 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: '#41b883', // #E53935
-          secondary: '#004D40',
-          accent: '#A7FFEB', // #3F51B5
+          primary: '#9C27B0', // #E53935
+          secondary: '#BA68C8',
+          accent: '#FFCA28', // #3F51B5
         },
       },
     },
@@ -109,7 +109,7 @@ export default {
     authenticationType: 'Basic',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://45.118.132.119:5588/shop-api'
+        httpEndpoint: 'http://optimus.assammart.shop/'
         /*httpEndpoint: 'http://localhost:5588/admin-api',*/
       }
     },
@@ -130,7 +130,7 @@ export default {
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            'primary-color': '#41b883',
+            'primary-color': '#9C27B0',
             'component-background': '#ffffff'
           }
         }

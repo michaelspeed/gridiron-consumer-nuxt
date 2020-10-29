@@ -1,5 +1,73 @@
 <template>
-  <div>
+  <v-app-bar
+    color="primary"
+    :collapse="!collapseOnScroll"
+    :collapse-on-scroll="collapseOnScroll"
+    scroll-target="#scrolling-techniques-6"
+    absolute
+    elevate-on-scroll
+    min-width="370px"
+  >
+    <v-app-bar-nav-icon style="color: white"></v-app-bar-nav-icon>
+    <img src="/logo/logo.png" alt="" style="height: 90px">
+    <v-spacer></v-spacer>
+    <v-dialog
+      v-model="auth"
+      width="60vw"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          text
+          style="color: white"
+          v-bind="attrs"
+          v-on="on"
+        >Login / register</v-btn>
+      </template>
+      <v-sheet>
+        <div class="row">
+          <v-sheet class="col-md-6" color="primary" style="padding: 25px">
+            <div class="d-flex flex-row justify-content-center align-items-center">
+              <div>
+                <img src="/logo/logo.png" alt="" style="height: 100px"/>
+              </div>
+            </div>
+            <h3 style="color: white; margin-top: -20px; margin-left: 10px">Get access to lot of amazing products</h3>
+          </v-sheet>
+          <div class="col-md-6" style="padding: 25px">
+            <div>
+              <h1>Login</h1>
+            </div>
+            <div style="margin-top: 30px">
+              <div>
+                <div class="form-group">
+                  <label for="inputfname_2" class=" control-label">Email <span class="f-red">*</span></label>
+                  <a-input placeholder="email" class="form-control form-account" id="inputfname_2" size="large" v-model="lemail"/>
+                </div>
+                <div class="form-group">
+                  <label for="inputfname_3" class=" control-label">Password <span class="f-red">*</span></label>
+                  <a-input placeholder="password" class="form-control form-account" id="inputfname_3" size="large" type="password" v-model="lpass"/>
+                </div>
+                <div class="cart-total-bottom v2">
+                  <v-btn color="primary" tile @click="onClickLogin">Login</v-btn>
+                </div>
+              </div>
+            </div>
+            <div class="mt-5">
+              <a href="javascript:;" @click="onClickAccount">New here? Register</a>
+            </div>
+          </div>
+        </div>
+      </v-sheet>
+    </v-dialog>
+    <v-btn
+      icon
+      color="white"
+    >
+      <v-icon>mdi-cart</v-icon>
+    </v-btn>
+  </v-app-bar>
+  <!--<div>
+
     <div class="topbar">
       <div class="container container-240">
         <div class="row flex">
@@ -52,7 +120,7 @@
                 <a class="hidden-xs hidden-sm" href="javascript:;" @click="onClickAccount">
                   <i class="fas fa-user icon-top-bar" style="font-size: 25px"></i>
                 </a>
-                <!--<a href="#"><img src="img/icon-heart.png" alt=""></a>-->
+                &lt;!&ndash;<a href="#"><img src="img/icon-heart.png" alt=""></a>&ndash;&gt;
                 <a href="#"><i class="fas fa-search icon-top-bar" style="font-size: 25px"></i></a>
                 <div class="cart">
                   <a href="javascript:;" @click="onClickCart">
@@ -94,12 +162,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script lang="ts">
 import {Component, Vue, Watch} from "nuxt-property-decorator";
-import {GetDefaultStoreDocument, Store} from "~/gql";
+import {GetDefaultStoreDocument, LoginUserDocument, Store} from "~/gql";
 import {mapState} from "vuex";
 
 @Component({
@@ -118,9 +186,47 @@ import {mapState} from "vuex";
 export default class TopBar extends Vue {
   private GetDefaultStore: Store
   private search = ''
+  private collapseOnScroll = true
+  private auth = false
+  private lemail = ''
+  private lpass = ''
 
   user() {
     return this.$store.state.user.user
+  }
+
+  onClickLogin() {
+    if (this.lemail === ''){
+      this.$message.error('Please enter your Email')
+      return
+    }
+    if (this.lpass === ''){
+      this.$message.error('Please enter your Password')
+      return
+    }
+    this.$apollo.mutate({
+      mutation: LoginUserDocument,
+      variables: {
+        email: this.lemail,
+        password: this.lpass
+      }
+    })
+      .then(value => {
+        this.$message.success('Welcome Back')
+        this.$apolloHelpers.onLogin(value!.data!.LoginUser!.token)
+        this.$store.dispatch('user/loginUser', {
+          id: value.data.LoginUser.user.id,
+          email: value.data.LoginUser.user.email,
+          phone: value.data.LoginUser.user.phoneNumber,
+          verified: value.data.LoginUser.user.verified,
+          firstName: value.data.LoginUser.user.firstName,
+          lastName: value.data.LoginUser.user.lastName
+        })
+        this.$router.push('/')
+      })
+      .catch(error => {
+        this.$message.error(error.message)
+      })
   }
 
   onGoToCart() {
@@ -142,13 +248,14 @@ export default class TopBar extends Vue {
     } {
       this.$router.push('/accounts')
     }
+    this.auth = false
   }
 }
 </script>
 
 <style scoped>
 .icon-top-bar {
-  background: -webkit-linear-gradient(#D9F66B, #8CC209);
+  background: -webkit-linear-gradient(#9C27B0, #BA68C8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
