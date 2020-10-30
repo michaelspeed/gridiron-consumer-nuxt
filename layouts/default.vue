@@ -2,12 +2,12 @@
   <v-app>
     <div>
       <top-bar/>
-      <menu-bar/>
       <v-sheet
         id="scrolling-techniques-6"
         class="overflow-y-auto"
         style="height: 100vh;"
       >
+        <menu-bar/>
         <nuxt />
         <Footer/>
       </v-sheet>

@@ -2,9 +2,13 @@
   <div>
     <div v-if="$apollo.queries.getProductAsset.loading"
          style="display: flex; justify-content: center; align-items: center">
-      <fvLoading/>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
     </div>
-    <div class="pd-bd" v-if="!$apollo.queries.getProductAsset.loading">
+    <v-card v-if="!$apollo.queries.getProductAsset.loading" style="padding: 15px" @mouseover="hover = true"
+            @mouseleave="hover = false">
       <div class="product-img">
         <a href="javascript:;" @click="onClickSelection"><img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive"></a>
       </div>
@@ -20,38 +24,39 @@
           </h3>
           <div class="product-bottom">
             <div class="product-price">
-              <span v-if="item.type.key === 'product'"><a class="btn-gradient btn-sm" href="javascript:;"  @click="view = true">See Variants</a></span>
+              <span v-if="item.type.key === 'product'">
+                <v-btn
+                  @click="view = true"
+                  tile
+                  small
+                  color="primary"
+                >See Variants</v-btn>
+              </span>
               <div v-if="!$apollo.queries.singProductPrice.loading">
                 <span v-if="item.type.key === 'variant' && lowPrice !== 0">₹ {{lowPrice}}</span>
                 <span v-if="item.type.key === 'variant' && lowPrice === 0" class="text-danger">Unavailable</span>
               </div>
             </div>
           </div>
-          <div class="product-bottom-group">
-            <a href="javascript:;" class="btn-icon">
-              <span class="icon-bg icon-cart"></span>
-            </a>
-            <a href="javascript:;" class="btn-icon" v-if="item.type.key === 'product'" @click="view = true">
-              <span class="icon-bg icon-view"></span>
-            </a>
-            <a href="javascript:;" class="btn-icon">
-              <span class="icon-bg icon-compare"></span>
-            </a>
-          </div>
-        </div>
-        <div class="product-button-group">
-          <a href="javascript:;" class="btn-icon">
-            <span class="icon-bg icon-cart"></span>
-          </a>
-          <a href="javascript:;" v-if="item.type.key === 'product'" class="btn-icon" @click="view = true">
-            <span class="icon-bg icon-view"></span>
-          </a>
-          <a href="javascript:;" class="btn-icon">
-            <span class="icon-bg icon-compare"></span>
-          </a>
+          <v-expand-transition>
+            <v-card-actions v-if="hover">
+              <v-btn
+                icon
+                color="primary"
+              >
+                <v-icon>mdi-cart</v-icon>
+              </v-btn>
+              <v-btn
+                icon
+                color="primary"
+              >
+                <v-icon>mdi-share-variant-outline</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-expand-transition>
         </div>
       </div>
-    </div>
+    </v-card>
     <a-drawer
       placement="bottom"
       :closable="true"
@@ -110,6 +115,7 @@ export default class HomeListItem extends Vue {
   private assetLink = assetsURL
   private view: boolean = false
   private lowPrice = 0
+  private hover = false
 
   @Watch('singProductPrice')
   onGetPrice() {

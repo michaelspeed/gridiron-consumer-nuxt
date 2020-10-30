@@ -2,59 +2,53 @@
   <div class="container">
     <div v-if="$apollo.queries.getProductVariantByProduct.loading"
          style="display: flex; justify-content: center; align-items: center">
-      <fvLoading/>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
     </div>
     <div class="product-collection-grid product-grid product-grid-v2 product-list" v-if="!$apollo.queries.getProductVariantByProduct.loading">
       <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 product-item" v-for="variants of getProductVariantByProduct" :key="variants.id">
-          <div class="pd-bd product-inner">
+        <v-card class="col-xs-6 col-sm-6 col-md-3 col-lg-3" v-for="variants of getProductVariantByProduct" :key="variants.id" style="padding: 15px; margin: 10px" >
+          <div class="product-inner">
             <div class="product-img">
-              <a href="javascript:;" @click="onGoToProdRoute(variants.id)"><img :src="`${assetLink}/${variants.asset.asset.preview}`" alt="" class="img-reponsive"></a>
+              <a href="javascript:;" @click="onGoToProdRoute(variants.id)">
+                <v-img contain :src="`${assetLink}/${variants.asset.asset.source}`" :lazy-src="`${assetLink}/${variants.asset.asset.preview}`" alt="" class="img-reponsive"/>
+              </a>
             </div>
             <div class="product-info">
               <div class="color-group"></div>
               <div class="element-list element-list-middle">
-                <div class="product-rating bd-rating">
-                  <span class="star star-5"></span>
-                  <span class="star star-4"></span>
-                  <span class="star star-3"></span>
-                  <span class="star star-2"></span>
-                  <span class="star star-1"></span>
-                  <div class="number-rating">( 896 reviews )</div>
-                </div>
+                <v-rating
+                  color="primary"
+                  small
+                  value="4"
+                ></v-rating>
                 <span class="product-cate" v-for="opt of variants.product.options" :key="opt.id">
                   <span v-for="miniopt of opt.options" :key="miniopt.id">
                     <span>{{GatherNames(opt, miniopt, variants)}}</span>
                   </span>
                 </span>
-                <h3 class="product-title"><a href="javascript:;" @click="onGoToProdRoute(variants.id)">{{variants.name}}</a></h3>
+                <h4 class=""><a href="javascript:;" @click="onGoToProdRoute(variants.id)">{{variants.name}}</a></h4>
                 <div class="product-bottom">
                   <div class="product-price" v-if="lowPrice(variants) !== 0"><span>₹ {{lowPrice(variants)}}</span></div>
                   <div class="product-price" v-if="lowPrice(variants) === 0"><span>Unavailable</span></div>
-                  <a href="#" class="btn-icon btn-view">
-                    <span class="icon-bg icon-view"></span>
-                  </a>
                 </div>
-                <div class="product-bottom-group">
-                  <a href="#" class="btn-icon" v-if="lowPrice(variants) !== 0">
-                    <span class="icon-bg icon-cart"></span>
-                  </a>
-                  <a href="#" class="btn-icon">
-                    <span class="icon-bg icon-compare"></span>
-                  </a>
-                </div>
-              </div>
-              <div class="product-button-group">
-                <a href="#" class="btn-icon" v-if="lowPrice(variants) !== 0">
-                  <span class="icon-bg icon-cart"></span>
-                </a>
-                <a href="#" class="btn-icon">
-                  <span class="icon-bg icon-compare"></span>
-                </a>
+                <v-expand-transition>
+                  <v-card-actions>
+                    <v-btn
+                      icon
+                      color="primary"
+                      v-if="lowPrice(variants) !== 0"
+                    >
+                      <v-icon>mdi-cart</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                </v-expand-transition>
               </div>
             </div>
           </div>
-        </div>
+        </v-card>
       </div>
     </div>
   </div>
@@ -82,6 +76,7 @@ export default class VariantQuickView extends Vue {
   @Prop() id: string
   private getProductVariantByProduct: ProductVariant[]
   private assetLink = assetsURL
+  private hover = false
 
   lowPrice(item){
     let mainPrice = 0
