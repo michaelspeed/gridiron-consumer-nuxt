@@ -8,8 +8,8 @@
       <div class="co" v-if="!$apollo.queries.GetCurrentUser.loading">
         <div class="cart-box-container-ver2">
           <div class="row">
-            <div class="col-md-8">
-              <div class="co-left bd-7">
+            <v-card class="col-md-8">
+              <div class="co-left ">
                 <div class="cmt-title text-center abs">
                   <h1 class="page-title v1">Billing details</h1>
                 </div>
@@ -19,53 +19,48 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </v-card>
             <!-- End contact-form -->
             <div class="col-md-4">
-              <div class="cart-total bd-7">
+              <v-card class="cart-total bd-7" color="primary">
                 <div class="cmt-title text-center abs">
                   <h1 class="page-title v3">Your order</h1>
                 </div>
-                <div class="table-responsive">
-                  <table class="shop_table">
-                    <tbody>
-                    <tr class="cart-subtotal">
-                      <th>Subtotal</th>
-                      <td>₹ {{onGetTotal()}}</td>
-                    </tr>
-                    <tr class="cart-shipping v2">
-                      <th>Shipping</th>
-                      <td class="td">
-                        <ul class="shipping">
-                          <li>
-                            <input type="radio" name="gender" value="Flat" id="radio1" checked="checked">
-                            <label for="radio1">Flat rate : $ 12</label>
-                          </li>
-                          <li>
-                            <input type="radio" name="gender" value="Free" id="radio2">
-                            <label for="radio2">Free Shipping</label>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr class="order-total v2">
-                      <th>Total</th>
-                      <td>₹ {{onGetTotal()}}</td>
-                    </tr>
-                    </tbody>
-                  </table>
+                <div style="padding: 20px; width: 100%">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; margin-bottom: 5px">
+                    <h4 class="text-white">Subtotal</h4>
+                    <h3 class="text-white">₹ {{onGetTotal()}}</h3>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; margin-bottom: 5px">
+                    <h4 class="text-white">Shipping</h4>
+                    <div class="text-white">
+                      <ul class="shipping">
+                        <li>
+                          <input type="radio" name="gender" value="Flat" id="radio1" checked="checked">
+                          <label for="radio1">Flat rate : $ 12</label>
+                        </li>
+                        <li>
+                          <input type="radio" name="gender" value="Free" id="radio2">
+                          <label for="radio2">Free Shipping</label>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; margin-bottom: 5px">
+                    <h4 class="text-white">Total</h4>
+                    <h3 class="text-white">₹ {{onGetTotal()}}</h3>
+                  </div>
+                  <div class="cart-total-bottom" style="margin-bottom: 20px" v-if="onGetTotal() !== 0">
+                    <v-btn
+                      depressed
+                      color="secondary"
+                      @click="$router.push('/checkout')"
+                    >
+                      Checkout
+                    </v-btn>
+                  </div>
                 </div>
-
-                <div class="form-check">
-                  <label class="form-check-label ver2">
-                    <input type="checkbox" class="form-check-input">
-                    <span>I’ve read and accept the <a href="#" class="term">terms &amp; conditions *</a></span>
-                  </label>
-                </div>
-                <div class="cart-total-bottom v2">
-                  <a href="#" class="btn-gradient btn-checkout btn-co-order">Place order</a>
-                </div>
-              </div>
+              </v-card>
             </div>
           </div>
         </div>
@@ -106,3 +101,10 @@ export default class Checkout extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.text-white {
+  color: white;
+}
+</style>
+
