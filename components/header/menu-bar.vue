@@ -9,7 +9,7 @@
               rounded
               color="primary"
               style="width: 100%;"
-            >All Departments</v-btn>
+            >All Categories</v-btn>
           </div>
           <a-popover placement="bottomLeft" v-if="$route.path !== '/'">
             <template slot="content">
@@ -41,7 +41,7 @@
                 rounded
                 color="primary"
                 style="width: 100%;"
-              >All Departments</v-btn>
+              >All Categories</v-btn>
             </div>
           </a-popover>
 

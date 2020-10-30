@@ -8,10 +8,10 @@
           <li class="active">Cart</li>
         </ul>
         <div class="row">
-          <div class="col-md-8 col-sm-12 col-xs-12">
-            <div class="shopping-cart bd-7">
+          <v-card class="col-md-8 col-sm-12 col-xs-12">
+            <div class="">
               <div class="cmt-title text-center abs">
-                <h1 class="page-title v2">Cart</h1>
+                <h1 class="page-title v2" style="color: #9C27B0">Cart</h1>
               </div>
               <div class="table-responsive">
                 <table class="table cart-table">
@@ -21,7 +21,7 @@
                     <td class="product-name flex align-center">
                       <a href="#" class="btn-del"><i class="ion-ios-close-empty"></i></a>
                       <div class="product-img">
-                        <img :src="cartitem.variant.assetUrl" alt="Futurelife">
+                        <img :src="cartitem.variant.assetUrl" alt="image">
                       </div>
                       <div class="product-info">
                         <a href="javascript:;" title="">{{cartitem.variant.name}}</a>
@@ -44,46 +44,47 @@
               </div>
 
             </div>
-          </div>
+          </v-card>
           <div class="col-md-4 col-sm-12 col-xs-12">
-            <div class="cart-total bd-7">
+            <v-card class="cart-total" color="primary">
               <div class="cmt-title text-center abs">
-                <h1 class="page-title v3">Cart totals</h1>
+                <h1 class="page-title v3" style="color: #9C27B0">Cart totals</h1>
               </div>
-              <div class="table-responsive">
-                <table class="shop_table">
-                  <tbody>
-                  <tr class="cart-subtotal" >
-                    <th>Subtotal</th>
-                    <td>₹ {{onGetTotal()}}</td>
-                  </tr>
-                  <tr class="cart-shipping">
-                    <th>Shipping</th>
-                    <td class="td">
-                      <ul class="shipping">
-                        <li>
-                          <input type="radio" name="gender" value="Flat" id="radio1" checked="checked">
-                          <label for="radio1">Flat rate : $ 12</label>
-                        </li>
-                        <li>
-                          <input type="radio" name="gender" value="Free" id="radio2">
-                          <label for="radio2">Free Shipping</label>
-                        </li>
-                      </ul>
-                      <a href="#" class="calcu">Calculate shipping</a>
-                    </td>
-                  </tr>
-                  <tr class="order-total">
-                    <th>Total</th>
-                    <td>₹ {{onGetTotal()}}</td>
-                  </tr>
-                  </tbody>
-                </table>
+              <div style="padding: 20px; width: 100%">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; margin-bottom: 5px">
+                  <h4 class="text-white">Subtotal</h4>
+                  <h3 class="text-white">₹ {{onGetTotal()}}</h3>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; margin-bottom: 5px">
+                  <h4 class="text-white">Shipping</h4>
+                  <div class="text-white">
+                    <ul class="shipping">
+                      <li>
+                        <input type="radio" name="gender" value="Flat" id="radio1" checked="checked">
+                        <label for="radio1">Flat rate : $ 12</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="gender" value="Free" id="radio2">
+                        <label for="radio2">Free Shipping</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; margin-bottom: 5px">
+                  <h4 class="text-white">Total</h4>
+                  <h3 class="text-white">₹ {{onGetTotal()}}</h3>
+                </div>
+                <div class="cart-total-bottom" style="margin-bottom: 20px" v-if="onGetTotal() !== 0">
+                  <v-btn
+                    depressed
+                    color="secondary"
+                    @click="$router.push('/checkout')"
+                  >
+                    Proceed to checkout
+                  </v-btn>
+                </div>
               </div>
-              <div class="cart-total-bottom" style="margin-bottom: 50px" v-if="onGetTotal() !== 0">
-                <a href="javascript:;" @click="$router.push('/checkout')" class="btn-gradient btn-checkout">Proceed to checkout</a>
-              </div>
-            </div>
+            </v-card>
           </div>
         </div>
       </div>
@@ -121,3 +122,9 @@ export default class Cart extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.text-white {
+  color: white;
+}
+</style>

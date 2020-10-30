@@ -7,151 +7,211 @@
           <li class="active">{{variant.product.collection.name}}</li>
           <li class="active">{{variant.name}} </li>
         </ul>
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6">
+        <v-sheet elevation="2" >
+          <div class="row" style="padding-bottom: 10px">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <v-carousel continuous cycle show-arrows-on-hover>
+                <v-carousel-item
+                  v-for="asset of variant.product.assets" :key="asset.id"
+                >
+                  <v-img aspect-ratio="2" contain :src="`${assetLink}/${asset.asset.source}`" alt="photo"/>
+                </v-carousel-item>
+              </v-carousel>
 
-            <div class="flex product-img-slide">
-
-
-              <div class="product-images">
-                <div class="main-img js-product-slider">
-                  <a href="#" class="hover-images effect" v-for="asset of variant.product.assets" :key="asset.id" style="display: flex; justify-content: center;align-items: center">
-                    <img :src="`${assetLink}/${asset.asset.preview}`" alt="photo" style="object-fit: contain" class="img-reponsive">
-                  </a>
-                </div>
-              </div>
-              <div class="multiple-img-list-ver2 js-click-product">
-                <div class="product-col" v-for="asset of variant.product.assets" :key="asset.id">
-                  <div class="img active">
-                    <img :src="`${assetLink}/${asset.asset.source}`" alt="photo" class="img-reponsive">
-                  </div>
-                </div>
-              </div>
             </div>
-
-
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="single-flex">
-              <div class="single-product-info product-info product-grid-v2 s-50">
-                <p class="product-cate">{{variant.product.collection.name}}</p>
-                <div class="product-rating">
-                  <span class="star star-5"></span>
-                  <span class="star star-4"></span>
-                  <span class="star star-3"></span>
-                  <span class="star star-2"></span>
-                  <span class="star star-1"></span>
-                  <div class="number-rating">( 896 reviews )</div>
-                </div>
-                <h3 class="product-title"><a>{{variant.name}}</a></h3>
-                <div class="product-price" v-if="lowPrice() !== 0">
-                  <span>₹ {{ lowPrice() }}</span>
-                </div>
-                <div class="availability">
-                  <p class="product-inventory"> <label>Availability : </label>
-                    <span v-if="lowPrice() !== 0"> In stock</span>
-                    <span v-if="lowPrice() === 0" style="color: #eb5050"> Out of stock</span>
-                  </p>
-                </div>
-                <div class="product-brand" v-for="facet of variant.product.facets">
-                  <label>{{facet.facet.name}} :</label>
-                  <span>{{facet.code}}</span>
-                </div>
-                <div style="margin-bottom: 10px">
-                  <div class="color-group" v-for="opts of variant.product.options" :key="opts.id">
-                    <div style="margin-bottom: 5px">
-                      <label>{{opts.name}} :</label>
-                    </div>
-                    <div>
-                    <span v-for="miniopts of opts.options"
-                          style="border: 0.5px solid lightgray; padding: 5px; margin: 4px; border-radius: 4px" :key="miniopts.id"
-                          :style="{'background-color': optColor(miniopts.code).back}">
-                    <a href="javascript:;" @click="splitNames(miniopts.code)"
-                       :style="{'color': optColor(miniopts.code).color}">
-                    {{miniopts.name}}
-                  </a>
-                  </span>
-                    </div>
-                  </div>
-                </div>
-                <div style="margin-top: 10px">
-                  <div v-if="gettingPrice">
-                    <a-spin>
-                      <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
-                    </a-spin>
-                  </div>
-                  <div v-if="!priceRequested && availablePrice.length === 0">
-                    <div >
-                      <div>
-                        <span>Please enter zip code</span>
+            <div class="col-xs-12 col-sm-6 col-md-6" style="padding: 0px;">
+              <v-toolbar color="primary">
+                <v-toolbar-title class="product-title" style="color: white;margin-top: 10px">
+                  <span style="font-weight: bold">{{variant.name}}</span>
+                  <p class="product-cate">{{variant.product.collection.name}}</p>
+                </v-toolbar-title>
+              </v-toolbar>
+              <v-expand-transition>
+                <div class="single-flex">
+                  <div class="single-product-info product-info product-grid-v2 s-50">
+                    <v-sheet style="padding: 10px">
+                      <div class="product-rating">
+                        <span class="star star-5"></span>
+                        <span class="star star-4"></span>
+                        <span class="star star-3"></span>
+                        <span class="star star-2"></span>
+                        <span class="star star-1"></span>
+                        <div class="number-rating">( 896 reviews )</div>
                       </div>
-                      <div style="display: flex; justify-content: space-between; align-items: center">
-                        <a-input placeholder="Please enter your zipcode" v-model="zipcode"></a-input>
-                        <div>
-                          <a-button type="primary" style="margin-left: 6px" @click="getProductPrices">
-                            Apply
-                          </a-button>
+
+                      <div class="product-price" v-if="lowPrice() !== 0">
+                        <h2>₹ {{ lowPrice() }}</h2>
+                      </div>
+                      <div class="availability">
+                        <p class="product-inventory"> <label>Availability : </label>
+                          <v-chip
+                            class="ma-2"
+                            color="secondary"
+                            label
+                            text-color="white"
+                          >
+                            <span v-if="lowPrice() !== 0" style="color: white"> In stock</span>
+                            <span v-if="lowPrice() === 0" style="color: white"> Out of stock</span>
+                          </v-chip>
+                        </p>
+                      </div>
+                      <div class="product-brand" v-for="facet of variant.product.facets">
+                        <label>{{facet.facet.name}} :</label>
+                        <span>{{facet.code}}</span>
+                      </div>
+                      <div style="margin-bottom: 10px">
+                        <div v-for="opts of variant.product.options" :key="opts.id">
+                          <div style="margin-bottom: 5px">
+                            <label class="text-capitalize">{{opts.name}} :</label>
+                          </div>
+                          <div>
+                    <span v-for="miniopts of opts.options" :key="miniopts.id">
+                      <v-chip
+                        class="ma-2"
+                        color="primary"
+                        @click="splitNames(miniopts.code)"
+                        :outlined="optColor(miniopts.code).back === `#9C27B0`"
+                      >
+                        <a href="javascript:;" @click="splitNames(miniopts.code)"
+                           :style="{'color': optColor(miniopts.code).color}">
+                          {{miniopts.name}}
+                        </a>
+                      </v-chip>
+                      <!--<a href="javascript:;" @click="splitNames(miniopts.code)"
+                         :style="{'color': optColor(miniopts.code).color}">
+                      {{miniopts.name}}
+                    </a>-->
+                  </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div v-if="priceRequested && !gettingPrice && availablePrice.length > 0">
+                      <div style="margin-top: 10px">
+                        <div v-if="!priceRequested && availablePrice.length === 0">
+                          <div >
+                            <div>
+                              <span>Please enter zip code</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center">
+                              <a-input placeholder="Please enter your zipcode" v-model="zipcode"></a-input>
+                              <div>
+                                <v-btn
+                                  elevation="2"
+                                  rounded
+                                  color="primary"
+                                  small
+                                  style="margin-left: 6px" @click="getProductPrices"
+                                  v-if="!gettingPrice"
+                                >
+                                  Apply
+                                </v-btn>
+                                <div v-if="gettingPrice" style="margin-left: 4px">
+                                  <v-progress-circular
+                                    :width="3"
+                                    color="primary"
+                                    indeterminate
+                                  ></v-progress-circular>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <v-expand-transition>
+                          <div v-if="priceRequested && !gettingPrice && availablePrice.length > 0">
+                            <v-card>
+                              <v-card-title>
+                                Available with {{availablePrice.length}} Seller
+                              </v-card-title>
+                              <v-divider></v-divider>
+                              <v-card-text>
+                                <div style="display: flex; justify-content: space-between; align-items: center" v-for="price of availablePrice">
+                                  <span class="text-muted">{{price.store.storeName}}</span>
+                                  <v-btn
+                                    elevation="2"
+                                    rounded
+                                    color="primary"
+                                    small
+                                    style="margin-left: 6px"  @click="onClickAddToCart(price)"
+                                  >
+                                    Add To Cart
+                                  </v-btn>
+                                </div>
+                              </v-card-text>
+                            </v-card>
 
-                    <a-card :title="`Available with ${availablePrice.length} Seller`" style="margin-top: 10px">
-                      <div style="display: flex; justify-content: space-between; align-items: center" v-for="price of availablePrice">
-                        <span>{{price.store.storeName}}</span>
-                        <a-button type="primary" @click="onClickAddToCart(price)">Add To Cart</a-button>
+                          </div>
+                        </v-expand-transition>
                       </div>
-                    </a-card>
+                    </v-sheet>
                   </div>
-                </div>
-              </div>
-              <div class="single-product-feature s-50 hidden-xs hidden-sm">
-                <div class="bd-7">
-                  <div class="single-feature-box">
-                    <div class="single-feature-img">
-                      <img src="/img/feature/credit-card2.png" alt="">
-                    </div>
-                    <div class="single-feature-info">
-                      <h3>Safe Payment</h3>
-                      <p>Pay with the world’s most payment methods.</p>
-                    </div>
-                  </div>
+                  <div class="single-product-feature s-50 hidden-xs hidden-sm">
+                    <v-sheet style="padding: 10px">
+                      <div class="bd-7">
+                        <div class="single-feature-box">
+                          <div class="single-feature-img">
+                            <img src="/img/feature/credit-card2.png" alt="">
+                          </div>
+                          <div class="single-feature-info">
+                            <h3>Safe Payment</h3>
+                            <p>Pay with the world’s most payment methods.</p>
+                          </div>
+                        </div>
 
-                  <div class="single-feature-box">
-                    <div class="single-feature-img">
-                      <img src="/img/feature/safety2.png" alt="">
-                    </div>
-                    <div class="single-feature-info">
-                      <h3>Confidence</h3>
-                      <p>Protection covers your purchase</p>
-                    </div>
-                  </div>
+                        <div class="single-feature-box">
+                          <div class="single-feature-img">
+                            <img src="/img/feature/safety2.png" alt="">
+                          </div>
+                          <div class="single-feature-info">
+                            <h3>Confidence</h3>
+                            <p>Protection covers your purchase</p>
+                          </div>
+                        </div>
 
-                  <div class="single-feature-box">
-                    <div class="single-feature-img">
-                      <img src="/img/feature/truck2.png" alt="">
-                    </div>
-                    <div class="single-feature-info">
-                      <h3>Worldwide Delivery</h3>
-                      <p>Ship to over 200 countries & regions.</p>
-                    </div>
+                        <div class="single-feature-box">
+                          <div class="single-feature-img">
+                            <img src="/img/feature/truck2.png" alt="">
+                          </div>
+                          <div class="single-feature-info">
+                            <h3>Worldwide Delivery</h3>
+                            <p>Ship to over 200 countries & regions.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="hot-line e-gradient">
+                        <p>Hotline</p>
+                        <div class="flex align-center tele">
+                          <img src="/img/feature/hotline.png" alt="">
+                          <div class="phone-number">
+                            <p>(+123) 456 789 </p>
+                          </div>
+                        </div>
+                      </div>
+                    </v-sheet>
                   </div>
                 </div>
-                <div class="hot-line e-gradient">
-                  <p>Hotline</p>
-                  <div class="flex align-center tele">
-                    <img src="/img/feature/hotline.png" alt="">
-                    <div class="phone-number">
-                      <p>(+123) 456 789 </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </v-expand-transition>
             </div>
           </div>
-        </div>
-        <div class="single-product-tab bd-7">
+        </v-sheet>
+        <v-card tile>
+          <v-tabs
+            color="primary"
+            background-color="primary"
+            right
+            v-model="tabitem"
+          >
+            <v-tab>Description</v-tab>
+            <v-tab>Specification</v-tab>
+            <v-tab>Reviews</v-tab>
+            <v-tab-item
+              :key="0"
+            >
+              <v-container fluid>
+                <div v-html="variant.product.description"></div>
+              </v-container>
+            </v-tab-item>
+          </v-tabs>
+        </v-card>
+        <!--<div class="single-product-tab bd-7">
           <div class="cmt-title text-center abs">
             <ul class="nav nav-tabs text-center">
               <li class="active"><a data-toggle="pill" href="#desc">Description</a></li>
@@ -170,7 +230,7 @@
 
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -220,6 +280,7 @@ export default class ProductView extends Vue {
   private variant: ProductVariant
   private assetLink = assetsURL
   private price
+  private tabitem = 0
 
   private quantity = 1
   private zipcode = ''
@@ -246,12 +307,12 @@ export default class ProductView extends Vue {
     if (!namesplit.every(elm => varsplit.includes(elm))) {
       return {
         back: '#FFFFFF',
-        color: myTheme["color-success-900"]
+        color: '#FFFFFF'
       }
     } else {
       return {
-        back: myTheme["color-success-900"],
-        color: '#FFFFFF'
+        back: myTheme["color-primary-500"],
+        color: myTheme["color-primary-500"]
       }
     }
   }

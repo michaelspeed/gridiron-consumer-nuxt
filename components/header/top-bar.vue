@@ -9,11 +9,18 @@
     min-width="370px"
   >
     <v-app-bar-nav-icon style="color: white"></v-app-bar-nav-icon>
-    <img src="/logo/logo.png" alt="" style="height: 90px">
+    <img src="/logo/logo.png" alt="" style="height: 90px; cursor: pointer" @click="$router.push('/')">
     <v-spacer></v-spacer>
+    <v-btn
+      text
+      style="color: white"
+      v-if="$store.state.user.user"
+      @click="$router.push('/accounts')"
+    >My Account</v-btn>
     <v-dialog
       v-model="auth"
       width="60vw"
+      v-if="!$store.state.user.user"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -48,7 +55,12 @@
                   <a-input placeholder="password" class="form-control form-account" id="inputfname_3" size="large" type="password" v-model="lpass"/>
                 </div>
                 <div class="cart-total-bottom v2">
-                  <v-btn color="primary" tile @click="onClickLogin">Login</v-btn>
+                  <v-btn color="primary" tile @click="onClickLogin" v-if="!loginin">Login</v-btn>
+                  <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    v-if="loginin"
+                  ></v-progress-circular>
                 </div>
               </div>
             </div>
@@ -59,12 +71,85 @@
         </div>
       </v-sheet>
     </v-dialog>
-    <v-btn
-      icon
-      color="white"
+    <v-dialog
+      v-model="carts"
+      color="primary"
+      width="60vw"
     >
-      <v-icon>mdi-cart</v-icon>
-    </v-btn>
+      <template v-slot:activator="{ on, attrs }">
+        <v-badge
+          color="accent"
+          overlap
+          style="margin-right: 10px"
+          small
+          :content="$store.state.cart.cart.length"
+        >
+          <v-btn
+            icon
+            color="white"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-cart</v-icon>
+          </v-btn>
+        </v-badge>
+      </template>
+      <v-sheet color="primary" style="padding: 20px">
+        <h2 style="color: white;">Cart</h2>
+        <div>
+          <ul class="" style="padding-left: 0px">
+            <li class="" v-for="(cartitems, index) of cart" :key="cartitems.variant.id">
+              <v-card style="padding: 10px; width: 100%; margin: 10px">
+                <div class="d-flex justify-content-between">
+                  <div class="product-img-wrap">
+                    <a href="#">
+                      <img :src="cartitems.variant.assetUrl" alt="" class="img-reponsive" style="height: 100px;width: 200px; object-fit: contain;">
+                    </a>
+                  </div>
+                  <div class="product-details" style="width: 100%;">
+                    <div class="inner-left" style="width: 100%; max-width: 100%">
+                      <div class="product-name" style="width: 100%;">
+                        <a href="#">
+                          <h4>{{cartitems.variant.name}}</h4>
+                        </a>
+                      </div>
+                      <div class="product-price">
+                        ₹ {{cartitems.price.price}} <span>( x{{cartitems.quantity}})</span>
+                      </div>
+                    </div>
+                  </div>
+                  <v-btn
+                    icon
+                    color="primary"
+                    @click="onRemoveItem(index)"
+                  >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </div>
+              </v-card>
+            </li>
+          </ul>
+        </div>
+        <v-card-actions>
+          <v-btn
+            rounded
+            color="primary"
+            style="margin-left: 6px"
+            @click="onGoToCart"
+          >
+            Go to Cart
+          </v-btn>
+          <v-btn
+            rounded
+            color="primary"
+            style="margin-left: 6px"
+            @click="onGoToCart"
+          >
+            Checkout
+          </v-btn>
+        </v-card-actions>
+      </v-sheet>
+    </v-dialog>
   </v-app-bar>
   <!--<div>
 
@@ -188,8 +273,10 @@ export default class TopBar extends Vue {
   private search = ''
   private collapseOnScroll = true
   private auth = false
+  private carts = false
   private lemail = ''
   private lpass = ''
+  private loginin = false
 
   user() {
     return this.$store.state.user.user
@@ -204,6 +291,7 @@ export default class TopBar extends Vue {
       this.$message.error('Please enter your Password')
       return
     }
+    this.loginin = true
     this.$apollo.mutate({
       mutation: LoginUserDocument,
       variables: {
@@ -212,6 +300,7 @@ export default class TopBar extends Vue {
       }
     })
       .then(value => {
+        this.loginin = false
         this.$message.success('Welcome Back')
         this.$apolloHelpers.onLogin(value!.data!.LoginUser!.token)
         this.$store.dispatch('user/loginUser', {
@@ -226,12 +315,14 @@ export default class TopBar extends Vue {
       })
       .catch(error => {
         this.$message.error(error.message)
+        this.loginin = false
       })
   }
 
   onGoToCart() {
     this.$router.push('/cart')
     this.$store.dispatch('cart/toggleCart')
+    this.carts = false
   }
 
   onClickCart() {
