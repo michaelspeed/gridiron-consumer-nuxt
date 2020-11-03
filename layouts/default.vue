@@ -5,7 +5,6 @@
       <v-sheet
         id="scrolling-techniques-6"
         class="overflow-y-auto"
-        style="height: 100vh;"
       >
         <menu-bar/>
         <nuxt />

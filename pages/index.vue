@@ -8,7 +8,7 @@
             <div class="slide-home3" style="height: 500px !important;">
               <v-carousel cycle continuous hide-delimiters>
                 <v-carousel-item
-                  v-for="mainitems of getHomePage.single.main" @click="onClickCarousel(mainitems)"
+                  v-for="(mainitems, index) of getHomePage.single.main" @click="onClickCarousel(mainitems)" :key="index"
                 >
                   <div class="e-slide-img bg-gradient" style="height: 500px !important;">
                     <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
@@ -77,7 +77,7 @@
     <div class="feature-product spc2">
       <div class="container container-240">
         <client-only>
-          <div v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}">
+          <div v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}" :key="index">
             <div class="ecome-heading style2">
               <h1>{{listitem.name}}</h1>
             </div>

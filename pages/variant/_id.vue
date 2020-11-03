@@ -16,7 +16,7 @@
         <div class="product-collection-grid product-grid spc1">
           <div class="row">
             <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 product-item" v-for="items of variant" :key="items.id">
-              <div class="pd-bd product-inner">
+              <v-card class="pd-bd product-inner">
                 <div class="product-img" style="display: flex; justify-content: center">
                   <a href="javascript:;" @click="onClickVariant(items.id)"><img :src="`${assetLink}/${items.asset.asset.preview}`" alt="" class="img-reponsive" style="max-height: 320px; object-fit: contain"></a>
                 </div>
@@ -27,26 +27,27 @@
                     <div class="product-bottom">
                       <div class="product-price" v-if="getPrice(items) !== 0"><span>₹{{getPrice(items)}}</span></div>
                       <div class="product-price" v-if="getPrice(items) === 0"><span class="text-danger">Unavailable</span></div>
+                      <div class="" v-if="getPrice(items) !== 0">
+                        <v-btn
+                          icon
+                          color="primary"
+                          small
+                        >
+                          <v-icon>mdi-cart</v-icon>
+                        </v-btn>
+                      </div>
                     </div>
-                    <div class="product-bottom-group">
+                    <!--<div class="product-bottom-group">
                       <a href="#" class="btn-icon">
                         <span class="icon-bg icon-cart"></span>
                       </a>
                       <a href="#" class="btn-icon">
                         <span class="icon-bg icon-compare"></span>
                       </a>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
-                <div class="product-button-group">
-                  <a href="#" class="btn-icon">
-                    <span class="icon-bg icon-cart"></span>
-                  </a>
-                  <a href="#" class="btn-icon">
-                    <span class="icon-bg icon-compare"></span>
-                  </a>
-                </div>
-              </div>
+              </v-card>
             </div>
           </div>
         </div>
@@ -62,6 +63,7 @@ import {assetsURL} from "~/utils/global-constants";
 import {getProdRoute} from "~/utils/routingUtils";
 
 @Component({
+  scrollToTop: true,
   async asyncData(context: any) {
     const client = context.app.apolloProvider.defaultClient
     const allVariant  = await client.query({
@@ -101,3 +103,16 @@ export default class VariantView extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.img-reponsive {
+  height: 200px;
+  object-fit: contain;
+}
+.image-bd {
+  z-index: 0;
+}
+.pd-bd {
+  border: 0px
+}
+</style>

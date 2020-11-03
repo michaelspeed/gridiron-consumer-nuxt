@@ -22,6 +22,7 @@ export default {
       {src: '/js/countdown.js', body: true},
       {src: '/js/bootstrap-slider.min.js', body: true},
       {src: '/js/main.js', body: true},
+      {src: 'https://checkout.razorpay.com/v1/checkout.js', body: true}
     ],
     link: [
       {

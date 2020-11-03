@@ -251,6 +251,7 @@ import {ICartItem} from "~/store/cart";
 
 @Component({
   layout: 'default',
+  scrollToTop: true,
   head: {
     script: [
       {src: '/js/main.js', body: true},

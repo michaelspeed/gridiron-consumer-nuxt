@@ -71,29 +71,35 @@
         </div>
       </v-sheet>
     </v-dialog>
+    <v-btn
+      icon
+      color="white"
+      @click="opencart = true"
+      v-if="$store.state.cart.cart.length === 0"
+    >
+      <v-icon>mdi-cart</v-icon>
+    </v-btn>
+    <v-badge
+      color="accent"
+      overlap
+      style="margin-right: 10px"
+      small
+      :content="$store.state.cart.cart.length"
+      v-if="$store.state.cart.cart.length > 0"
+    >
+      <v-btn
+        icon
+        color="white"
+        @click="opencart = true"
+      >
+        <v-icon>mdi-cart</v-icon>
+      </v-btn>
+    </v-badge>
     <v-dialog
-      v-model="carts"
+      v-model="opencart"
       color="primary"
       width="60vw"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <v-badge
-          color="accent"
-          overlap
-          style="margin-right: 10px"
-          small
-          :content="$store.state.cart.cart.length"
-        >
-          <v-btn
-            icon
-            color="white"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon>mdi-cart</v-icon>
-          </v-btn>
-        </v-badge>
-      </template>
       <v-sheet color="primary" style="padding: 20px">
         <h2 style="color: white;">Cart</h2>
         <div>
@@ -274,12 +280,19 @@ export default class TopBar extends Vue {
   private collapseOnScroll = true
   private auth = false
   private carts = false
+
+  private opencart = false;
   private lemail = ''
   private lpass = ''
   private loginin = false
 
   user() {
     return this.$store.state.user.user
+  }
+
+  mounted() {
+    this.$store.dispatch('user/autoLogin')
+    this.$store.dispatch('defstore/setDefault')
   }
 
   onClickLogin() {
@@ -322,7 +335,7 @@ export default class TopBar extends Vue {
   onGoToCart() {
     this.$router.push('/cart')
     this.$store.dispatch('cart/toggleCart')
-    this.carts = false
+    this.opencart = false
   }
 
   onClickCart() {
