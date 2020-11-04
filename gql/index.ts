@@ -142,7 +142,7 @@ export type Asset = {
   updatedAt: Scalars['DateTime'];
   deletedAt: Scalars['DateTime'];
   name: Scalars['String'];
-  type: Scalars['String'];
+  type: AssetType;
   mimeType: Scalars['String'];
   width: Scalars['Float'];
   height: Scalars['Float'];
@@ -215,7 +215,7 @@ export type AssetMaxAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<AssetType>;
   mimeType?: Maybe<Scalars['String']>;
   width?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
@@ -231,7 +231,7 @@ export type AssetMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<AssetType>;
   mimeType?: Maybe<Scalars['String']>;
   width?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
@@ -270,6 +270,12 @@ export type AssetSumAggregate = {
   height?: Maybe<Scalars['Float']>;
   fileSize?: Maybe<Scalars['Float']>;
 };
+
+export enum AssetType {
+  Image = 'IMAGE',
+  Video = 'VIDEO',
+  Binary = 'BINARY'
+}
 
 export type BillingAgreement = {
   __typename?: 'BillingAgreement';
@@ -371,7 +377,7 @@ export type CartPriceRules = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   deletedAt: Scalars['DateTime'];
-  priceType: Scalars['String'];
+  priceType: PricePromoType;
   value: Scalars['Float'];
 };
 
@@ -396,7 +402,7 @@ export type CartPriceRulesMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  priceType?: Maybe<Scalars['String']>;
+  priceType?: Maybe<PricePromoType>;
   value?: Maybe<Scalars['Float']>;
 };
 
@@ -406,7 +412,7 @@ export type CartPriceRulesMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  priceType?: Maybe<Scalars['String']>;
+  priceType?: Maybe<PricePromoType>;
   value?: Maybe<Scalars['Float']>;
 };
 
@@ -434,8 +440,8 @@ export type ChannelMaxAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   code?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
-  defaultLanguageCode?: Maybe<Scalars['String']>;
-  currencyCode?: Maybe<Scalars['String']>;
+  defaultLanguageCode?: Maybe<LanguageCode>;
+  currencyCode?: Maybe<CurrencyCode>;
 };
 
 export type ChannelMinAggregate = {
@@ -445,8 +451,8 @@ export type ChannelMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   code?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
-  defaultLanguageCode?: Maybe<Scalars['String']>;
-  currencyCode?: Maybe<Scalars['String']>;
+  defaultLanguageCode?: Maybe<LanguageCode>;
+  currencyCode?: Maybe<CurrencyCode>;
 };
 
 export type Collection = {
@@ -735,6 +741,166 @@ export type CountryZonesMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
 };
+
+export enum CurrencyCode {
+  Aed = 'AED',
+  Afn = 'AFN',
+  All = 'ALL',
+  Amd = 'AMD',
+  Ang = 'ANG',
+  Aoa = 'AOA',
+  Ars = 'ARS',
+  Aud = 'AUD',
+  Awg = 'AWG',
+  Azn = 'AZN',
+  Bam = 'BAM',
+  Bbd = 'BBD',
+  Bdt = 'BDT',
+  Bgn = 'BGN',
+  Bhd = 'BHD',
+  Bif = 'BIF',
+  Bmd = 'BMD',
+  Bnd = 'BND',
+  Bob = 'BOB',
+  Brl = 'BRL',
+  Bsd = 'BSD',
+  Btn = 'BTN',
+  Bwp = 'BWP',
+  Byn = 'BYN',
+  Bzd = 'BZD',
+  Cad = 'CAD',
+  Cdf = 'CDF',
+  Chf = 'CHF',
+  Clp = 'CLP',
+  Cny = 'CNY',
+  Cop = 'COP',
+  Crc = 'CRC',
+  Cuc = 'CUC',
+  Cup = 'CUP',
+  Cve = 'CVE',
+  Czk = 'CZK',
+  Djf = 'DJF',
+  Dkk = 'DKK',
+  Dop = 'DOP',
+  Dzd = 'DZD',
+  Egp = 'EGP',
+  Ern = 'ERN',
+  Etb = 'ETB',
+  Eur = 'EUR',
+  Fjd = 'FJD',
+  Fkp = 'FKP',
+  Gbp = 'GBP',
+  Gel = 'GEL',
+  Ghs = 'GHS',
+  Gip = 'GIP',
+  Gmd = 'GMD',
+  Gnf = 'GNF',
+  Gtq = 'GTQ',
+  Gyd = 'GYD',
+  Hkd = 'HKD',
+  Hnl = 'HNL',
+  Hrk = 'HRK',
+  Htg = 'HTG',
+  Huf = 'HUF',
+  Idr = 'IDR',
+  Ils = 'ILS',
+  Inr = 'INR',
+  Iqd = 'IQD',
+  Irr = 'IRR',
+  Isk = 'ISK',
+  Jmd = 'JMD',
+  Jod = 'JOD',
+  Jpy = 'JPY',
+  Kes = 'KES',
+  Kgs = 'KGS',
+  Khr = 'KHR',
+  Kmf = 'KMF',
+  Kpw = 'KPW',
+  Krw = 'KRW',
+  Kwd = 'KWD',
+  Kyd = 'KYD',
+  Kzt = 'KZT',
+  Lak = 'LAK',
+  Lbp = 'LBP',
+  Lkr = 'LKR',
+  Lrd = 'LRD',
+  Lsl = 'LSL',
+  Lyd = 'LYD',
+  Mad = 'MAD',
+  Mdl = 'MDL',
+  Mga = 'MGA',
+  Mkd = 'MKD',
+  Mmk = 'MMK',
+  Mnt = 'MNT',
+  Mop = 'MOP',
+  Mru = 'MRU',
+  Mur = 'MUR',
+  Mvr = 'MVR',
+  Mwk = 'MWK',
+  Mxn = 'MXN',
+  Myr = 'MYR',
+  Mzn = 'MZN',
+  Nad = 'NAD',
+  Ngn = 'NGN',
+  Nio = 'NIO',
+  Nok = 'NOK',
+  Npr = 'NPR',
+  Nzd = 'NZD',
+  Omr = 'OMR',
+  Pab = 'PAB',
+  Pen = 'PEN',
+  Pgk = 'PGK',
+  Php = 'PHP',
+  Pkr = 'PKR',
+  Pln = 'PLN',
+  Pyg = 'PYG',
+  Qar = 'QAR',
+  Ron = 'RON',
+  Rsd = 'RSD',
+  Rub = 'RUB',
+  Rwf = 'RWF',
+  Sar = 'SAR',
+  Sbd = 'SBD',
+  Scr = 'SCR',
+  Sdg = 'SDG',
+  Sek = 'SEK',
+  Sgd = 'SGD',
+  Shp = 'SHP',
+  Sll = 'SLL',
+  Sos = 'SOS',
+  Srd = 'SRD',
+  Ssp = 'SSP',
+  Stn = 'STN',
+  Svc = 'SVC',
+  Syp = 'SYP',
+  Szl = 'SZL',
+  Thb = 'THB',
+  Tjs = 'TJS',
+  Tmt = 'TMT',
+  Tnd = 'TND',
+  Top = 'TOP',
+  Try = 'TRY',
+  Ttd = 'TTD',
+  Twd = 'TWD',
+  Tzs = 'TZS',
+  Uah = 'UAH',
+  Ugx = 'UGX',
+  Usd = 'USD',
+  Uyu = 'UYU',
+  Uzs = 'UZS',
+  Ves = 'VES',
+  Vnd = 'VND',
+  Vuv = 'VUV',
+  Wst = 'WST',
+  Xaf = 'XAF',
+  Xcd = 'XCD',
+  Xof = 'XOF',
+  Xpf = 'XPF',
+  Yer = 'YER',
+  Zar = 'ZAR',
+  Zmw = 'ZMW',
+  Zwl = 'ZWL'
+}
 
 export type DataSource = {
   __typename?: 'DataSource';
@@ -1121,7 +1287,7 @@ export type Invoice = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   deletedAt: Scalars['DateTime'];
-  type: Scalars['String'];
+  type: InvoiceEnum;
   total: Scalars['Float'];
   amount: Scalars['Float'];
   fees: Scalars['Float'];
@@ -1151,13 +1317,19 @@ export type InvoiceCountAggregate = {
   nulled?: Maybe<Scalars['Int']>;
 };
 
+export enum InvoiceEnum {
+  Store = 'STORE',
+  Consumer = 'CONSUMER',
+  Master = 'MASTER'
+}
+
 export type InvoiceMaxAggregate = {
   __typename?: 'InvoiceMaxAggregate';
   id?: Maybe<Scalars['ID']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<InvoiceEnum>;
   total?: Maybe<Scalars['Float']>;
   amount?: Maybe<Scalars['Float']>;
   fees?: Maybe<Scalars['Float']>;
@@ -1170,7 +1342,7 @@ export type InvoiceMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<InvoiceEnum>;
   total?: Maybe<Scalars['Float']>;
   amount?: Maybe<Scalars['Float']>;
   fees?: Maybe<Scalars['Float']>;
@@ -1186,6 +1358,201 @@ export type InvoiceSumAggregate = {
 };
 
 
+
+export enum LanguageCode {
+  Aa = 'aa',
+  Ab = 'ab',
+  Af = 'af',
+  Ak = 'ak',
+  Sq = 'sq',
+  Am = 'am',
+  Ar = 'ar',
+  An = 'an',
+  Hy = 'hy',
+  As = 'as',
+  Av = 'av',
+  Ae = 'ae',
+  Ay = 'ay',
+  Az = 'az',
+  Ba = 'ba',
+  Bm = 'bm',
+  Eu = 'eu',
+  Be = 'be',
+  Bn = 'bn',
+  Bh = 'bh',
+  Bi = 'bi',
+  Bs = 'bs',
+  Br = 'br',
+  Bg = 'bg',
+  My = 'my',
+  Ca = 'ca',
+  Ch = 'ch',
+  Ce = 'ce',
+  Zh = 'zh',
+  Cu = 'cu',
+  Cv = 'cv',
+  Kw = 'kw',
+  Co = 'co',
+  Cr = 'cr',
+  Cs = 'cs',
+  Da = 'da',
+  Dv = 'dv',
+  Nl = 'nl',
+  Dz = 'dz',
+  En = 'en',
+  Eo = 'eo',
+  Et = 'et',
+  Ee = 'ee',
+  Fo = 'fo',
+  Fj = 'fj',
+  Fi = 'fi',
+  Fr = 'fr',
+  Fy = 'fy',
+  Ff = 'ff',
+  Ka = 'ka',
+  De = 'de',
+  Gd = 'gd',
+  Ga = 'ga',
+  Gl = 'gl',
+  Gv = 'gv',
+  El = 'el',
+  Gn = 'gn',
+  Gu = 'gu',
+  Ht = 'ht',
+  Ha = 'ha',
+  He = 'he',
+  Hz = 'hz',
+  Hi = 'hi',
+  Ho = 'ho',
+  Hr = 'hr',
+  Hu = 'hu',
+  Ig = 'ig',
+  Is = 'is',
+  Io = 'io',
+  Ii = 'ii',
+  Iu = 'iu',
+  Ie = 'ie',
+  Ia = 'ia',
+  Id = 'id',
+  Ik = 'ik',
+  It = 'it',
+  Jv = 'jv',
+  Ja = 'ja',
+  Kl = 'kl',
+  Kn = 'kn',
+  Ks = 'ks',
+  Kr = 'kr',
+  Kk = 'kk',
+  Km = 'km',
+  Ki = 'ki',
+  Rw = 'rw',
+  Ky = 'ky',
+  Kv = 'kv',
+  Kg = 'kg',
+  Ko = 'ko',
+  Kj = 'kj',
+  Ku = 'ku',
+  Lo = 'lo',
+  La = 'la',
+  Lv = 'lv',
+  Li = 'li',
+  Ln = 'ln',
+  Lt = 'lt',
+  Lb = 'lb',
+  Lu = 'lu',
+  Lg = 'lg',
+  Mk = 'mk',
+  Mh = 'mh',
+  Ml = 'ml',
+  Mi = 'mi',
+  Mr = 'mr',
+  Ms = 'ms',
+  Mg = 'mg',
+  Mt = 'mt',
+  Mn = 'mn',
+  Na = 'na',
+  Nv = 'nv',
+  Nr = 'nr',
+  Nd = 'nd',
+  Ng = 'ng',
+  Ne = 'ne',
+  Nn = 'nn',
+  Nb = 'nb',
+  No = 'no',
+  Ny = 'ny',
+  Oc = 'oc',
+  Oj = 'oj',
+  Or = 'or',
+  Om = 'om',
+  Os = 'os',
+  Pa = 'pa',
+  Fa = 'fa',
+  Pi = 'pi',
+  Pl = 'pl',
+  Pt = 'pt',
+  Ps = 'ps',
+  Qu = 'qu',
+  Rm = 'rm',
+  Ro = 'ro',
+  Rn = 'rn',
+  Ru = 'ru',
+  Sg = 'sg',
+  Sa = 'sa',
+  Si = 'si',
+  Sk = 'sk',
+  Sl = 'sl',
+  Se = 'se',
+  Sm = 'sm',
+  Sn = 'sn',
+  Sd = 'sd',
+  So = 'so',
+  St = 'st',
+  Es = 'es',
+  Sc = 'sc',
+  Sr = 'sr',
+  Ss = 'ss',
+  Su = 'su',
+  Sw = 'sw',
+  Sv = 'sv',
+  Ty = 'ty',
+  Ta = 'ta',
+  Tt = 'tt',
+  Te = 'te',
+  Tg = 'tg',
+  Tl = 'tl',
+  Th = 'th',
+  Bo = 'bo',
+  Ti = 'ti',
+  To = 'to',
+  Tn = 'tn',
+  Ts = 'ts',
+  Tk = 'tk',
+  Tr = 'tr',
+  Tw = 'tw',
+  Ug = 'ug',
+  Uk = 'uk',
+  Ur = 'ur',
+  Uz = 'uz',
+  Ve = 've',
+  Vi = 'vi',
+  Vo = 'vo',
+  Cy = 'cy',
+  Wa = 'wa',
+  Wo = 'wo',
+  Xh = 'xh',
+  Yi = 'yi',
+  Yo = 'yo',
+  Za = 'za',
+  Zu = 'zu'
+}
+
+export enum MenuBuilderTypes {
+  Collection = 'COLLECTION',
+  Variant = 'VARIANT',
+  Facet = 'FACET',
+  Promo = 'PROMO',
+  Header = 'HEADER'
+}
 
 export type MenuChildrenCountAggregate = {
   __typename?: 'MenuChildrenCountAggregate';
@@ -1204,7 +1571,7 @@ export type MenuChildrenMaxAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
   targetId?: Maybe<Scalars['String']>;
-  target?: Maybe<Scalars['String']>;
+  target?: Maybe<MenuBuilderTypes>;
 };
 
 export type MenuChildrenMinAggregate = {
@@ -1214,7 +1581,7 @@ export type MenuChildrenMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
   targetId?: Maybe<Scalars['String']>;
-  target?: Maybe<Scalars['String']>;
+  target?: Maybe<MenuBuilderTypes>;
 };
 
 export type MenuCountAggregate = {
@@ -1234,7 +1601,7 @@ export type MenuMaxAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
   targetId?: Maybe<Scalars['String']>;
-  target?: Maybe<Scalars['String']>;
+  target?: Maybe<MenuBuilderTypes>;
 };
 
 export type MenuMinAggregate = {
@@ -1244,7 +1611,7 @@ export type MenuMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
   targetId?: Maybe<Scalars['String']>;
-  target?: Maybe<Scalars['String']>;
+  target?: Maybe<MenuBuilderTypes>;
 };
 
 export type MenuResponseTypes = {
@@ -1284,7 +1651,7 @@ export type MutationCreteReviewArgs = {
 
 
 export type MutationCreateViewArgs = {
-  variant: Scalars['String'];
+  variant: ViewEnum;
   id: Scalars['String'];
 };
 
@@ -1374,7 +1741,7 @@ export type Order = {
   deletedAt: Scalars['DateTime'];
   totalPrice: Scalars['Float'];
   address: Scalars['String'];
-  mode: Scalars['String'];
+  mode: PaymentModes;
   line: Array<OrderLine>;
 };
 
@@ -1447,7 +1814,7 @@ export type OrderLine = {
   updatedAt: Scalars['DateTime'];
   deletedAt: Scalars['DateTime'];
   priceField: Scalars['JSON'];
-  stage: Scalars['String'];
+  stage: OrderStageType;
   item: OrderItem;
   store: Store;
   invoice: Array<Invoice>;
@@ -1491,7 +1858,7 @@ export type OrderLineInvoicesMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<InvoiceEnum>;
   total?: Maybe<Scalars['Float']>;
   amount?: Maybe<Scalars['Float']>;
   fees?: Maybe<Scalars['Float']>;
@@ -1504,7 +1871,7 @@ export type OrderLineInvoicesMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<InvoiceEnum>;
   total?: Maybe<Scalars['Float']>;
   amount?: Maybe<Scalars['Float']>;
   fees?: Maybe<Scalars['Float']>;
@@ -1525,7 +1892,7 @@ export type OrderLineMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  stage?: Maybe<Scalars['String']>;
+  stage?: Maybe<OrderStageType>;
 };
 
 export type OrderLineMinAggregate = {
@@ -1534,7 +1901,7 @@ export type OrderLineMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  stage?: Maybe<Scalars['String']>;
+  stage?: Maybe<OrderStageType>;
 };
 
 export type OrderLinesCountAggregate = {
@@ -1552,7 +1919,7 @@ export type OrderLinesMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  stage?: Maybe<Scalars['String']>;
+  stage?: Maybe<OrderStageType>;
 };
 
 export type OrderLinesMinAggregate = {
@@ -1561,7 +1928,7 @@ export type OrderLinesMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  stage?: Maybe<Scalars['String']>;
+  stage?: Maybe<OrderStageType>;
 };
 
 export type OrderMaxAggregate = {
@@ -1583,6 +1950,17 @@ export type OrderMinAggregate = {
   totalPrice?: Maybe<Scalars['Float']>;
   address?: Maybe<Scalars['String']>;
 };
+
+export enum OrderStageType {
+  Created = 'CREATED',
+  Packaged = 'PACKAGED',
+  Processed = 'PROCESSED',
+  Shipped = 'SHIPPED',
+  Delivered = 'DELIVERED',
+  Returninitiated = 'RETURNINITIATED',
+  Returned = 'RETURNED',
+  Returnedrefunded = 'RETURNEDREFUNDED'
+}
 
 export type OrderSumAggregate = {
   __typename?: 'OrderSumAggregate';
@@ -1700,10 +2078,24 @@ export type PaymentMinAggregate = {
   transactionId?: Maybe<Scalars['String']>;
 };
 
+export enum PaymentModes {
+  Card = 'card',
+  Netbanking = 'netbanking',
+  Wallet = 'wallet',
+  Emi = 'emi',
+  Upi = 'upi',
+  Cod = 'cod'
+}
+
 export type PaymentSumAggregate = {
   __typename?: 'PaymentSumAggregate';
   amount?: Maybe<Scalars['Float']>;
 };
+
+export enum PricePromoType {
+  Flat = 'FLAT',
+  Percentage = 'PERCENTAGE'
+}
 
 export type ProdDataSource = {
   __typename?: 'ProdDataSource';
@@ -2434,7 +2826,7 @@ export type ProductVariantStocksMaxAggregate = {
   available_quantity?: Maybe<Scalars['Float']>;
   threshold?: Maybe<Scalars['Float']>;
   sku?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<StockKeepingType>;
 };
 
 export type ProductVariantStocksMinAggregate = {
@@ -2446,7 +2838,7 @@ export type ProductVariantStocksMinAggregate = {
   available_quantity?: Maybe<Scalars['Float']>;
   threshold?: Maybe<Scalars['Float']>;
   sku?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<StockKeepingType>;
 };
 
 export type ProductVariantStocksSumAggregate = {
@@ -2468,7 +2860,7 @@ export type PromotionVariantPrice = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   deletedAt: Scalars['DateTime'];
-  priceType: Scalars['String'];
+  priceType: PricePromoType;
   value: Scalars['Float'];
   forever: Scalars['Boolean'];
   startsAt: Scalars['DateTime'];
@@ -2501,7 +2893,7 @@ export type PromotionVariantPriceMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  priceType?: Maybe<Scalars['String']>;
+  priceType?: Maybe<PricePromoType>;
   value?: Maybe<Scalars['Float']>;
   startsAt?: Maybe<Scalars['DateTime']>;
   endsAt?: Maybe<Scalars['DateTime']>;
@@ -2513,7 +2905,7 @@ export type PromotionVariantPriceMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  priceType?: Maybe<Scalars['String']>;
+  priceType?: Maybe<PricePromoType>;
   value?: Maybe<Scalars['Float']>;
   startsAt?: Maybe<Scalars['DateTime']>;
   endsAt?: Maybe<Scalars['DateTime']>;
@@ -2636,7 +3028,7 @@ export type Refund = {
   reason: Scalars['String'];
   destination: Scalars['String'];
   transactionId: Scalars['String'];
-  stage: Scalars['String'];
+  stage: RefundEnum;
 };
 
 export type RefundCountAggregate = {
@@ -2651,6 +3043,11 @@ export type RefundCountAggregate = {
   stage?: Maybe<Scalars['Int']>;
 };
 
+export enum RefundEnum {
+  Initiated = 'INITIATED',
+  Refunded = 'REFUNDED'
+}
+
 export type RefundMaxAggregate = {
   __typename?: 'RefundMaxAggregate';
   id?: Maybe<Scalars['ID']>;
@@ -2660,7 +3057,7 @@ export type RefundMaxAggregate = {
   reason?: Maybe<Scalars['String']>;
   destination?: Maybe<Scalars['String']>;
   transactionId?: Maybe<Scalars['String']>;
-  stage?: Maybe<Scalars['String']>;
+  stage?: Maybe<RefundEnum>;
 };
 
 export type RefundMinAggregate = {
@@ -2672,7 +3069,7 @@ export type RefundMinAggregate = {
   reason?: Maybe<Scalars['String']>;
   destination?: Maybe<Scalars['String']>;
   transactionId?: Maybe<Scalars['String']>;
-  stage?: Maybe<Scalars['String']>;
+  stage?: Maybe<RefundEnum>;
 };
 
 export type ResetCode = {
@@ -2927,7 +3324,7 @@ export type StockKeeping = {
   backorder: Scalars['Boolean'];
   stockstatus: Scalars['Boolean'];
   sku: Scalars['String'];
-  type: Scalars['String'];
+  type: StockKeepingType;
   variant: ProductVariant;
 };
 
@@ -2996,7 +3393,7 @@ export type StockKeepingMaxAggregate = {
   available_quantity?: Maybe<Scalars['Float']>;
   threshold?: Maybe<Scalars['Float']>;
   sku?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<StockKeepingType>;
 };
 
 export type StockKeepingMinAggregate = {
@@ -3008,7 +3405,7 @@ export type StockKeepingMinAggregate = {
   available_quantity?: Maybe<Scalars['Float']>;
   threshold?: Maybe<Scalars['Float']>;
   sku?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<StockKeepingType>;
 };
 
 export type StockKeepingMovementsAvgAggregate = {
@@ -3085,6 +3482,11 @@ export type StockKeepingSumAggregate = {
   available_quantity?: Maybe<Scalars['Float']>;
   threshold?: Maybe<Scalars['Float']>;
 };
+
+export enum StockKeepingType {
+  Global = 'GLOBAL',
+  Vendor = 'VENDOR'
+}
 
 export type StockMovementAvgAggregate = {
   __typename?: 'StockMovementAvgAggregate';
@@ -3236,7 +3638,7 @@ export type StoreInvoicesMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<InvoiceEnum>;
   total?: Maybe<Scalars['Float']>;
   amount?: Maybe<Scalars['Float']>;
   fees?: Maybe<Scalars['Float']>;
@@ -3249,7 +3651,7 @@ export type StoreInvoicesMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   deletedAt?: Maybe<Scalars['DateTime']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<InvoiceEnum>;
   total?: Maybe<Scalars['Float']>;
   amount?: Maybe<Scalars['Float']>;
   fees?: Maybe<Scalars['Float']>;
@@ -3417,7 +3819,7 @@ export type StoreSkusMaxAggregate = {
   available_quantity?: Maybe<Scalars['Float']>;
   threshold?: Maybe<Scalars['Float']>;
   sku?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<StockKeepingType>;
 };
 
 export type StoreSkusMinAggregate = {
@@ -3429,7 +3831,7 @@ export type StoreSkusMinAggregate = {
   available_quantity?: Maybe<Scalars['Float']>;
   threshold?: Maybe<Scalars['Float']>;
   sku?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  type?: Maybe<StockKeepingType>;
 };
 
 export type StoreSkusSumAggregate = {
@@ -4016,6 +4418,12 @@ export type ViewCodeMinAggregate = {
   description?: Maybe<Scalars['String']>;
 };
 
+export enum ViewEnum {
+  Product = 'PRODUCT',
+  Variant = 'VARIANT',
+  Collection = 'COLLECTION'
+}
+
 export type Zip = {
   __typename?: 'Zip';
   id: Scalars['ID'];
@@ -4429,7 +4837,7 @@ export type CreateReviewMutation = (
 
 export type CreateViewMutationVariables = Exact<{
   id: Scalars['String'];
-  variant: Scalars['String'];
+  variant: ViewEnum;
 }>;
 
 
@@ -5002,7 +5410,7 @@ export const CreateReviewDocument = gql`
 }
     `;
 export const CreateViewDocument = gql`
-    mutation createView($id: String!, $variant: String!) {
+    mutation createView($id: String!, $variant: ViewEnum!) {
   createView(id: $id, variant: $variant) {
     id
   }

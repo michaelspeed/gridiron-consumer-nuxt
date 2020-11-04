@@ -16,7 +16,7 @@
       style="color: white"
       v-if="$store.state.user.user"
       @click="$router.push('/accounts')"
-    >My Account</v-btn>
+    >{{$store.state.user.user.firstName}}</v-btn>
     <v-dialog
       v-model="auth"
       width="60vw"

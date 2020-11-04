@@ -84,7 +84,7 @@ mutation createReview($text: String!, $stars: Float!, $varId: String!){
     }
 }
 
-mutation createView($id: String!, $variant: String!) {
+mutation createView($id: String!, $variant: ViewEnum!) {
     createView(id: $id, variant: $variant) {
         id
     }
