@@ -13,8 +13,35 @@
           <div class="close-sidebar-collection hidden-lg hidden-md">
             <span>filter</span><i class="icon_close ion-close"></i>
           </div>
-          <div class="filter filter-cate">
-            <ul class="wiget-content v3">
+          <v-card class="filter-cate" style="margin-bottom: 10px;">
+            <v-list
+              subheader
+            >
+
+              <v-list-item>
+                <v-list-item-avatar>
+                  <v-icon>
+                    mdi-shape
+                  </v-icon>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>All Categories</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-divider></v-divider>
+
+              <v-subheader>{{collection.name}}</v-subheader>
+
+              <v-list-item @click="onClickCollection(child.id)" v-for="child of collection.children">
+
+                <v-list-item-content>
+                  <v-list-item-title>{{child.name}}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <!--<ul class="wiget-content v3">
               <li class="active"><a href="#">All Categories</a>
 
                 <ul class="wiget-content v4">
@@ -23,9 +50,39 @@
                 </ul>
               </li>
 
-            </ul>
-          </div>
-          <div class="filter filter-group">
+            </ul>-->
+          </v-card>
+          <v-card>
+            <v-card-title>Filters</v-card-title>
+            <v-card-text>
+              <v-expansion-panels accordion flat>
+                <v-expansion-panel>
+                  <v-expansion-panel-header>Price</v-expansion-panel-header>
+                  <v-expansion-panel-content>
+
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+                <v-expansion-panel
+                  v-for="(facetitems, index) of allFacets" :key="facetitems.id"
+                >
+                  <v-expansion-panel-header>{{facetitems.name}}</v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <v-radio-group>
+                      <v-radio
+                        v-for="childfacet of facetitems.child" :key="childfacet.id"
+                        :label="childfacet.name"
+                        :value="childfacet.id"
+                      ></v-radio>
+                    </v-radio-group>
+                    <!--<ul class="e-filter brand-filter">
+                      <li v-for="childfacet of facetitems.child" :key="childfacet.id"><a href="#">{{childfacet.name}}</a></li>
+                    </ul>-->
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-card-text>
+          </v-card>
+          <!--<div class="filter filter-group">
             <h1 class="widget-blog-title">Product filter</h1>
             <div class="filter-price filter-inside">
               <h3>Price</h3>
@@ -45,8 +102,8 @@
                 <li v-for="childfacet of facetitems.child" :key="childfacet.id"><a href="#">{{childfacet.name}}</a></li>
               </ul>
             </div>
-          </div>
-          <div class="banner">
+          </div>-->
+          <div class="banner" style="margin-top: 20px;">
             <a class="image-bd hover-images" href=""><img src="/img/o-banner3.jpg" alt="" class="img-reponsive"></a>
           </div>
         </div>
@@ -62,11 +119,12 @@
                   <a href="#" class="btn-show">Shop more<i class="ion-ios-arrow-forward"></i></a>
                 </div>
                 <div class="owl-carousel owl-theme owl-cate v2 js-owl-cate2">
-
-                  <div class="product-item" v-for="vars of variants" :key="vars.id">
+                  <v-card class="" v-for="vars of variants" :key="vars.id">
                     <div class="pd-bd product-inner">
                       <div class="product-img">
-                        <a href="#"><img :src="`${assetLink}/${vars.asset.asset.preview}`" alt="" class="img-reponsive" style="height: 320px;object-fit: contain"></a>
+                        <a href="#">
+                          <img :src="`${assetLink}/${vars.asset.asset.preview}`" alt="" class="img-reponsive" style="max-height: 320px;object-fit: contain">
+                        </a>
                       </div>
                       <div class="product-info">
                         <div class="color-group">
@@ -74,26 +132,33 @@
                         <div class="element-list element-list-left">
                         </div>
                         <div class="element-list element-list-middle">
-                          <p class="product-cate">{{vars.product.productName}}</p>
-                          <h3 class="product-title"><a href="#">{{vars.name}}</a></h3>
-                          <div class="product-bottom">
+                          <p class="product-cate" style="max-lines: 1">{{vars.product.productName.substring(0 , 40)}}</p>
+                          <h3 class="product-title"><a href="#" style="max-lines: 1">{{vars.name.substring(0 , 40)}}</a></h3>
+                          <!--<div class="product-bottom">
                             <div class="product-price">
                               <span v-if="getPrice(vars) !== 0">₹ {{getPrice(vars)}}</span>
                               <span v-if="getPrice(vars) === 0" class="text-danger">Unavailable</span>
                             </div>
-                          </div>
+                          </div>-->
                         </div>
-                        <div class="product-button-group">
+                        <v-rating
+                          color="primary"
+                          small
+                          length="5"
+                          dense
+                          :value="vars.rating"
+                        ></v-rating>
+                        <!--<div class="product-button-group">
                           <a href="#" class="btn-icon" v-if="getPrice(vars) !== 0">
                             <span class="icon-bg icon-cart"></span>
                           </a>
                           <a href="#" class="btn-icon">
                             <span class="icon-bg icon-compare"></span>
                           </a>
-                        </div>
+                        </div>-->
                       </div>
                     </div>
-                  </div>
+                  </v-card>
                 </div>
               </div>
             </div>
@@ -239,3 +304,10 @@ export default class CollectionId extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.img-reponsive {
+  height: 200px;
+  object-fit: contain;
+}
+</style>

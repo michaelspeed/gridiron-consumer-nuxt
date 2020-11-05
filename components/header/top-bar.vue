@@ -11,6 +11,18 @@
     <v-app-bar-nav-icon style="color: white"></v-app-bar-nav-icon>
     <img src="/logo/logo.png" alt="" style="height: 90px; cursor: pointer" @click="$router.push('/')">
     <v-spacer></v-spacer>
+    <v-text-field
+      v-model="searchText"
+      append-icon="mdi-magnify"
+      solo
+      clear-icon="mdi-close-circle"
+      clearable
+      label="Search ..."
+      type="text"
+      dense
+      style="margin-top: 20px; width: 80px"
+      @click:append="onClickSearch"
+    ></v-text-field>
     <v-btn
       text
       style="color: white"
@@ -286,6 +298,8 @@ export default class TopBar extends Vue {
   private lpass = ''
   private loginin = false
 
+  private searchText = ''
+
   user() {
     return this.$store.state.user.user
   }
@@ -353,6 +367,10 @@ export default class TopBar extends Vue {
       this.$router.push('/accounts')
     }
     this.auth = false
+  }
+
+  onClickSearch() {
+
   }
 }
 </script>

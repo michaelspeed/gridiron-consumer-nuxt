@@ -37,6 +37,13 @@
                         </v-btn>
                       </div>
                     </div>
+                    <v-rating
+                      color="primary"
+                      small
+                      length="5"
+                      dense
+                      :value="items.rating"
+                    ></v-rating>
                     <!--<div class="product-bottom-group">
                       <a href="#" class="btn-icon">
                         <span class="icon-bg icon-cart"></span>
@@ -58,7 +65,13 @@
 
 <script lang="ts">
 import {Component, Vue} from "nuxt-property-decorator";
-import {GetProductVariantByProductDocument, Product, ProductVariant, SingProductInfoDocument} from "~/gql";
+import {
+  CreateViewDocument,
+  GetProductVariantByProductDocument,
+  Product,
+  ProductVariant,
+  SingProductInfoDocument
+} from "~/gql";
 import {assetsURL} from "~/utils/global-constants";
 import {getProdRoute} from "~/utils/routingUtils";
 
@@ -66,6 +79,13 @@ import {getProdRoute} from "~/utils/routingUtils";
   scrollToTop: true,
   async asyncData(context: any) {
     const client = context.app.apolloProvider.defaultClient
+    await client.mutate({
+      mutation: CreateViewDocument,
+      variables: {
+        id: context.route.params.id,
+        variant: 'PRODUCT'
+      }
+    })
     const allVariant  = await client.query({
       query: GetProductVariantByProductDocument,
       variables:{

@@ -31,12 +31,14 @@
                   <div class="single-product-info product-info product-grid-v2 s-50">
                     <v-sheet style="padding: 10px">
                       <div class="product-rating">
-                        <span class="star star-5"></span>
-                        <span class="star star-4"></span>
-                        <span class="star star-3"></span>
-                        <span class="star star-2"></span>
-                        <span class="star star-1"></span>
-                        <div class="number-rating">( 896 reviews )</div>
+                        <v-rating
+                          color="primary"
+                          small
+                          length="5"
+                          dense
+                          :value="variant.rating"
+                        ></v-rating>
+                        <div class="number-rating">( {{variant.reviews.length}} reviews )</div>
                       </div>
 
                       <div class="product-price" v-if="lowPrice() !== 0">
