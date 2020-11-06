@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "nuxt-property-decorator";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
 import Profile from "~/components/accounts/Profile.vue";
 import OrdersComponent from "~/components/accounts/Orders.vue";
 import AccountsComponent from "~/components/accounts/Accounts.vue";
@@ -62,5 +62,23 @@ import AccountsComponent from "~/components/accounts/Accounts.vue";
 export default class Accounts extends Vue {
   private tabs = 0
 
+  mounted() {
+    if (this.$route.query.q === 'order') {
+      this.tabs = 1
+    } else if (this.$route.query.q === 'address') {
+      this.tabs = 2
+    }
+  }
+
+  @Watch('$route.query.q')
+  onChangeQuery() {
+    if (this.$route.query.q === 'order') {
+      this.tabs = 1
+    } else if (this.$route.query.q === 'address') {
+      this.tabs = 2
+    } else {
+      this.tabs = 0
+    }
+  }
 }
 </script>

@@ -46,11 +46,10 @@
           </a-popover>
 
           <div class="vertical-wrapper" v-if="$route.path === '/'">
-            <!--<v-card tile>
+            <v-card tile>
               <v-list
                 subheader
               >
-
                 <v-list-item>
                   <v-list-item-avatar>
                     <v-icon>
@@ -65,13 +64,12 @@
 
                 <v-divider></v-divider>
                 <v-list-item v-for="child of GetCollectionTree" v-if="child.name !== 'default'">
-
                   <v-list-item-content>
                     <v-list-item-title>{{child.name}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
-            </v-card>-->
+            </v-card>
             <ul class="vertical-group">
               <li class="vertical-item level1 mega-parent"><a href="#">New Arrivals</a></li>
               <li class="vertical-item level1 mega-parent"><a href="#">Top 100 Best Seller <span class="h-ribbon e-red mg-l10">Hot</span></a></li>
@@ -121,16 +119,6 @@
                           <!--<a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a>-->
                         </v-list-item>
                       </v-list>
-                      <!--<div class="menu-level-1 dropdown-menu" v-if="menuitem.children && menuitem.children.length > 0">
-                        <ul class="level1">
-                          <li class="level2 col-12" style="padding-left: 15px">
-                            <ul class="menu-level-2">
-                              <li class="level3" v-for="subitem of menuitem.children"><a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                      </div>-->
                     </v-menu>
 
                   </li>
