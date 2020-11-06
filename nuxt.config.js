@@ -110,8 +110,7 @@ export default {
     authenticationType: 'Basic',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://optimus.assammart.shop/'
-        /*httpEndpoint: 'http://localhost:5588/admin-api',*/
+        httpEndpoint: 'http://optimus.thelocaldukan.com/'
       }
     },
     defaultOptions: {

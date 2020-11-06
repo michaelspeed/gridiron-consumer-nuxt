@@ -233,6 +233,12 @@ import {mapState} from "vuex";
 import {ICartItem} from "~/store/cart";
 import {IRaxor} from "~/utils/IRaxor";
 
+declare global {
+  interface Window {
+    Razorpay:any;
+  }
+}
+
 @Component({
   apollo: {
     GetCurrentUser: {
@@ -314,7 +320,7 @@ export default class Checkout extends Vue {
         })
       }
     }
-    const razor = window.Razorpay(opts)
+    const razor = <any>(window).Razorpay(opts)
     razor.open()
   }
 

@@ -9,7 +9,10 @@
     min-width="370px"
   >
     <v-app-bar-nav-icon style="color: white"></v-app-bar-nav-icon>
-    <img src="/logo/logo.png" alt="" style="height: 90px; cursor: pointer" @click="$router.push('/')">
+    <h2 v-if="GetDefaultStore" style="color: white; margin-top: 10px">
+      {{GetDefaultStore.storeName}}
+    </h2>
+    <!--<img src="/logo/logo.png" alt="" style="height: 90px; cursor: pointer" @click="$router.push('/')">-->
     <v-spacer></v-spacer>
     <v-text-field
       class="hidden-sm-and-down"

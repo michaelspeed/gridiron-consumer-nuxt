@@ -34,7 +34,7 @@
 
               <v-subheader>{{collection.name}}</v-subheader>
 
-              <v-list-item @click="onClickCollection(child.id)" v-for="child of collection.children">
+              <v-list-item @click="onClickCollection(child.id)" v-for="child of collection.children" :key="child.id">
 
                 <v-list-item-content>
                   <v-list-item-title>{{child.name}}</v-list-item-title>

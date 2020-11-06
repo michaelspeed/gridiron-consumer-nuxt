@@ -124,6 +124,9 @@ query GetDefaultStore {
         storeName
         phoneNumber
         officialemail
+      streetAddress1
+      streetAddress2
+      zipcode
     }
 }
 

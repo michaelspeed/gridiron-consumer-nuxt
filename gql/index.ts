@@ -4985,7 +4985,7 @@ export type GetDefaultStoreQuery = (
   { __typename?: 'Query' }
   & { GetDefaultStore: (
     { __typename?: 'Store' }
-    & Pick<Store, 'id' | 'storeName' | 'phoneNumber' | 'officialemail'>
+    & Pick<Store, 'id' | 'storeName' | 'phoneNumber' | 'officialemail' | 'streetAddress1' | 'streetAddress2' | 'zipcode'>
   ) }
 );
 
@@ -5593,6 +5593,9 @@ export const GetDefaultStoreDocument = gql`
     storeName
     phoneNumber
     officialemail
+    streetAddress1
+    streetAddress2
+    zipcode
   }
 }
     `;
