@@ -1,3 +1,5 @@
+import {GetCurrentUserDocument} from "~/gql";
+
 export const state = () => ({
   user: null,
   address: []
@@ -21,5 +23,16 @@ export const actions = {
   },
   removeUser({commit}) {
     commit('logout')
+  },
+  async autoLogin({commit}) {
+    let client = await this.app.apolloProvider.defaultClient
+    await client.query({
+      query: GetCurrentUserDocument
+    })
+      .then(value => {
+        if(value.data.GetCurrentUser) {
+          commit('setUser', value.data.GetCurrentUser)
+        }
+      })
   }
 }

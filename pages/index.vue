@@ -6,29 +6,27 @@
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 set-w hidden-xs hidden-sm "></div>
           <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 set-flex ">
             <div class="slide-home3" style="height: 500px !important;">
-              <VueSlickCarousel :arrows="true" :dots="true" :autoplay="true" :infinite="true" :adaptiveHeight="true" class="e-slide v2">
-                <div class="e-slide-img bg-gradient" v-for="mainitems of getHomePage.single.main" @click="onClickCarousel(mainitems)" style="height: 500px !important;">
-                  <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
-                    <img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4"></a>
-                  <div class="slide-content v2">
-                    <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-if="mainitems.type === 'product'">{{mainitems.target.productName.substring(0, 30)}}</h2>
-                    <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-else-if="mainitems.type === 'variant'">{{mainitems.target.name.substring(0, 30)}}</h2>
-                    <h2 class="v2 font-weight-bold" style="font-weight: bolder !important;" v-else-if="mainitems.type === 'category'">{{mainitems.target.name.substring(0, 30)}}</h2>
-                    <a href="#" class="slide-btn e-yl-gradient">Shop now<i class="ion-ios-arrow-forward"></i></a>
+              <v-carousel cycle continuous hide-delimiters>
+                <v-carousel-item
+                  v-for="(mainitems, index) of getHomePage.single.main" @click="onClickCarousel(mainitems)" :key="index"
+                >
+                  <div class="e-slide-img bg-gradient" style="height: 500px !important;">
+                    <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
+                      <!--<img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4">-->
+                      <v-img :src="`${assetLink}/${mainitems.preview.preview}`" contain height="450px"></v-img>
+                    </a>
+                    <v-sheet class="slide-content v2" style="padding: 20px;" color="primary" elevation="2">
+                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-if="mainitems.type === 'product'">{{mainitems.target.productName.substring(0, 30)}}</h2>
+                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'variant'">{{mainitems.target.name.substring(0, 30)}}</h2>
+                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'category'">{{mainitems.target.name.substring(0, 30)}}</h2>
+                      <v-btn
+                        text
+                        color="secondary"
+                      >Shop Now</v-btn>
+                    </v-sheet>
                   </div>
-                </div>
-              </VueSlickCarousel>
-              <!--<div class="e-slide v2 js-slider-3items">
-                <div class="e-slide-img bg-gradient" v-for="mainitems of getHomePage.single.main" @click="onClickCarousel(mainitems)">
-                  <a href="javascript:;" @click="onClickCarousel(mainitems)"><img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain"></a>
-                  <div class="slide-content v2">
-                    <h3 class="v2" v-if="mainitems.type === 'product'">{{mainitems.target.productName}}</h3>
-                    <h3 class="v2" v-else-if="mainitems.type === 'variant'">{{mainitems.target.name}}</h3>
-                    <h3 class="v2" v-else-if="mainitems.type === 'category'">{{mainitems.target.name}}</h3>
-                    <a href="#" class="slide-btn e-yl-gradient">Shop now<i class="ion-ios-arrow-forward"></i></a>
-                  </div>
-                </div>
-              </div>-->
+                </v-carousel-item>
+              </v-carousel>
             </div>
           </div>
         </div>
@@ -78,16 +76,25 @@
 
     <div class="feature-product spc2">
       <div class="container container-240">
-        <div class="ecome-heading style2">
-          <h1>Featured</h1>
-        </div>
-        <div class="row">
+        <client-only>
+          <div v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}" :key="index">
+            <div class="ecome-heading style2">
+              <h1>{{listitem.name}}</h1>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 product-item" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">
+                <HomeListItem :item="sublistitem"/>
+              </div>
+            </div>
+          </div>
+        </client-only>
+        <!--<div class="row">
           <div class="col-md-3 col-sm-4 col-xs-12">
             <ul class="tab-link">
               <li v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}">
                 <a data-toggle="tab" href="#" aria-expanded="true" @click="listIndex = index">
                   <div class="tab-link-info flex align-center">
-                    <!--<img src="img/category/1.png" alt="">-->
+                    &lt;!&ndash;<img src="img/category/1.png" alt="">&ndash;&gt;
                     <span>{{listitem.name}}</span>
                   </div>
                 </a>
@@ -107,7 +114,7 @@
               </div>
             </client-only>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </section>
@@ -138,7 +145,7 @@ import VueSlickCarousel from 'vue-slick-carousel'
         resolve({
           getHomePage: value.data.getHomePage
         })
-      })
+      }).catch(e => console.log(e))
     })
   }
 })
@@ -157,6 +164,7 @@ export default class Index extends Vue {
   }
 
   mounted() {
+    console.log(this.getHomePage)
     /*(<any>$('.js-slider-3items')).not('.slick-initialized').slick({
       autoplay: true,
       infinite: true,
@@ -169,7 +177,7 @@ export default class Index extends Vue {
 
 <style scoped>
 .icon-mega {
-  background: -webkit-linear-gradient(#D9F66B, #8CC209);
+  background: -webkit-linear-gradient(#9C27B0, #BA68C8);
   font-size: 40px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

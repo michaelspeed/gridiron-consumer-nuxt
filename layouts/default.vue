@@ -1,18 +1,29 @@
 <template>
-  <div>
-    <div class="h3-bg">
+  <v-app>
+    <div>
+      <top-bar/>
+      <v-sheet
+        id="scrolling-techniques-6"
+        class="overflow-y-auto"
+      >
+        <menu-bar/>
+        <nuxt />
+        <Footer/>
+      </v-sheet>
+    </div>
+    <!--<div class="h3-bg">
       <div class="wrappage">
         <client-only>
           <header id="header" class="header-v3 bg-w">
-            <top-bar/>
+
             <menu-bar/>
           </header>
         </client-only>
-        <nuxt />
+
         <Footer/>
       </div>
-    </div>
-  </div>
+    </div>-->
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -24,5 +35,6 @@ import Footer from "~/components/footer/footer.vue";
   components: {MenuBar, TopBar, Footer}
 })
 export default class Default  extends Vue {
+
 }
 </script>

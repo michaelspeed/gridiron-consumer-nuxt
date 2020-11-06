@@ -22,6 +22,7 @@ export default {
       {src: '/js/countdown.js', body: true},
       {src: '/js/bootstrap-slider.min.js', body: true},
       {src: '/js/main.js', body: true},
+      {src: 'https://checkout.razorpay.com/v1/checkout.js', body: true}
     ],
     link: [
       {
@@ -76,7 +77,21 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    ['@nuxtjs/vuetify', {}]
   ],
+
+  vuetify: {
+    theme: {
+      dark: false,
+      themes: {
+        light: {
+          primary: '#9C27B0', // #E53935
+          secondary: '#BA68C8',
+          accent: '#FFCA28', // #3F51B5
+        },
+      },
+    },
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
@@ -95,7 +110,7 @@ export default {
     authenticationType: 'Basic',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://45.118.132.119:5588/shop-api'
+        httpEndpoint: 'http://optimus.assammart.shop/'
         /*httpEndpoint: 'http://localhost:5588/admin-api',*/
       }
     },
@@ -116,7 +131,7 @@ export default {
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            'primary-color': '#41b883',
+            'primary-color': '#9C27B0',
             'component-background': '#ffffff'
           }
         }

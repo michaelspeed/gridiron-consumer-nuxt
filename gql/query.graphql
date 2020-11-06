@@ -362,6 +362,11 @@ query SingProductPrice($id: ID!){
 query GetStocksAndZipAvailability($zipf: Int!, $variantId: ID!){
     GetStocksAndZipAvailability(zipf: $zipf, variantId:$variantId) {
       id
+      price
+      store {
+        id
+        storeName
+      }
     }
 }
 
@@ -428,4 +433,32 @@ query GetFacetDocument($id:ID!){
             code
         }
     }
+}
+
+query GetAllProdsWithPriceRangeAndFacet($id: ID!, $facetIds: [String!]!, $start: Int, $last: Int, $search: String){
+  GetAllProdsWithPriceRangeAndFacet(id: $id, start: $start, last: $last, search: $search, facetIds: $facetIds) {
+    id
+    name
+    rating
+    price {
+      id
+      price
+    }
+    product {
+      id
+      productName
+      collection {
+        id
+        name
+      }
+    }
+    asset {
+      id
+      asset {
+        id
+        preview
+        source
+      }
+    }
+  }
 }

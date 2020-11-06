@@ -18,7 +18,6 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.0.2",
     "@vue/apollo-composable": "^4.0.0-alpha.10",
-    "add": "^2.0.6",
     "ant-design-vue": "^1.6.5",
     "core-js": "^3.6.5",
     "framevuerk": "^2.4.2",
@@ -31,6 +30,7 @@
     "vue-owl-carousel": "^2.0.3",
     "vue-property-decorator": "^9.0.2",
     "vue-slick-carousel": "^1.0.6",
+    "vuex": "^3.5.1",
     "yarn": "^1.22.10"
   },
   "devDependencies": {
@@ -42,6 +42,7 @@
     "@graphql-codegen/typescript-vue-apollo": "^2.1.0",
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
+    "@nuxtjs/vuetify": "^1.11.2",
     "@types/jquery": "^3.5.2",
     "framevuerk-builder": "^2.0.8",
     "less-loader": "^7.0.1"
