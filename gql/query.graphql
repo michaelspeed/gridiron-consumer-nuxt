@@ -434,3 +434,31 @@ query GetFacetDocument($id:ID!){
         }
     }
 }
+
+query GetAllProdsWithPriceRangeAndFacet($id: ID!, $facetIds: [String!]!, $start: Int, $last: Int, $search: String){
+  GetAllProdsWithPriceRangeAndFacet(id: $id, start: $start, last: $last, search: $search, facetIds: $facetIds) {
+    id
+    name
+    rating
+    price {
+      id
+      price
+    }
+    product {
+      id
+      productName
+      collection {
+        id
+        name
+      }
+    }
+    asset {
+      id
+      asset {
+        id
+        preview
+        source
+      }
+    }
+  }
+}

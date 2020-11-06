@@ -2924,6 +2924,7 @@ export type Query = {
   GetSingleCollection: CollectionSingleResponse;
   GetFacetsByCollection: Array<FacetValue>;
   GetProductVariantForCollection: Array<ProductVariant>;
+  GetAllProdsWithPriceRangeAndFacet: Array<ProductVariant>;
   getHomePage: Page;
   getSingleProductVariant: ProductVariant;
   singProductInfo: Product;
@@ -2958,6 +2959,15 @@ export type QueryGetFacetsByCollectionArgs = {
 export type QueryGetProductVariantForCollectionArgs = {
   search?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+};
+
+
+export type QueryGetAllProdsWithPriceRangeAndFacetArgs = {
+  search?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  facetIds: Array<Scalars['String']>;
   id: Scalars['ID'];
 };
 
@@ -5326,6 +5336,41 @@ export type GetFacetDocumentQuery = (
   ) }
 );
 
+export type GetAllProdsWithPriceRangeAndFacetQueryVariables = Exact<{
+  id: Scalars['ID'];
+  facetIds: Array<Scalars['String']>;
+  start?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllProdsWithPriceRangeAndFacetQuery = (
+  { __typename?: 'Query' }
+  & { GetAllProdsWithPriceRangeAndFacet: Array<(
+    { __typename?: 'ProductVariant' }
+    & Pick<ProductVariant, 'id' | 'name' | 'rating'>
+    & { price?: Maybe<Array<(
+      { __typename?: 'ProductVariantPrice' }
+      & Pick<ProductVariantPrice, 'id' | 'price'>
+    )>>, product: (
+      { __typename?: 'Product' }
+      & Pick<Product, 'id' | 'productName'>
+      & { collection?: Maybe<(
+        { __typename?: 'Collection' }
+        & Pick<Collection, 'id' | 'name'>
+      )> }
+    ), asset?: Maybe<(
+      { __typename?: 'ProductVariantAsset' }
+      & Pick<ProductVariantAsset, 'id'>
+      & { asset: (
+        { __typename?: 'Asset' }
+        & Pick<Asset, 'id' | 'preview' | 'source'>
+      ) }
+    )> }
+  )> }
+);
+
 
 export const LoginUserDocument = gql`
     mutation LoginUser($email: String!, $password: String!) {
@@ -5870,6 +5915,35 @@ export const GetFacetDocumentDocument = gql`
       id
       name
       code
+    }
+  }
+}
+    `;
+export const GetAllProdsWithPriceRangeAndFacetDocument = gql`
+    query GetAllProdsWithPriceRangeAndFacet($id: ID!, $facetIds: [String!]!, $start: Int, $last: Int, $search: String) {
+  GetAllProdsWithPriceRangeAndFacet(id: $id, start: $start, last: $last, search: $search, facetIds: $facetIds) {
+    id
+    name
+    rating
+    price {
+      id
+      price
+    }
+    product {
+      id
+      productName
+      collection {
+        id
+        name
+      }
+    }
+    asset {
+      id
+      asset {
+        id
+        preview
+        source
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-container>
-      <v-row>
-        <v-col col="12" md="3" sm="12" >
+    <v-container style="margin-top: 40px">
+      <div class="row">
+        <div class="col-md-3 col-sm-12 col-xs-12">
           <v-sheet elevation="1">
             <h2 style="padding: 20px">My Account</h2>
             <div>
@@ -39,13 +39,13 @@
               </v-list>
             </div>
           </v-sheet>
-        </v-col>
-        <v-col col="12" md="9" sm="12" >
+        </div>
+        <div class="col-md-9 col-sm-12 col-xs-12">
           <Profile v-if="tabs === 0"/>
           <OrdersComponent v-if="tabs === 1"/>
           <AccountsComponent v-if="tabs === 2"/>
-        </v-col>
-      </v-row>
+        </div>
+      </div>
     </v-container>
   </div>
 </template>
