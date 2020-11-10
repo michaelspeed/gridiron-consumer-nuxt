@@ -233,6 +233,12 @@ import {mapState} from "vuex";
 import {ICartItem} from "~/store/cart";
 import {IRaxor} from "~/utils/IRaxor";
 
+declare global {
+  interface Window {
+    Razorpay:any;
+  }
+}
+
 @Component({
   apollo: {
     GetCurrentUser: {
