@@ -43,6 +43,9 @@
         <v-list-item @click="$router.push('/accounts?q=address')">
           <v-list-item-title>Addresses</v-list-item-title>
         </v-list-item>
+        <v-list-item @click="onClickLogout">
+          <v-list-item-title>Logout</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
     <v-dialog
@@ -290,6 +293,12 @@ export default class TopBar extends Vue {
 
   onClickSearch() {
 
+  }
+
+  onClickLogout() {
+    this.$apolloHelpers.onLogout()
+    this.$store.dispatch('user/removeUser')
+    this.$router.push('/')
   }
 }
 </script>

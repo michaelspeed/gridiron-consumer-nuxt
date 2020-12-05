@@ -46,7 +46,7 @@
           </a-popover>
 
           <div class="vertical-wrapper" v-if="$route.path === '/'">
-            <v-card tile>
+            <!--<v-card tile>
               <v-list
                 subheader
               >
@@ -69,7 +69,7 @@
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
-            </v-card>
+            </v-card>-->
             <ul class="vertical-group">
               <li class="vertical-item level1 mega-parent"><a href="#">New Arrivals</a></li>
               <li class="vertical-item level1 mega-parent"><a href="#">Top 100 Best Seller <span class="h-ribbon e-red mg-l10">Hot</span></a></li>
