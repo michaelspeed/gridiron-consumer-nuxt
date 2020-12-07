@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: white">
+  <div style="background-color: #212121">
     <div class="container container-240 shop-collection catleft">
       <ul class="breadcrumb">
         <li><a href="/">Home</a></li>
@@ -13,11 +13,8 @@
           <div class="close-sidebar-collection hidden-lg hidden-md">
             <span>filter</span><i class="icon_close ion-close"></i>
           </div>
-          <v-card class="filter-cate" style="margin-bottom: 10px;">
-            <v-list
-              subheader
-            >
-
+          <v-card class="filter-cate" style="margin-bottom: 10px;" elevation="4">
+            <v-list subheader>
               <v-list-item>
                 <v-list-item-avatar>
                   <v-icon>
@@ -41,18 +38,8 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-            <!--<ul class="wiget-content v3">
-              <li class="active"><a href="#">All Categories</a>
-
-                <ul class="wiget-content v4">
-                  <li><h3>{{collection.name}}</h3></li>
-                  <li v-for="child of collection.children"><a href="javascript:;" @click="onClickCollection(child.id)">{{child.name}}</a></li>
-                </ul>
-              </li>
-
-            </ul>-->
           </v-card>
-          <v-card>
+          <v-card elevation="4">
             <v-card-title>Filters</v-card-title>
             <v-card-text>
               <v-expansion-panels accordion flat>

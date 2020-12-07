@@ -1,6 +1,6 @@
 <template>
-  <footer>
-    <div class="f-top v2">
+  <footer style="background-color: #212121">
+    <div class="f-top v2" style="background-color: #212121">
       <div class="container container-240">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">

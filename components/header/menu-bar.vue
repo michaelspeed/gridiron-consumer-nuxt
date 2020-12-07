@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation="0" class="header-bottom hidden-xs hidden-sm" style="margin-top: 65px; background: white; ">
+  <v-app-bar elevation="4" color="primary" class="header-bottom hidden-xs hidden-sm" style="margin-top: 64px; background-color: #212121; ">
     <div class="container container-240">
       <div class="row">
         <div class="col-lg-3 widget-verticalmenu">
@@ -7,7 +7,7 @@
             <v-btn
               text
               rounded
-              color="primary"
+              color="secondary"
               style="width: 100%;"
             >All Categories</v-btn>
           </div>
@@ -44,55 +44,6 @@
               >All Categories</v-btn>
             </div>
           </a-popover>
-
-          <div class="vertical-wrapper" v-if="$route.path === '/'">
-            <!--<v-card tile>
-              <v-list
-                subheader
-              >
-
-                <v-list-item>
-                  <v-list-item-avatar>
-                    <v-icon>
-                      mdi-shape
-                    </v-icon>
-                  </v-list-item-avatar>
-
-                  <v-list-item-content>
-                    <v-list-item-title>All Categories</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-divider></v-divider>
-                <v-list-item v-for="child of GetCollectionTree" v-if="child.name !== 'default'">
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{child.name}}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-card>-->
-            <ul class="vertical-group">
-              <li class="vertical-item level1 mega-parent"><a href="#">New Arrivals</a></li>
-              <li class="vertical-item level1 mega-parent"><a href="#">Top 100 Best Seller <span class="h-ribbon e-red mg-l10">Hot</span></a></li>
-              <li class="vertical-item level1" v-for="coltree of GetCollectionTree" :key="coltree.id" v-if="coltree.name !== 'default'"
-                  :class="{'vertical-drop': coltree.children.length > 0, 'mega-parent': coltree.children.length === 0}">
-                <a href="javascript:;" @click="$router.push(`/collection/${coltree.id}`)">{{coltree.name}}</a>
-                <div class="menu-level-1 dropdown-menu vertical-menu v2 pd2 style1" v-if="coltree.children.length > 0">
-                  <ul class="level1">
-                    <li class="level2 col-md-4" v-for="childcol of coltree.children" :key="childcol.id">
-                      <a href="javascript:;" @click="$router.push(`/collection/${childcol.id}`)">{{childcol.name}}</a>
-                      <ul class="menu-level-2" v-if="childcol.children > 0">
-                        <li class="level3" v-for="summenu of coltree.children" :key="summenu.id">
-                          <a href="javascript:;" @click="$router.push(`/collection/${summenu.id}`)" title="">{{summenu.name}}</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
         </div>
         <div class="col-lg-9 widget-left">
           <div class="flex lr" style="margin-top: -12px">
@@ -100,7 +51,7 @@
               <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav js-menubar">
                   <li class="level1" v-for="(menuitem, index) of menu" :class="{'dropdown': true}" :key="index">
-                    <a href="javascript:;" @click="OnClickMenu(menuitem)" v-if="!menuitem.children || menuitem.children.length === 0">{{menuitem.title}}</a>
+                    <a href="javascript:;" @click="OnClickMenu(menuitem)" v-if="!menuitem.children || menuitem.children.length === 0">{{menuitem.title.substring(0, 10)}}</a>
                     <v-menu
                       open-on-hover
                       offset-y
@@ -109,7 +60,7 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <a href="javascript:;" @click="OnClickMenu(menuitem)" v-bind="attrs"
-                           v-on="on">{{menuitem.title}}</a>
+                           v-on="on">{{menuitem.title.substring(0, 10)}}</a>
                       </template>
                       <v-list>
                         <v-list-item
@@ -117,20 +68,10 @@
                           :key="subindex"
                           @click="OnClickMenu(menuitem)"
                         >
-                          <v-list-item-title>{{subitem.title}}</v-list-item-title>
+                          <v-list-item-title>{{subitem.title.substring(0, 10)}}</v-list-item-title>
                           <!--<a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a>-->
                         </v-list-item>
                       </v-list>
-                      <!--<div class="menu-level-1 dropdown-menu" v-if="menuitem.children && menuitem.children.length > 0">
-                        <ul class="level1">
-                          <li class="level2 col-12" style="padding-left: 15px">
-                            <ul class="menu-level-2">
-                              <li class="level3" v-for="subitem of menuitem.children"><a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                      </div>-->
                     </v-menu>
 
                   </li>
@@ -191,21 +132,31 @@ export default class MenuBar extends Vue {
   background: #EAFC9D;
   background-image: linear-gradient(122deg, #D9F66B, #71A206);
 }
+.widget-verticalmenu .vertical-group .vertical-item {
+  border-bottom: 0
+}
+.widget-verticalmenu .vertical-group {
+  border: 0
+}
+.widget-verticalmenu .vertical-group .vertical-item.mega-parent > a {
+  color: whitesmoke;
+}
 .vertical-wrapper {
   margin-top: 13px;
   position: absolute;
   z-index: 4;
   width: 100%;
-  padding-right: 37px; }
-
+  padding-right: 37px;
+  background-color: transparent;
+}
 .vertical-group {
-  border: 2px solid #eaeaea;
   border-radius: 10px;
   position: relative;
-  background: #fff; }
+  background: #212121;
+}
 .vertical-item {
-  padding: 0px 24px;
-  border-bottom: 1px solid #eaeaea; }
+  padding: 0 24px;
+}
 .vertical-item:last-child {
   border-bottom: 0; }
 .vertical-item > a {

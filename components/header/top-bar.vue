@@ -1,11 +1,7 @@
 <template>
   <v-app-bar
     color="primary"
-    :collapse="!collapseOnScroll"
-    :collapse-on-scroll="collapseOnScroll"
-    scroll-target="#scrolling-techniques-6"
     absolute
-    elevate-on-scroll
     min-width="370px"
   >
     <v-app-bar-nav-icon style="color: white"></v-app-bar-nav-icon>
