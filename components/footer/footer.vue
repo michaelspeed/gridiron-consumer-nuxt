@@ -1,6 +1,6 @@
 <template>
-  <footer>
-    <div class="f-top v2">
+  <footer style="background-color: #212121">
+    <div class="f-top v2" style="background-color: #212121">
       <div class="container container-240">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -66,14 +66,6 @@
                 <p class="phone-light">(+123) 456 789 or (+123) 666 888</p>
               </div>
               <div class="footer-block-newsletter">
-                <h3 class="footer-block-title">Subscription</h3>
-                <p>Register now to get updates on promotions and coupons.</p>
-                <form class="form_newsletter" action="#" method="post">
-                  <input type="email" value="" placeholder="Enter your emaill adress" name="EMAIL" id="mail" class="newsletter-input form-control">
-                  <button id="subscribe" class="button_mini btn btn-gradient" type="submit">
-                    Subscribe
-                  </button>
-                </form>
               </div>
             </div>
           </div>
@@ -83,7 +75,7 @@
     <div class="f-bottom">
       <div class="container container-240">
         <div class="row flex lr">
-          <div class="col-xs-6 f-copyright"><span>© 2010-2018 OiHelp. All rights reserved.</span></div>
+          <div class="col-xs-6 f-copyright"><span>© 2020 AssamMart. All rights reserved.</span></div>
           <div class="col-xs-6 f-payment hidden-xs">
             <a href="#"><img src="img/payment/mastercard.png" alt="" class="img-reponsive"></a>
             <a href="#"><img src="img/payment/paypal.png" alt="" class="img-reponsive"></a>

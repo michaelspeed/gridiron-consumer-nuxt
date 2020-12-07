@@ -1,10 +1,10 @@
 <template>
-  <div style="background-color: white">
+  <div style="background-color: #212121">
     <div class="container container-240">
 
       <div class="checkout">
         <ul class="breadcrumb v3">
-          <li><a href="#">Home</a></li>
+          <li><a href="javascript:;" @click="$router.push('/')" style="color: white">Home</a></li>
           <li class="active">Cart</li>
         </ul>
         <div class="row">

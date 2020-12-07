@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: white">
+  <div style="background-color: #212121">
     <div class="container container-240 shop-collection catleft">
       <ul class="breadcrumb">
         <li><a href="/">Home</a></li>
@@ -13,11 +13,8 @@
           <div class="close-sidebar-collection hidden-lg hidden-md">
             <span>filter</span><i class="icon_close ion-close"></i>
           </div>
-          <v-card class="filter-cate" style="margin-bottom: 10px;">
-            <v-list
-              subheader
-            >
-
+          <v-card class="filter-cate" style="margin-bottom: 10px;" elevation="4">
+            <v-list subheader>
               <v-list-item>
                 <v-list-item-avatar>
                   <v-icon>
@@ -41,18 +38,8 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-            <!--<ul class="wiget-content v3">
-              <li class="active"><a href="#">All Categories</a>
-
-                <ul class="wiget-content v4">
-                  <li><h3>{{collection.name}}</h3></li>
-                  <li v-for="child of collection.children"><a href="javascript:;" @click="onClickCollection(child.id)">{{child.name}}</a></li>
-                </ul>
-              </li>
-
-            </ul>-->
           </v-card>
-          <v-card>
+          <v-card elevation="4">
             <v-card-title>Filters</v-card-title>
             <v-card-text>
               <v-expansion-panels accordion flat>
@@ -84,12 +71,15 @@
                 >
                   <v-expansion-panel-header>{{facetitems.name}}</v-expansion-panel-header>
                   <v-expansion-panel-content>
-                    <v-radio
-                      v-for="childfacet of facetitems.child" :key="childfacet.id"
-                      :label="childfacet.name"
-                      :value="childfacet.id"
-                      @change="onClickChange(childfacet)"
-                    ></v-radio>
+                    <v-radio-group v-model="dirtys" multiple>
+                      <v-radio
+                        color="primary"
+                        v-for="childfacet of facetitems.child" :key="childfacet.id"
+                        :label="childfacet.name"
+                        :value="childfacet.id"
+                        @change="onClickChange(childfacet)"
+                      ></v-radio>
+                    </v-radio-group>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -132,9 +122,9 @@
               </div>
               <v-row v-if="GetAllProdsWithPriceRangeAndFacet">
                 <v-col sm="6" md="3" v-for="vars of GetAllProdsWithPriceRangeAndFacet" :key="vars.id">
-                  <v-card class="">
-                    <div class="pd-bd product-inner">
-                      <div class="product-img">
+                  <v-card style="padding: 10px" elevation="4" @click="onGoToProdRoute(vars.id)">
+                    <div class="product-inner">
+                      <div class="product-img" style="display: flex; align-items: center; justify-content: center;">
                         <a href="#">
                           <img :src="`${assetLink}/${vars.asset.asset.preview}`" alt="" class="img-reponsive" style="max-height: 320px;object-fit: contain">
                         </a>
@@ -229,7 +219,7 @@ import {
   GetProductVariantForCollectionDocument,
   GetSingleCollectionDocument, ProductVariant
 } from "~/gql";
-import {getCollectionRoute} from "~/utils/routingUtils";
+import {getCollectionRoute, getProdRoute} from "~/utils/routingUtils";
 import {assetsURL} from "~/utils/global-constants";
 
 @Component({
@@ -288,6 +278,7 @@ export default class CollectionId extends Vue {
   private dirty = false;
   private dirtyLabels: any[] = []
   private dirtyIds: any[] = []
+  private dirtys: any[] = []
 
   private GetAllProdsWithPriceRangeAndFacet: Collection[]
 
@@ -329,6 +320,7 @@ export default class CollectionId extends Vue {
     this.priceRange = [0, 999999]
     this.dirtyIds = []
     this.dirtyLabels = []
+    this.dirtys = []
   }
 
   mounted() {
@@ -342,7 +334,10 @@ export default class CollectionId extends Vue {
       }
     }
     this.allFacets = face;
+  }
 
+  onGoToProdRoute(id) {
+    this.$router.push(getProdRoute(id))
   }
 }
 </script>

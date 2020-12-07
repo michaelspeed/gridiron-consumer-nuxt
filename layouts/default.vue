@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app dark>
     <div>
       <top-bar/>
       <v-sheet
@@ -38,3 +38,15 @@ export default class Default  extends Vue {
 
 }
 </script>
+
+<style>
+body {
+  background-color: #212121
+}
+a {
+  color: white
+}
+.title-white {
+  color: #fff;
+}
+</style>

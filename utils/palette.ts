@@ -7,9 +7,9 @@ export const palette = {
   lightGrey: "#939AA4",
   lighterGrey: "#CDD4DA",
   angry: "#dd3333",
-  primary: '#64ffda',
-  primaryLight: '#9effff',
-  primaryDark: '#14cba8',
+  primary: '#ffbf00',
+  primaryLight: '#ffdc73',
+  primaryDark: '#a67c00',
   secondary: '#b2ff59',
   secondaryLight: '#e7ff8c',
   secondaryDark: '#7ecb20'

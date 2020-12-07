@@ -1,9 +1,9 @@
 <template>
-  <div style="background-color: white">
+  <div style="background-color: #212121">
     <div class="container container-240">
       <div class="e-product">
         <ul class="breadcrumb v4">
-          <li><a href="#">Home</a></li>
+          <li><a href="javascript:;" @click="$router.push('/')" style="color: white">Home</a></li>
           <li class="active">{{prod.productName}}</li>
         </ul>
         <div class="pd-banner">
@@ -134,5 +134,8 @@ export default class VariantView extends Vue {
 }
 .pd-bd {
   border: 0px
+}
+.title {
+  color: white;
 }
 </style>

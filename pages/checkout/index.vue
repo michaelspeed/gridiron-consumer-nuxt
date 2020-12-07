@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: white">
+  <div style="background-color: #212121">
     <div class="container container-240">
       <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
@@ -129,19 +129,19 @@
                          md="6">
                     <v-sheet elevation="1" style="padding: 20px; margin: 10px; cursor: pointer;" @click="selecteAdd = address.id" >
                       <div style="display: flex; justify-content: space-between; align-items: center">
-                        <h4 class="text-capitalize">{{address.fullName}}</h4>
+                        <h4 class="text-capitalize" style="color: white">{{address.fullName}}</h4>
                         <v-checkbox
                           label="Select Address"
                           :input-value="true"
                           v-if="address.id === selecteAdd"
                         ></v-checkbox>
                       </div>
-                      <h5 class="text-capitalize">{{address.addressLine}}</h5>
-                      <span>{{address.city}}</span>
-                      <span>{{address.state}}</span>
-                      <span>{{address.postalCode}}</span>
+                      <h5 class="text-capitalize" style="color: white">{{address.addressLine}}</h5>
+                      <span style="color: white">{{address.city}}</span>
+                      <span style="color: white">{{address.state}}</span>
+                      <span style="color: white">{{address.postalCode}}</span>
                       <div>
-                        <h6>Phone Number: {{address.phoneNumber}}</h6>
+                        <h6 style="color: white">Phone Number: {{address.phoneNumber}}</h6>
                       </div>
                     </v-sheet>
                   </v-col>
