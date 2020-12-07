@@ -6,7 +6,7 @@
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 set-w hidden-xs hidden-sm ">
             <v-sheet class="vertical-wrapper" v-if="$route.path === '/'" elevation="4" style="z-index: 100000">
               <v-list subheader>
-                <v-list-item v-for="child of GetCollectionTree" v-if="child.name !== 'default'">
+                <v-list-item v-for="child of GetCollectionTree" :key="child.id" v-if="child.name !== 'default'">
 
                   <v-list-item-content v-if="child.children.length === 0" @click="$router.push(`/collection/${child.id}`)">
                     <v-list-item-title>{{child.name}}</v-list-item-title>

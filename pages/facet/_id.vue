@@ -17,8 +17,8 @@
               </div>
               <div class="row">
 
-                <v-card class="col-md-4 col-sm-6 col-xs-12 col-lg-4" v-for="vars of cols.products" elevation="4" hover @click="onClickVariant(vars.id)">
-                  <div :key="vars.id">
+                <v-card class="col-md-4 col-sm-6 col-xs-12 col-lg-4" v-for="vars of cols.products" elevation="4" hover @click="onClickVariant(vars.id)" :key="vars.id">
+                  <div>
                     <div class="product-inner">
                       <div class="product-img" style="display: flex; justify-content: center; align-items: center;">
                         <a href="#"><img :src="`${assetLink}/${vars.featuredAsset.preview}`" alt="" class="img-reponsive" style="height: 320px;object-fit: contain"></a>
