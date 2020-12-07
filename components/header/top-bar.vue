@@ -20,12 +20,27 @@
       style="margin-top: 20px; width: 80px"
       @click:append="onClickSearch"
     ></v-text-field>
-    <v-btn
-      text
-      style="color: white"
-      v-if="$store.state.user.user"
-      @click="$router.push('/accounts')"
-    >{{$store.state.user.user.firstName}}</v-btn>
+    <v-menu offset-y tile color="primary" v-if="$store.state.user.user">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          text
+          style="color: white"
+          v-bind="attrs"
+          v-on="on"
+        >{{$store.state.user.user.firstName}}</v-btn>
+      </template>
+      <v-list>
+        <v-list-item @click="$router.push('/accounts')">
+          <v-list-item-title>Profile</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/accounts?q=order')">
+          <v-list-item-title>Orders</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/accounts?q=address')">
+          <v-list-item-title>Addresses</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-dialog
       v-model="auth"
       width="60vw"
