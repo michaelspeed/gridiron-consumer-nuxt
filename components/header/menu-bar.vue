@@ -13,27 +13,64 @@
           </div>
           <a-popover placement="bottomLeft" v-if="$route.path !== '/'">
             <template slot="content">
-              <div>
-                <ul class="vertical-group">
-                  <li class="vertical-item level1 mega-parent"><a href="#">New Arrivals</a></li>
-                  <li class="vertical-item level1 mega-parent"><a href="#">Top 100 Best Seller <span class="h-ribbon e-red mg-l10">Hot</span></a></li>
-                  <li class="vertical-item level1" v-for="coltree of GetCollectionTree" :key="coltree.id" v-if="coltree.name !== 'default'"
-                      :class="{'vertical-drop': coltree.children.length > 0, 'mega-parent': coltree.children.length === 0}">
-                    <a href="javascript:;" @click="$router.push(`/collection/${coltree.id}`)">{{coltree.name}}</a>
-                    <div class="menu-level-1 dropdown-menu vertical-menu v2 pd2 style1" v-if="coltree.children.length > 0">
-                      <ul class="level1">
-                        <li class="level2 col-md-4" v-for="childcol of coltree.children" :key="childcol.id">
-                          <a href="javascript:;" @click="$router.push(`/collection/${childcol.id}`)">{{childcol.name}}</a>
-                          <ul class="menu-level-2" v-if="childcol.children > 0">
-                            <li class="level3" v-for="summenu of coltree.children" :key="summenu.id">
-                              <a href="javascript:;" @click="$router.push(`/collection/${summenu.id}`)" title="">{{summenu.name}}</a>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
+              <div style="width: 100%; background-color: white">
+                <v-sheet elevation="4" style="width: 100%;" color="primary" light>
+                  <v-list subheader style="width: 300px;" color="primary" light>
+                    <v-list-item v-for="child of GetCollectionTree" v-if="child.name !== 'default'" :key="child.id">
+
+                      <v-list-item-content v-if="child.children.length === 0" @click="$router.push(`/collection/${child.id}`)">
+                        <v-list-item-title>{{child.name}}</v-list-item-title>
+                      </v-list-item-content>
+                      <v-menu
+                        open-on-hover
+                        offset-x
+                        v-if="child.children.length > 0"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-list-item-content v-bind="attrs"
+                                               v-on="on" @click="$router.push(`/collection/${child.id}`)">
+                            <v-list-item-title>{{child.name}}</v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+
+                        <v-card light>
+                          <v-subheader>{{child.name}}</v-subheader>
+                          <v-list v-for="childcol of child.children" :key="childcol.id">
+                            <v-list-item @click="$router.push(`/collection/${childcol.id}`)" v-if="childcol.children.length === 0">
+                              <v-list-item-content>
+                                <v-list-item-title>{{childcol.name}}</v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+                            <v-menu
+                              open-on-hover
+                              offset-x
+                              v-if="childcol.children.length > 0"
+                            >
+                              <template v-slot:activator="{ on, attrs }">
+                                <v-list-item @click="$router.push(`/collection/${childcol.id}`)">
+                                  <v-list-item-content>
+                                    <v-list-item-title>{{childcol.name}}</v-list-item-title>
+                                  </v-list-item-content>
+                                </v-list-item>
+                              </template>
+
+                              <v-card>
+                                <v-subheader>{{childcol.name}}</v-subheader>
+                                <v-list v-for="subitem of childcol.children" :key="subitem.id">
+                                  <v-list-item @click="$router.push(`/collection/${subitem.id}`)">
+                                    <v-list-item-content>
+                                      <v-list-item-title>{{subitem.name}}</v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
+                                </v-list>
+                              </v-card>
+                            </v-menu>
+                          </v-list>
+                        </v-card>
+                      </v-menu>
+                    </v-list-item>
+                  </v-list>
+                </v-sheet>
               </div>
             </template>
             <div class="navbar-vertical" >
