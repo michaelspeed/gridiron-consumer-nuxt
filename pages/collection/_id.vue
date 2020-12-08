@@ -1,8 +1,8 @@
 <template>
-  <div style="background-color: white">
+  <div style="background-color: white; margin-top: 64px">
     <div class="container container-240 shop-collection catleft">
       <ul class="breadcrumb">
-        <li><a href="/">Home</a></li>
+        <li><a href="javascript:;">Home</a></li>
         <li class="active">{{collection.name}}</li>
       </ul>
       <div class="filter-collection-left hidden-lg hidden-md">
@@ -20,7 +20,7 @@
 
               <v-list-item>
                 <v-list-item-avatar>
-                  <v-icon>
+                  <v-icon color="primary">
                     mdi-shape
                   </v-icon>
                 </v-list-item-avatar>

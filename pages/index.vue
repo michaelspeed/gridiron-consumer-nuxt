@@ -1,12 +1,12 @@
 <template>
   <section class="all-s">
-    <div class="ads-group v2 nospc">
+    <div class="ads-group v2 nospc" style="margin-top: 68px;">
       <div class="container container-240">
         <div class="row" v-if="getHomePage.single.main">
-          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 set-w hidden-xs hidden-sm "></div>
-          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 set-flex ">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 set-flex ">
             <div class="slide-home3" style="height: 500px !important;">
-              <v-carousel cycle continuous hide-delimiters>
+              <v-carousel cycle continuous hide-delimiter-background show-arrows-on-hover
+                          delimiter-icon="mdi-minus">
                 <v-carousel-item
                   v-for="(mainitems, index) of getHomePage.single.main" @click="onClickCarousel(mainitems)" :key="index"
                 >
@@ -27,47 +27,6 @@
                   </div>
                 </v-carousel-item>
               </v-carousel>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature v2">
-      <div class="container container-240">
-        <div class="feature-inside">
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img">
-              <i class="fas fa-truck icon-mega"></i>
-            </div>
-            <div class="feature-info v2">
-              <h3>Prompt Delivery</h3>
-              <p>With sites in 5 languages, we ship to over 200 countries & regions.</p>
-            </div>
-          </div>
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img"><i class="fas fa-credit-card icon-mega"></i></div>
-            <div class="feature-info v2">
-              <h3>Safe Payment</h3>
-              <p>Pay with the world’s most popular and secure payment methods.</p>
-            </div>
-          </div>
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img">
-              <i class="fas fa-shield-alt icon-mega"></i>
-            </div>
-            <div class="feature-info v2">
-              <h3>Shop with Confidence</h3>
-              <p>Our Buyer Protection covers your purchase from click to delivery.</p>
-            </div>
-          </div>
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img icon-mega">
-              <i class="fas fa-headset"></i>
-            </div>
-            <div class="feature-info v2">
-              <h3>24/7 Help Center</h3>
-              <p>Round-the-clock assistance for a smooth shopping experience.</p>
             </div>
           </div>
         </div>
@@ -163,19 +122,13 @@ export default class Index extends Vue {
     }
   }
 
-  mounted() {
-    console.log(this.getHomePage)
-    /*(<any>$('.js-slider-3items')).not('.slick-initialized').slick({
-      autoplay: true,
-      infinite: true,
-      arrows: true,
-      dots: true
-    });*/
-  }
 }
 </script>
 
 <style scoped>
+.theme--dark.v-btn.v-btn--icon {
+  color: #F44336;
+}
 .icon-mega {
   background: -webkit-linear-gradient(#9C27B0, #BA68C8);
   font-size: 40px;

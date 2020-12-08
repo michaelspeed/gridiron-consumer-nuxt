@@ -6,7 +6,6 @@
         id="scrolling-techniques-6"
         class="overflow-y-auto"
       >
-        <menu-bar/>
         <nuxt />
         <Footer/>
       </v-sheet>
@@ -31,10 +30,17 @@ import {Component, Vue} from "nuxt-property-decorator";
 import TopBar from "~/components/header/top-bar.vue";
 import MenuBar from "~/components/header/menu-bar.vue";
 import Footer from "~/components/footer/footer.vue";
+import { myTheme } from "~/utils/custom-theme";
 @Component({
   components: {MenuBar, TopBar, Footer}
 })
 export default class Default  extends Vue {
-
+  private theme = myTheme
 }
 </script>
+
+<style>
+.v-application {
+  font-family: 'Poppins';
+}
+</style>

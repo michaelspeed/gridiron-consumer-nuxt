@@ -23,6 +23,7 @@
     "framevuerk": "^2.4.2",
     "jquery": "^3.5.1",
     "less": "^3.12.2",
+    "mobile-device-detect": "^0.4.3",
     "moment": "^2.29.1",
     "nuxt": "^2.14.6",
     "nuxt-property-decorator": "^2.8.8",

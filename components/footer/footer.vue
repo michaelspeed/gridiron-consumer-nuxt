@@ -10,7 +10,7 @@
               </div>
               <ul class="footer-block-content">
                 <li>
-                  <h2>{{$store.state.defstore.defstore.storeName}}</h2>
+                  <h2 :style="{'color': theme['color-primary-500']}" class="text-uppercase">{{$store.state.defstore.defstore.storeName}}</h2>
                 </li>
                 <li class="address">
                   <span>{{$store.state.defstore.defstore.streetAddress1}}</span>
@@ -25,13 +25,6 @@
                   <span>{{$store.state.defstore.defstore.officialemail}}</span>
                 </li>
               </ul>
-              <div class="footer-social social">
-                <h3 class="footer-block-title">Follow us</h3>
-                <a href="#" class="fa fa-twitter"></a>
-                <a href="#" class="fa fa-dribbble"></a>
-                <a href="#" class="fa fa-behance"></a>
-                <a href="#" class="fa fa-instagram"></a>
-              </div>
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
@@ -50,16 +43,6 @@
             </div>-->
           </div>
           <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-            <!--<div class="footer-block">
-              <h3 class="footer-block-title">Customer Service</h3>
-              <ul class="footer-block-content">
-                <li><a href="#">My Account</a></li>
-                <li><a href="#">Track your Order</a></li>
-                <li><a href="#">Returns/Exchange</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Customer Service</a></li>
-              </ul>
-            </div>-->
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="footer-block">
@@ -68,32 +51,16 @@
                 <p class="phone-desc">Call Us toll Free</p>
                 <p class="phone-light">{{$store.state.defstore.defstore.phoneNumber}}</p>
               </div>
-              <!--<div class="footer-block-newsletter">
-                <h3 class="footer-block-title">Subscription</h3>
-                <p>Register now to get updates on promotions and coupons.</p>
-                <form class="form_newsletter" action="#" method="post">
-                  <input type="email" value="" placeholder="Enter your emaill adress" name="EMAIL" id="mail" class="newsletter-input form-control">
-                  <button id="subscribe" class="button_mini btn btn-gradient" type="submit">
-                    Subscribe
-                  </button>
-                </form>
-              </div>-->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="f-bottom">
+    <div class="f-bottom" :style="{'background-color': theme['color-primary-500']}">
       <div class="container container-240">
         <div class="row flex lr">
-          <div class="col-xs-6 f-copyright"><span>© 2020 {{$store.state.defstore.defstore.storeName}}. All rights reserved.</span></div>
+          <div class="col-xs-6 f-copyright"><h6 style="color: white">© 2020 {{$store.state.defstore.defstore.storeName}}. All rights reserved.</h6></div>
           <div class="col-xs-6 f-payment hidden-xs">
-            <a href="#"><img src="img/payment/mastercard.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/paypal.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/visa.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/american-express.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/western-union.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/jcb.png" alt="" class="img-reponsive"></a>
           </div>
         </div>
       </div>
@@ -103,9 +70,11 @@
 
 <script lang="ts">
 import {Component, Vue} from "nuxt-property-decorator";
+import {myTheme} from "~/utils/custom-theme";
 
 @Component
 export default class Footer extends Vue {
+  private theme = myTheme
 
 }
 </script>

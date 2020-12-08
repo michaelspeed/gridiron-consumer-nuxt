@@ -46,6 +46,7 @@ export default {
       { rel: 'stylesheet', href: '/css/slick-theme.css'},
       { rel: 'stylesheet', href: '/css/owl.theme.default.min.css'},
       { rel: 'stylesheet', href: '/css/style.css'},
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;800;900&display=swap'},
     ]
   },
   vue: {
@@ -54,7 +55,7 @@ export default {
     }
   },
 
-  loading: {color: '#41b883'},
+  loading: {color: '#F44336', continuous: true, height: '5px'},
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
@@ -85,9 +86,9 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: '#9C27B0', // #E53935
-          secondary: '#BA68C8',
-          accent: '#FFCA28', // #3F51B5
+          primary: '#F44336', // #E53935
+          secondary: '#FFC107',
+          accent: '#263238', // #3F51B5
         },
       },
     },
@@ -130,7 +131,7 @@ export default {
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            'primary-color': '#9C27B0',
+            'primary-color': '#F44336',
             'component-background': '#ffffff'
           }
         }
