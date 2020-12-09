@@ -81,6 +81,28 @@
               >All Categories</v-btn>
             </div>
           </a-popover>
+          <div class="vertical-wrapper" v-if="$route.path === '/'">
+            <ul class="vertical-group">
+              <li class="vertical-item level1 mega-parent"><a href="#">New Arrivals</a></li>
+              <li class="vertical-item level1 mega-parent"><a href="#">Top 100 Best Seller <span class="h-ribbon e-red mg-l10">Hot</span></a></li>
+              <li class="vertical-item level1" v-for="coltree of GetCollectionTree" :key="coltree.id" v-if="coltree.name !== 'default'"
+                  :class="{'vertical-drop': coltree.children.length > 0, 'mega-parent': coltree.children.length === 0}">
+                <a href="javascript:;" @click="$router.push(`/collection/${coltree.id}`)">{{coltree.name}}</a>
+                <div class="menu-level-1 dropdown-menu vertical-menu v2 pd2 style1" v-if="coltree.children.length > 0">
+                  <ul class="level1">
+                    <li class="level2 col-md-4" v-for="childcol of coltree.children" :key="childcol.id">
+                      <a href="javascript:;" @click="$router.push(`/collection/${childcol.id}`)">{{childcol.name}}</a>
+                      <ul class="menu-level-2" v-if="childcol.children > 0">
+                        <li class="level3" v-for="summenu of coltree.children" :key="summenu.id">
+                          <a href="javascript:;" @click="$router.push(`/collection/${summenu.id}`)" title="">{{summenu.name}}</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-lg-9 widget-left">
           <div class="flex lr" style="margin-top: -12px">

@@ -1,8 +1,8 @@
 <template>
-  <div style="background-color: #212121">
+  <div style="background-color: white; margin-top: 64px">
     <div class="container container-240 shop-collection catleft">
       <ul class="breadcrumb">
-        <li><a href="/">Home</a></li>
+        <li><a href="javascript:;">Home</a></li>
         <li class="active">{{collection.name}}</li>
       </ul>
       <div class="filter-collection-left hidden-lg hidden-md">
@@ -17,7 +17,7 @@
             <v-list subheader>
               <v-list-item>
                 <v-list-item-avatar>
-                  <v-icon>
+                  <v-icon color="primary">
                     mdi-shape
                   </v-icon>
                 </v-list-item-avatar>
@@ -30,8 +30,7 @@
               <v-divider></v-divider>
 
               <v-subheader>{{collection.name}}</v-subheader>
-
-              <v-list-item @click="onClickCollection(child.id)" v-for="child of collection.children" :key=child.id>
+              <v-list-item @click="onClickCollection(child.id)" v-for="child of collection.children" :key="child.id">
 
                 <v-list-item-content>
                   <v-list-item-title>{{child.name}}</v-list-item-title>

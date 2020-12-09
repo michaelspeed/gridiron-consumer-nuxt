@@ -1,6 +1,6 @@
 <template>
-  <footer style="background-color: #212121">
-    <div class="f-top v2" style="background-color: #212121">
+  <footer v-if="$store.state.defstore.defstore">
+    <div class="f-top v2">
       <div class="container container-240">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -9,30 +9,26 @@
                 <a href="#"></a>
               </div>
               <ul class="footer-block-content">
+                <li>
+                  <h2 :style="{'color': theme['color-primary-500']}" class="text-uppercase">{{$store.state.defstore.defstore.storeName}}</h2>
+                </li>
                 <li class="address">
-                  <span>45 Grand Central Terminal New York,NY 1017 United State USA</span>
+                  <span>{{$store.state.defstore.defstore.streetAddress1}}</span>
+                </li>
+                <li class="address">
+                  <span>{{$store.state.defstore.defstore.streetAddress2}}</span>
                 </li>
                 <li class="phone">
-                  <span>(+123) 456 789 - (+123) 666 888</span>
+                  <span>{{$store.state.defstore.defstore.phoneNumber}}</span>
                 </li>
                 <li class="email">
-                  <span>Contact@yourcompany.com</span>
-                </li>
-                <li class="time">
-                  <span>Mon-Sat 9:00pm - 5:00pm  &nbsp;&nbsp;&nbsp;  Sun : Closed</span>
+                  <span>{{$store.state.defstore.defstore.officialemail}}</span>
                 </li>
               </ul>
-              <div class="footer-social social">
-                <h3 class="footer-block-title">Follow us</h3>
-                <a href="#" class="fa fa-twitter"></a>
-                <a href="#" class="fa fa-dribbble"></a>
-                <a href="#" class="fa fa-behance"></a>
-                <a href="#" class="fa fa-instagram"></a>
-              </div>
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-            <div class="footer-block">
+            <!--<div class="footer-block">
               <h3 class="footer-block-title">Quick menu</h3>
               <ul class="footer-block-content">
                 <li><a href="#">TV & Video</a></li>
@@ -44,45 +40,27 @@
                 <li><a href="#">Bluetooth & Wireless Speakers</a></li>
                 <li><a href="#">Car Electronics</a></li>
               </ul>
-            </div>
+            </div>-->
           </div>
           <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-            <div class="footer-block">
-              <h3 class="footer-block-title">Customer Service</h3>
-              <ul class="footer-block-content">
-                <li><a href="#">My Account</a></li>
-                <li><a href="#">Track your Order</a></li>
-                <li><a href="#">Returns/Exchange</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Customer Service</a></li>
-              </ul>
-            </div>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="footer-block">
               <div class="footer-block-phone">
                 <h3 class="footer-block-title">Hot Line</h3>
                 <p class="phone-desc">Call Us toll Free</p>
-                <p class="phone-light">(+123) 456 789 or (+123) 666 888</p>
-              </div>
-              <div class="footer-block-newsletter">
+                <p class="phone-light">{{$store.state.defstore.defstore.phoneNumber}}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="f-bottom">
+    <div class="f-bottom" :style="{'background-color': theme['color-primary-500']}">
       <div class="container container-240">
         <div class="row flex lr">
-          <div class="col-xs-6 f-copyright"><span>© 2020 AssamMart. All rights reserved.</span></div>
+          <div class="col-xs-6 f-copyright"><h6 style="color: white">© 2020 {{$store.state.defstore.defstore.storeName}}. All rights reserved.</h6></div>
           <div class="col-xs-6 f-payment hidden-xs">
-            <a href="#"><img src="img/payment/mastercard.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/paypal.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/visa.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/american-express.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/western-union.png" alt="" class="img-reponsive"></a>
-            <a href="#"><img src="img/payment/jcb.png" alt="" class="img-reponsive"></a>
           </div>
         </div>
       </div>
@@ -92,9 +70,11 @@
 
 <script lang="ts">
 import {Component, Vue} from "nuxt-property-decorator";
+import {myTheme} from "~/utils/custom-theme";
 
 @Component
 export default class Footer extends Vue {
+  private theme = myTheme
 
 }
 </script>

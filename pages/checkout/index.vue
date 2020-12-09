@@ -320,7 +320,7 @@ export default class Checkout extends Vue {
         })
       }
     }
-    const razor = window.Razorpay(opts)
+    const razor = <any>(window).Razorpay(opts)
     razor.open()
   }
 

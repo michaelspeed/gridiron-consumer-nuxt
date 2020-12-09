@@ -1,10 +1,10 @@
 
 export const myTheme = {
-  "color-primary-100": "#ffbf00",
+  "color-primary-100": "#FFEBEE",
   "color-primary-200": "#ADC8FF",
   "color-primary-300": "#84A9FF",
   "color-primary-400": "#6690FF",
-  "color-primary-500": "#a67c00",
+  "color-primary-500": "#F44336",
   "color-primary-600": "#254EDB",
   "color-primary-700": "#1939B7",
   "color-primary-800": "#102693",

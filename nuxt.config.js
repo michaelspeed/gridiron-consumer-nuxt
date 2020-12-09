@@ -46,6 +46,7 @@ export default {
       { rel: 'stylesheet', href: '/css/slick-theme.css'},
       { rel: 'stylesheet', href: '/css/owl.theme.default.min.css'},
       { rel: 'stylesheet', href: '/css/style.css'},
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;800;900&display=swap'},
     ]
   },
   vue: {
@@ -54,7 +55,7 @@ export default {
     }
   },
 
-  loading: {color: '#FF5722'},
+  loading: {color: '#F44336', continuous: true, height: '5px'},
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
@@ -90,9 +91,9 @@ export default {
           accent: '#ffdc73', // #3F51B5
         },
         light: {
-          primary: '#ffbf00', // #E53935
-          secondary: '#a67c00',
-          accent: '#ffdc73', // #3F51B5
+          primary: '#F44336', // #E53935
+          secondary: '#FFC107',
+          accent: '#263238', // #3F51B5
         },
       },
     },
@@ -115,8 +116,7 @@ export default {
     authenticationType: 'Basic',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://optimus.assammart.shop/'
-        /*httpEndpoint: 'http://localhost:5588/admin-api',*/
+        httpEndpoint: 'http://optimus.thelocaldukan.com/'
       }
     },
     defaultOptions: {
@@ -136,8 +136,8 @@ export default {
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            'primary-color': '#ffbf00',
-            'component-background': '#212121'
+            'primary-color': '#F44336',
+            'component-background': '#ffffff'
           }
         }
       }

@@ -2,28 +2,28 @@
   <div style="background-color: #212121">
     <div class="container container-240">
       <div class="single-product-detail product-bundle product-aff">
-        <ul class="breadcrumb">
-          <li><a href="javascript:;" @click="$router.push('/')" class="title-white">Home</a></li>
-          <li class="active">{{ variant.product.collection.name }}</li>
-          <li class="active">{{ variant.name }}</li>
+        <ul class="breadcrumb" :style="{'margin-top': '50px'}">
+          <li v-if="!mainMobile"><a href="#">Home</a></li>
+          <li class="active" v-if="!mainMobile">{{variant.product.collection.name}}</li>
+          <li class="active">{{variant.name}} </li>
         </ul>
         <v-sheet elevation="2">
           <div class="row" style="padding-bottom: 10px">
             <div class="col-xs-12 col-sm-6 col-md-6">
-              <v-carousel continuous cycle show-arrows-on-hover>
+              <v-carousel continuous cycle show-arrows-on-hover :hide-delimiters="mainMobile" delimiter-icon="mdi-minus">
                 <v-carousel-item
                   v-for="asset of variant.product.assets" :key="asset.id"
                 >
-                  <v-img aspect-ratio="2" contain :src="`${assetLink}/${asset.asset.source}`" alt="photo"/>
+                  <v-img aspect-ratio="2" contain :src="`${assetLink}/${asset.asset.source}`" alt="photo" :style="{'height': '100%'}"/>
                 </v-carousel-item>
               </v-carousel>
 
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6" style="padding: 0px;">
-              <v-toolbar color="primary">
+              <v-toolbar color="primary" :elevation="mainMobile ? '4': '0'">
                 <v-toolbar-title class="product-title" style="color: white;margin-top: 10px">
-                  <span style="font-weight: bold">{{ variant.name }}</span>
-                  <p class="product-cate">{{ variant.product.collection.name }}</p>
+                  <span style="font-weight: bold">{{variant.name}}</span>
+                  <p class="product-cate" style="color: white">{{variant.product.collection.name}}</p>
                 </v-toolbar-title>
               </v-toolbar>
               <v-expand-transition>
@@ -48,7 +48,7 @@
                         <p class="product-inventory"><label>Availability : </label>
                           <v-chip
                             class="ma-2"
-                            color="secondary"
+                            :color="lowPrice() === 0 ? 'red' : 'light-green'"
                             label
                             text-color="white"
                           >
@@ -216,6 +216,7 @@
             background-color="primary"
             right
             v-model="tabitem"
+            :show-arrows="mainMobile"
           >
             <v-tab>Description</v-tab>
             <v-tab>Specification</v-tab>
@@ -266,6 +267,7 @@ import {assetsURL} from "~/utils/global-constants";
 import {myTheme} from "~/utils/custom-theme";
 import {getProdRoute} from "~/utils/routingUtils";
 import {ICartItem} from "~/store/cart";
+import {isMobile} from "mobile-device-detect";
 
 @Component({
   layout: 'default',
@@ -307,8 +309,11 @@ export default class ProductView extends Vue {
   private gettingPrice = false
   private availablePrice: ProductVariantPrice[] = []
   private priceRequested = false
+  private theme = myTheme
 
-  lowPrice() {
+  private mainMobile = isMobile
+
+  lowPrice () {
     let mainPrice = 0
     for (const pr of this.price) {
       if (mainPrice === 0) {

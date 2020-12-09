@@ -1,70 +1,12 @@
 <template>
-  <section class="all-s" style="background-color: #212121">
-    <div class="ads-group v2 nospc">
+  <section class="all-s">
+    <div class="ads-group v2 nospc" style="margin-top: 68px;">
       <div class="container container-240">
         <div class="row" v-if="getHomePage.single.main">
-          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 set-w hidden-xs hidden-sm ">
-            <v-sheet class="vertical-wrapper" v-if="$route.path === '/'" elevation="4" style="z-index: 100000">
-              <v-list subheader>
-                <v-list-item v-for="child of GetCollectionTree" :key="child.id" v-if="child.name !== 'default'">
-
-                  <v-list-item-content v-if="child.children.length === 0" @click="$router.push(`/collection/${child.id}`)">
-                    <v-list-item-title>{{child.name}}</v-list-item-title>
-                  </v-list-item-content>
-                  <v-menu
-                    open-on-hover
-                    offset-x
-                    v-if="child.children.length > 0"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-list-item-content v-bind="attrs"
-                                           v-on="on" @click="$router.push(`/collection/${child.id}`)">
-                        <v-list-item-title>{{child.name}}</v-list-item-title>
-                      </v-list-item-content>
-                    </template>
-
-                    <v-card>
-                      <v-subheader>{{child.name}}</v-subheader>
-                      <v-list v-for="childcol of child.children" :key="childcol.id">
-                        <v-list-item @click="$router.push(`/collection/${childcol.id}`)" v-if="childcol.children.length === 0">
-                          <v-list-item-content>
-                            <v-list-item-title>{{childcol.name}}</v-list-item-title>
-                          </v-list-item-content>
-                        </v-list-item>
-                        <v-menu
-                          open-on-hover
-                          offset-x
-                          v-if="childcol.children.length > 0"
-                        >
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-list-item @click="$router.push(`/collection/${childcol.id}`)">
-                              <v-list-item-content>
-                                <v-list-item-title>{{childcol.name}}</v-list-item-title>
-                              </v-list-item-content>
-                            </v-list-item>
-                          </template>
-
-                          <v-card>
-                            <v-subheader>{{childcol.name}}</v-subheader>
-                            <v-list v-for="subitem of childcol.children" :key="subitem.id">
-                              <v-list-item @click="$router.push(`/collection/${subitem.id}`)">
-                                <v-list-item-content>
-                                  <v-list-item-title>{{subitem.name}}</v-list-item-title>
-                                </v-list-item-content>
-                              </v-list-item>
-                            </v-list>
-                          </v-card>
-                        </v-menu>
-                      </v-list>
-                    </v-card>
-                  </v-menu>
-                </v-list-item>
-              </v-list>
-            </v-sheet>
-          </div>
-          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 set-flex ">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 set-flex ">
             <div class="slide-home3" style="height: 500px !important;">
-              <v-carousel cycle continuous hide-delimiters>
+              <v-carousel cycle continuous hide-delimiter-background show-arrows-on-hover
+                          delimiter-icon="mdi-minus">
                 <v-carousel-item
                   v-for="(mainitems, index) of getHomePage.single.main" @click="onClickCarousel(mainitems)" :key="index"
                 >
@@ -85,47 +27,6 @@
                   </div>
                 </v-carousel-item>
               </v-carousel>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature v2">
-      <div class="container container-240">
-        <div class="feature-inside">
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img">
-              <i class="fas fa-truck icon-mega"></i>
-            </div>
-            <div class="feature-info v2">
-              <h3 class="title-white">Prompt Delivery</h3>
-              <p>With sites in 5 languages, we ship to over 200 countries & regions.</p>
-            </div>
-          </div>
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img"><i class="fas fa-credit-card icon-mega"></i></div>
-            <div class="feature-info v2">
-              <h3 class="title-white">Safe Payment</h3>
-              <p>Pay with the world’s most popular and secure payment methods.</p>
-            </div>
-          </div>
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img">
-              <i class="fas fa-shield-alt icon-mega"></i>
-            </div>
-            <div class="feature-info v2">
-              <h3 class="title-white">Shop with Confidence</h3>
-              <p>Our Buyer Protection covers your purchase from click to delivery.</p>
-            </div>
-          </div>
-          <div class="feature-block v2 text-center">
-            <div class="feature-block-img icon-mega">
-              <i class="fas fa-headset"></i>
-            </div>
-            <div class="feature-info v2">
-              <h3 class="title-white">24/7 Help Center</h3>
-              <p>Round-the-clock assistance for a smooth shopping experience.</p>
             </div>
           </div>
         </div>
@@ -221,19 +122,13 @@ export default class Index extends Vue {
     }
   }
 
-  mounted() {
-    console.log(this.getHomePage)
-    /*(<any>$('.js-slider-3items')).not('.slick-initialized').slick({
-      autoplay: true,
-      infinite: true,
-      arrows: true,
-      dots: true
-    });*/
-  }
 }
 </script>
 
 <style scoped>
+.theme--dark.v-btn.v-btn--icon {
+  color: #F44336;
+}
 .icon-mega {
   background: -webkit-linear-gradient(#ffbf00, #a67c00);
   font-size: 40px;
