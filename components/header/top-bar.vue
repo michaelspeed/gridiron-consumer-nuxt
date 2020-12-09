@@ -240,7 +240,6 @@ import {mapState} from "vuex";
 import {myTheme} from "~/utils/custom-theme";
 import {getCollectionRoute, getFacetRoute} from "~/utils/routingUtils";
 import { isMobile } from 'mobile-device-detect';
-
 @Component({
   apollo: {
     GetDefaultStore: {
@@ -263,29 +262,20 @@ export default class TopBar extends Vue {
   private collapseOnScroll = true
   private auth = false
   private carts = false
-
   private GetMenu
-
   private menu: any[] = []
-
   private opencart = false;
   private lemail = ''
   private lpass = ''
   private loginin = false
-
   private searchText = ''
-
   private menuActive = false
-
   private theme = myTheme
-
   private mainMobile = isMobile
-
   @Watch('GetMenu')
   onGetMenu() {
     this.menu = JSON.parse(this.GetMenu.menu)
   }
-
   OnClickMenu(item) {
     if (item.target === 'COLLECTION') {
       this.$router.push(getCollectionRoute(item.targetId))
@@ -294,16 +284,13 @@ export default class TopBar extends Vue {
     }
     this.menuActive = false
   }
-
   user() {
     return this.$store.state.user.user
   }
-
   mounted() {
     this.$store.dispatch('user/autoLogin')
     this.$store.dispatch('defstore/setDefault')
   }
-
   onClickLogin() {
     if (this.lemail === ''){
       this.$message.error('Please enter your Email')
@@ -340,21 +327,17 @@ export default class TopBar extends Vue {
         this.loginin = false
       })
   }
-
   onGoToCart() {
     this.$router.push('/cart')
     this.$store.dispatch('cart/toggleCart')
     this.opencart = false
   }
-
   onClickCart() {
     this.$store.dispatch('cart/toggleCart')
   }
-
   onRemoveItem(index) {
     this.$store.dispatch('cart/removeFromCart', index)
   }
-
   onClickAccount() {
     if (this.user() === undefined) {
       this.$router.push('/login')
@@ -363,9 +346,7 @@ export default class TopBar extends Vue {
     }
     this.auth = false
   }
-
   onClickSearch() {
-
   }
 }
 </script>
