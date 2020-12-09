@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #212121">
+  <div style="background-color: white;">
     <div class="container container-240">
       <div class="single-product-detail product-bundle product-aff">
         <ul class="breadcrumb" :style="{'margin-top': '50px'}">
@@ -19,7 +19,7 @@
               </v-carousel>
 
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6" style="padding: 0px;">
+            <div class="col-xs-12 col-sm-6 col-md-6" style="padding: 0">
               <v-toolbar color="primary" :elevation="mainMobile ? '4': '0'">
                 <v-toolbar-title class="product-title" style="color: white;margin-top: 10px">
                   <span style="font-weight: bold">{{variant.name}}</span>
@@ -194,15 +194,6 @@
                           </div>
                         </div>
                       </v-sheet>
-                      <div class="hot-line e-gradient" style="background-color: #212121">
-                        <p style="background-color: #212121">Hotline</p>
-                        <div class="flex align-center tele" style="background-color: #212121">
-                          <img src="/img/feature/hotline.png" alt="">
-                          <div class="phone-number">
-                            <p>(+123) 456 789 </p>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

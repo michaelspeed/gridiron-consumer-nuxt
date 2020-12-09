@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <div>
       <top-bar/>
       <v-sheet
@@ -44,7 +44,7 @@ export default class Default  extends Vue {
   font-family: 'Poppins';
 }
 body {
-  background-color: #212121
+  background-color: white;
 }
 a {
   color: white
