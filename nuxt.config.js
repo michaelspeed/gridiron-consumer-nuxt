@@ -83,8 +83,13 @@ export default {
 
   vuetify: {
     theme: {
-      dark: false,
+      dark: true,
       themes: {
+        dark: {
+          primary: '#ffbf00', // #E53935
+          secondary: '#a67c00',
+          accent: '#ffdc73', // #3F51B5
+        },
         light: {
           primary: '#F44336', // #E53935
           secondary: '#FFC107',

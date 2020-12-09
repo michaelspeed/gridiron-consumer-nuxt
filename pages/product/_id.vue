@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: white">
+  <div style="background-color: #212121">
     <div class="container container-240">
       <div class="single-product-detail product-bundle product-aff">
         <ul class="breadcrumb" :style="{'margin-top': '50px'}">
@@ -7,7 +7,7 @@
           <li class="active" v-if="!mainMobile">{{variant.product.collection.name}}</li>
           <li class="active">{{variant.name}} </li>
         </ul>
-        <v-sheet elevation="2" >
+        <v-sheet elevation="2">
           <div class="row" style="padding-bottom: 10px">
             <div class="col-xs-12 col-sm-6 col-md-6">
               <v-carousel continuous cycle show-arrows-on-hover :hide-delimiters="mainMobile" delimiter-icon="mdi-minus">
@@ -38,14 +38,14 @@
                           dense
                           :value="variant.rating"
                         ></v-rating>
-                        <div class="number-rating">( {{variant.reviews.length}} reviews )</div>
+                        <div class="number-rating">( {{ variant.reviews.length }} reviews )</div>
                       </div>
 
                       <div class="product-price" v-if="lowPrice() !== 0">
-                        <h2>₹ {{ lowPrice() }}</h2>
+                        <h2 class="title-white">₹ {{ lowPrice() }}</h2>
                       </div>
                       <div class="availability">
-                        <p class="product-inventory"> <label>Availability : </label>
+                        <p class="product-inventory"><label>Availability : </label>
                           <v-chip
                             class="ma-2"
                             :color="lowPrice() === 0 ? 'red' : 'light-green'"
@@ -58,13 +58,13 @@
                         </p>
                       </div>
                       <div class="product-brand" v-for="facet of variant.product.facets">
-                        <label>{{facet.facet.name}} :</label>
-                        <span>{{facet.code}}</span>
+                        <label>{{ facet.facet.name }} :</label>
+                        <span>{{ facet.code }}</span>
                       </div>
                       <div style="margin-bottom: 10px">
                         <div v-for="opts of variant.product.options" :key="opts.id">
                           <div style="margin-bottom: 5px">
-                            <label class="text-capitalize">{{opts.name}} :</label>
+                            <label class="text-capitalize">{{ opts.name }} :</label>
                           </div>
                           <div>
                     <span v-for="miniopts of opts.options" :key="miniopts.id">
@@ -76,7 +76,7 @@
                       >
                         <a href="javascript:;" @click="splitNames(miniopts.code)"
                            :style="{'color': optColor(miniopts.code).color}">
-                          {{miniopts.name}}
+                          {{ miniopts.name }}
                         </a>
                       </v-chip>
                       <!--<a href="javascript:;" @click="splitNames(miniopts.code)"
@@ -89,12 +89,12 @@
                       </div>
                       <div style="margin-top: 10px">
                         <div v-if="!priceRequested && availablePrice.length === 0">
-                          <div >
+                          <div>
                             <div>
                               <span>Please enter zip code</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center">
-                              <a-input placeholder="Please enter your zipcode" v-model="zipcode"></a-input>
+                              <a-input placeholder="Please enter your zipcode" style="color: white" v-model="zipcode"></a-input>
                               <div>
                                 <v-btn
                                   elevation="2"
@@ -119,20 +119,21 @@
                         </div>
                         <v-expand-transition>
                           <div v-if="priceRequested && !gettingPrice && availablePrice.length > 0">
-                            <v-card>
+                            <v-card elevation="4">
                               <v-card-title>
-                                Available with {{availablePrice.length}} Seller
+                                Available with {{ availablePrice.length }} Seller
                               </v-card-title>
                               <v-divider></v-divider>
                               <v-card-text>
-                                <div style="display: flex; justify-content: space-between; align-items: center" v-for="price of availablePrice">
-                                  <span class="text-muted">{{price.store.storeName}}</span>
+                                <div style="display: flex; justify-content: space-between; align-items: center"
+                                     v-for="price of availablePrice">
+                                  <span class="text-muted">{{ price.store.storeName }}</span>
                                   <v-btn
                                     elevation="2"
                                     rounded
                                     color="primary"
                                     small
-                                    style="margin-left: 6px"  @click="onClickAddToCart(price)"
+                                    style="margin-left: 6px" @click="onClickAddToCart(price)"
                                   >
                                     Add To Cart
                                   </v-btn>
@@ -146,48 +147,63 @@
                     </v-sheet>
                   </div>
                   <div class="single-product-feature s-50 hidden-xs hidden-sm">
-                    <v-sheet style="padding: 10px">
-                      <div class="bd-7">
+                    <div style="padding: 10px">
+                      <v-sheet elevation="5" class="bd-7">
                         <div class="single-feature-box">
                           <div class="single-feature-img">
-                            <img src="/img/feature/credit-card2.png" alt="">
+                            <v-icon
+                              x-large
+                              color="primary"
+                            >
+                              mdi-shield-key
+                            </v-icon>
                           </div>
                           <div class="single-feature-info">
-                            <h3>Safe Payment</h3>
+                            <h3 class="title-white">Safe Payment</h3>
                             <p>Pay with the world’s most payment methods.</p>
                           </div>
                         </div>
 
                         <div class="single-feature-box">
                           <div class="single-feature-img">
-                            <img src="/img/feature/safety2.png" alt="">
+                            <v-icon
+                              x-large
+                              color="primary"
+                            >
+                              mdi-shield-check
+                            </v-icon>
                           </div>
                           <div class="single-feature-info">
-                            <h3>Confidence</h3>
+                            <h3 class="title-white">Confidence</h3>
                             <p>Protection covers your purchase</p>
                           </div>
                         </div>
 
                         <div class="single-feature-box">
                           <div class="single-feature-img">
-                            <img src="/img/feature/truck2.png" alt="">
+                            <v-icon
+                              x-large
+                              color="primary"
+                            >
+                              mdi-truck
+                            </v-icon>
                           </div>
                           <div class="single-feature-info">
-                            <h3>Worldwide Delivery</h3>
+                            <h3 class="title-white">Worldwide Delivery</h3>
                             <p>Ship to over 200 countries & regions.</p>
                           </div>
                         </div>
-                      </div>
-                      <div class="hot-line e-gradient">
-                        <p>Hotline</p>
-                        <div class="flex align-center tele">
+                      </v-sheet>
+                      <div class="hot-line e-gradient" style="background-color: #212121">
+                        <p style="background-color: #212121">Hotline</p>
+                        <div class="flex align-center tele" style="background-color: #212121">
                           <img src="/img/feature/hotline.png" alt="">
                           <div class="phone-number">
                             <p>(+123) 456 789 </p>
                           </div>
                         </div>
                       </div>
-                    </v-sheet>
+                    </div>
                   </div>
                 </div>
               </v-expand-transition>
@@ -208,8 +224,8 @@
             <v-tab-item
               :key="0"
             >
-              <v-container fluid>
-                <div v-html="variant.product.description"></div>
+              <v-container fluid dark>
+                <div v-html="variant.product.description" style="background-color: #212121"></div>
               </v-container>
             </v-tab-item>
           </v-tabs>
@@ -271,7 +287,7 @@ import {isMobile} from "mobile-device-detect";
     })
     const price = await client.query({
       query: SingProductPriceDocument,
-      variables:{
+      variables: {
         id: context.route.params.id
       }
     })
@@ -293,7 +309,6 @@ export default class ProductView extends Vue {
   private gettingPrice = false
   private availablePrice: ProductVariantPrice[] = []
   private priceRequested = false
-
   private theme = myTheme
 
   private mainMobile = isMobile
@@ -310,7 +325,7 @@ export default class ProductView extends Vue {
     return mainPrice
   }
 
-  optColor(name){
+  optColor(name) {
     const namesplit = name.split(" ")
     const varsplit = this.variant.name.replace(/[^a-zA-Z0-9 ]/gi, '').split(" ")
     if (!namesplit.every(elm => varsplit.includes(elm))) {
@@ -327,13 +342,13 @@ export default class ProductView extends Vue {
   }
 
   onClickAddToCart(price: ProductVariantPrice) {
-    const item :ICartItem = {
+    const item: ICartItem = {
       variant: {
         id: this.variant.id,
         name: this.variant.name,
         assetUrl: `${this.assetLink}/${this.variant.asset!.asset.preview}`
       },
-      store:{
+      store: {
         id: price.store!.id,
         storeName: price.store!.storeName
       },
@@ -346,11 +361,11 @@ export default class ProductView extends Vue {
     this.$store.dispatch('cart/addToCart', item)
   }
 
-  getProductPrices(){
+  getProductPrices() {
     this.gettingPrice = true
     this.$apollo.mutate({
       mutation: GetStocksAndZipAvailabilityDocument,
-      variables:{
+      variables: {
         variantId: this.variant.id,
         zipf: Number(this.zipcode)
       }
@@ -443,16 +458,22 @@ export default class ProductView extends Vue {
 .slick-cloned {
   height: 100px;
 }
+
 .btn-gradient {
-  background: #EAFC9D;
-  background-image: linear-gradient(122deg, #D9F66B, #71A206);
+  background: #ffbf00;
+  background-image: linear-gradient(122deg, #ffbf00, #a67c00);
 }
+
 .e-gradient {
   background: #EAFC9D;
   background-image: linear-gradient(122deg, #D9F66B, #71A206);
 }
+
 .hot-line {
-  background: -webkit-gradient(linear, left top, right top, from(#71A206), to(#D9F66B));
-  background-image: linear-gradient(122deg, #D9F66B, #71A206);
+  background: -webkit-gradient(linear, left top, right top, from(#ffbf00), to(#a67c00));
+  background-image: linear-gradient(122deg, #ffbf00, #a67c00);
+}
+.title-white {
+  color: white;
 }
 </style>

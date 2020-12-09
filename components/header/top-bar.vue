@@ -5,7 +5,6 @@
     :collapse-on-scroll="collapseOnScroll"
     scroll-target="#scrolling-techniques-6"
     absolute
-    elevate-on-scroll
     min-width="370px"
   >
     <div>
@@ -39,6 +38,43 @@
       v-if="$store.state.user.user"
       @click="$router.push('/accounts')"
     >{{$store.state.user.user.firstName}}</v-btn>
+    <v-text-field
+      class="hidden-sm-and-down"
+      v-model="searchText"
+      append-icon="mdi-magnify"
+      solo
+      clear-icon="mdi-close-circle"
+      clearable
+      label="Search ..."
+      type="text"
+      dense
+      style="margin-top: 20px; width: 80px"
+      @click:append="onClickSearch"
+    ></v-text-field>
+    <v-menu offset-y tile color="primary" v-if="$store.state.user.user">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          text
+          style="color: white"
+          v-bind="attrs"
+          v-on="on"
+        >{{$store.state.user.user.firstName}}</v-btn>
+      </template>
+      <v-list>
+        <v-list-item @click="$router.push('/accounts')">
+          <v-list-item-title>Profile</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/accounts?q=order')">
+          <v-list-item-title>Orders</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="$router.push('/accounts?q=address')">
+          <v-list-item-title>Addresses</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="onClickLogout">
+          <v-list-item-title>Logout</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-dialog
       v-model="auth"
       width="60vw"
@@ -79,17 +115,17 @@
           </v-sheet>
           <div class="col-md-6" style="padding: 25px">
             <div>
-              <h1>Login</h1>
+              <h1 class="title-white">Login</h1>
             </div>
             <div style="margin-top: 30px">
               <div>
                 <div class="form-group">
                   <label for="inputfname_2" class=" control-label">Email <span class="f-red">*</span></label>
-                  <a-input placeholder="email" class="form-control form-account" id="inputfname_2" size="large" v-model="lemail"/>
+                  <a-input placeholder="email" class="form-control form-account" style="color: white" id="inputfname_2" size="large" v-model="lemail"/>
                 </div>
                 <div class="form-group">
                   <label for="inputfname_3" class=" control-label">Password <span class="f-red">*</span></label>
-                  <a-input placeholder="password" class="form-control form-account" id="inputfname_3" size="large" type="password" v-model="lpass"/>
+                  <a-input placeholder="password" class="form-control form-account" style="color: white" id="inputfname_3" size="large" type="password" v-model="lpass"/>
                 </div>
                 <div class="cart-total-bottom v2">
                   <v-btn color="primary" tile @click="onClickLogin" v-if="!loginin">Login</v-btn>
@@ -144,7 +180,7 @@
         <div>
           <ul class="" style="padding-left: 0px">
             <li class="" v-for="(cartitems, index) of cart" :key="cartitems.variant.id">
-              <v-card style="padding: 10px; width: 100%; margin: 10px">
+              <v-card style="padding: 10px; width: 100%; margin: 10px" color="secondary">
                 <div class="d-flex justify-content-between">
                   <div class="product-img-wrap">
                     <a href="#">
@@ -347,6 +383,12 @@ export default class TopBar extends Vue {
     this.auth = false
   }
   onClickSearch() {
+  }
+
+  onClickLogout() {
+    this.$apolloHelpers.onLogout()
+    this.$store.dispatch('user/removeUser')
+    this.$router.push('/')
   }
 }
 </script>

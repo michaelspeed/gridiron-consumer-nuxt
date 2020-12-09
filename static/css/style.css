@@ -12263,9 +12263,9 @@ span.star:before {
       margin-bottom: 20px; } }
   .ecome-heading h1 {
     font-size: 22px;
-    background: #fff; }
+    background: #ffbf00; }
     .ecome-heading h1.v2 {
-      background: #f7f7f7; }
+      background: #ffbf00; }
   .ecome-heading .btn-show {
     font-size: 16px;
     color: #999999;
@@ -12274,12 +12274,12 @@ span.star:before {
     height: 56px;
     display: inline-block;
     text-align: center;
-    border: 1px solid #eaeaea;
+    border: 1px solid #ffbf00;
     font-weight: 500;
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
-    background: #fff;
+    background: #ffbf00;
     position: relative;
     z-index: 1;
     border-radius: 999px; }
@@ -12294,7 +12294,7 @@ span.star:before {
       -webkit-transition: all 0.3s ease 0s;
       transition: all 0.3s ease 0s;
       -o-transition: all 0.3s ease 0s;
-      color: #fff;
+      color: #ffbf00;
       background: #000;
       border-color: #000; }
   @media (min-width: 480px) {
@@ -12303,7 +12303,7 @@ span.star:before {
       position: absolute;
       left: 0;
       right: 0;
-      border-bottom: 1px solid #ededed; } }
+      border-bottom: 1px solid #ffbf00; } }
   .ecome-heading.style2 h1 {
     margin: 13px 0; }
     @media (min-width: 480px) {
