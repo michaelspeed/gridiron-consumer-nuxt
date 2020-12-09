@@ -10,7 +10,7 @@
                 <v-carousel-item
                   v-for="(mainitems, index) of getHomePage.single.main" @click="onClickCarousel(mainitems)" :key="index"
                 >
-                  <div class="e-slide-img" style="height: 500px !important; background-color: #212121">
+                  <div class="e-slide-img" style="height: 500px !important;">
                     <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
                       <!--<img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4">-->
                       <v-img :src="`${assetLink}/${mainitems.preview.preview}`" contain height="450px"></v-img>
@@ -37,8 +37,8 @@
       <div class="container container-240">
         <client-only>
           <div v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}" :key="index">
-            <div class="ecome-heading style2" style="background-color: #212121">
-              <h1 style="background-color: #212121" class="title-white">{{listitem.name}}</h1>
+            <div>
+              <h1 class="primary--text">{{listitem.name}}</h1>
             </div>
             <div class="row">
               <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 product-item" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">

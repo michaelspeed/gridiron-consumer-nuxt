@@ -6,6 +6,7 @@
     scroll-target="#scrolling-techniques-6"
     absolute
     min-width="370px"
+    elevation="0"
   >
     <div>
       <v-btn
@@ -38,19 +39,6 @@
       v-if="$store.state.user.user"
       @click="$router.push('/accounts')"
     >{{$store.state.user.user.firstName}}</v-btn>
-    <v-text-field
-      class="hidden-sm-and-down"
-      v-model="searchText"
-      append-icon="mdi-magnify"
-      solo
-      clear-icon="mdi-close-circle"
-      clearable
-      label="Search ..."
-      type="text"
-      dense
-      style="margin-top: 20px; width: 80px"
-      @click:append="onClickSearch"
-    ></v-text-field>
     <v-menu offset-y tile color="primary" v-if="$store.state.user.user">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -276,6 +264,8 @@ import {mapState} from "vuex";
 import {myTheme} from "~/utils/custom-theme";
 import {getCollectionRoute, getFacetRoute} from "~/utils/routingUtils";
 import { isMobile } from 'mobile-device-detect';
+
+
 @Component({
   apollo: {
     GetDefaultStore: {
