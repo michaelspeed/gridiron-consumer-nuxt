@@ -263,11 +263,6 @@ import {isMobile} from "mobile-device-detect";
 @Component({
   layout: 'default',
   scrollToTop: true,
-  head: {
-    script: [
-      {src: '/js/main.js', body: true},
-    ]
-  },
   async asyncData(context: any) {
     const client = context.app.apolloProvider.defaultClient
     const variant = await client.query({
@@ -302,7 +297,7 @@ export default class ProductView extends Vue {
   private priceRequested = false
   private theme = myTheme
 
-  private mainMobile = isMobile
+  private mainMobile = this.$device.isMobile
 
   lowPrice () {
     let mainPrice = 0

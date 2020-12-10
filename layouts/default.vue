@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <div>
-      <top-bar/>
+      <client-only>
+        <top-bar/>
+      </client-only>
       <v-sheet
         id="scrolling-techniques-6"
         class="overflow-y-auto"
