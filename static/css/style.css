@@ -15851,7 +15851,7 @@ span.star:before {
 .navbar-nav > li {
   text-align: left; }
   .navbar-nav > li.level1 {
-    border-bottom: 1px solid #ddd; }
+    border-bottom: 1px solid #333333; }
     .navbar-nav > li.level1:last-child {
       border: 0; }
     @media (min-width: 1199px) {
@@ -15872,7 +15872,7 @@ span.star:before {
         line-height: 18px;
         padding: 24px 20px 24px 20px; }
         .navbar-nav > li > a:before {
-          border-right: 1px solid #dadada;
+          border-right: 1px solid #333333;
           content: "";
           height: 16px;
           left: 0;
@@ -17799,7 +17799,7 @@ footer .f-top {
       border-right: 0;
       position: relative; }
       .feature-inside .feature-block.v2:before {
-        border-right: 1px solid #ebebeb;
+        border-right: 1px solid #333333;
         content: "";
         height: 99px;
         left: 0;

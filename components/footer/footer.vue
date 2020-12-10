@@ -8,6 +8,9 @@
               <div class="f-logo">
                 <a href="#"></a>
               </div>
+              <div style="margin-bottom: 10px; margin-top: -10px;margin-left: 25px">
+                <img src="/logo/mainlogo.png" alt="" style="height: 70px; cursor: pointer; background-color: #ffbf00" @click="$router.push('/')">
+              </div>
               <ul class="footer-block-content">
                 <li class="address">
                   <span>45 Grand Central Terminal New York,NY 1017 United State USA</span>
@@ -33,7 +36,7 @@
           </div>
           <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
             <div class="footer-block">
-              <h3 class="footer-block-title">Quick menu</h3>
+              <h3 class="footer-block-title primary--text">Quick menu</h3>
               <ul class="footer-block-content">
                 <li><a href="#">TV & Video</a></li>
                 <li><a href="#">Home Audio & Theater</a></li>
@@ -48,7 +51,7 @@
           </div>
           <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
             <div class="footer-block">
-              <h3 class="footer-block-title">Customer Service</h3>
+              <h3 class="footer-block-title primary--text">Customer Service</h3>
               <ul class="footer-block-content">
                 <li><a href="#">My Account</a></li>
                 <li><a href="#">Track your Order</a></li>
@@ -61,7 +64,7 @@
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="footer-block">
               <div class="footer-block-phone">
-                <h3 class="footer-block-title">Hot Line</h3>
+                <h3 class="footer-block-title primary--text">Hot Line</h3>
                 <p class="phone-desc">Call Us toll Free</p>
                 <p class="phone-light">(+123) 456 789 or (+123) 666 888</p>
               </div>
@@ -75,7 +78,7 @@
     <div class="f-bottom">
       <div class="container container-240">
         <div class="row flex lr">
-          <div class="col-xs-6 f-copyright"><span>© 2020 AssamMart. All rights reserved.</span></div>
+          <div class="col-xs-6 primary--text"><span>© 2020 AssamMart. All rights reserved.</span></div>
           <div class="col-xs-6 f-payment hidden-xs">
             <a href="#"><img src="img/payment/mastercard.png" alt="" class="img-reponsive"></a>
             <a href="#"><img src="img/payment/paypal.png" alt="" class="img-reponsive"></a>

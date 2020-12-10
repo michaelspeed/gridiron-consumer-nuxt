@@ -1,10 +1,10 @@
 <template>
-  <section class="all-s" style="background-color: #212121">
+  <section class="all-s" style="background-color: #23272b">
     <div class="ads-group v2 nospc">
       <div class="container container-240">
         <div class="row" v-if="getHomePage.single.main">
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 set-w hidden-xs hidden-sm ">
-            <v-sheet class="vertical-wrapper" v-if="$route.path === '/'" elevation="4" style="z-index: 100000">
+            <v-sheet class="vertical-wrapper" v-if="$route.path === '/'" elevation="4">
               <v-list subheader>
                 <v-list-item v-for="child of GetCollectionTree" :key="child.id" v-if="child.name !== 'default'">
 
@@ -68,18 +68,22 @@
                 <v-carousel-item
                   v-for="(mainitems, index) of getHomePage.single.main" @click="onClickCarousel(mainitems)" :key="index"
                 >
-                  <div class="e-slide-img" style="height: 500px !important; background-color: #212121">
+                  <div class="e-slide-img" style="height: 500px !important; background-color: #23272b">
                     <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
                       <!--<img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4">-->
                       <v-img :src="`${assetLink}/${mainitems.preview.preview}`" contain height="450px"></v-img>
                     </a>
                     <v-sheet class="slide-content v2" style="padding: 20px;" color="primary" elevation="2">
-                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-if="mainitems.type === 'product'">{{mainitems.target.productName.substring(0, 30)}}</h2>
-                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'variant'">{{mainitems.target.name.substring(0, 30)}}</h2>
-                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'category'">{{mainitems.target.name.substring(0, 30)}}</h2>
+                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-if="mainitems.type === 'product' && !mainMobile">{{mainitems.target.productName.substring(0, 30)}}</h2>
+                      <h6 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-if="mainitems.type === 'product' && mainMobile">{{mainitems.target.productName.substring(0, 30)}}</h6>
+                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'variant' && !mainMobile">{{mainitems.target.name.substring(0, 30)}}</h2>
+                      <h6 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'variant' && mainMobile">{{mainitems.target.name.substring(0, 30)}}</h6>
+                      <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'category' && !mainMobile">{{mainitems.target.name.substring(0, 30)}}</h2>
+                      <h6 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-else-if="mainitems.type === 'category' && mainMobile">{{mainitems.target.name.substring(0, 30)}}</h6>
                       <v-btn
                         text
                         color="secondary"
+                        :x-small="mainMobile"
                       >Shop Now</v-btn>
                     </v-sheet>
                   </div>
@@ -91,7 +95,7 @@
       </div>
     </div>
 
-    <div class="feature v2">
+    <div class="feature v2" v-if="!mainMobile">
       <div class="container container-240">
         <div class="feature-inside">
           <div class="feature-block v2 text-center">
@@ -136,14 +140,19 @@
       <div class="container container-240">
         <client-only>
           <div v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}" :key="index">
-            <div class="ecome-heading style2" style="background-color: #212121">
-              <h1 style="background-color: #212121" class="title-white">{{listitem.name}}</h1>
+            <div class="ecome-heading style2" style="background-color: #23272b">
+              <h1 style="background-color: #23272b" class="title-white">{{listitem.name}}</h1>
             </div>
-            <div class="row">
-              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 product-item" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">
+            <v-row>
+              <v-col sm="6" md="3" lg="3" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">
+                <HomeListItem :item="sublistitem"/>
+              </v-col>
+            </v-row>
+            <!--<div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 product-item" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">
                 <HomeListItem :item="sublistitem"/>
               </div>
-            </div>
+            </div>-->
           </div>
         </client-only>
         <!--<div class="row">
@@ -185,6 +194,7 @@ import {assetsURL} from "~/utils/global-constants";
 import HomeListItem from "~/components/Home/HomeListItem.vue";
 import {getProdRoute, getVariantRoute} from "~/utils/routingUtils";
 import VueSlickCarousel from 'vue-slick-carousel'
+import {isMobile} from "mobile-device-detect";
 
 @Component({
   components: {HomeListItem, VueSlickCarousel},
@@ -212,6 +222,8 @@ export default class Index extends Vue {
   private assetLink = assetsURL
 
   private listIndex = 0
+
+  private mainMobile = isMobile
 
   onClickCarousel(item) {
     if (item.type === 'variant') {

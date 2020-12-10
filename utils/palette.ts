@@ -12,5 +12,6 @@ export const palette = {
   primaryDark: '#a67c00',
   secondary: '#b2ff59',
   secondaryLight: '#e7ff8c',
-  secondaryDark: '#7ecb20'
+  secondaryDark: '#7ecb20',
+  alternateDark: '#23272b'
 }

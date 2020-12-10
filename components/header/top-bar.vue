@@ -1,25 +1,52 @@
 <template>
   <v-app-bar
-    color="primary"
+    color="#23272b"
     absolute
-    min-width="370px"
+    elevation="0"
+    style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000"
   >
-    <v-app-bar-nav-icon style="color: white"></v-app-bar-nav-icon>
-    <img src="/logo/logo.png" alt="" style="height: 90px; cursor: pointer" @click="$router.push('/')">
+    <v-btn
+      icon
+      color="primary"
+      :style="{'margin-left': 10, 'margin-right': mainMobile ? 0 : 10}"
+      @click="menuActive = true"
+    >
+      <v-icon color="primary">mdi-arrange-bring-to-front</v-icon>
+    </v-btn>
+    <img v-if="!mainMobile" src="/logo/mainlogo.png" alt="" style="height: 70px; cursor: pointer; background-color: #ffbf00" @click="$router.push('/')">
+    <img v-if="mainMobile" src="/logo/mainlogo.png" alt="" style="height: 40px; cursor: pointer; background-color: #ffbf00" @click="$router.push('/')">
     <v-spacer></v-spacer>
-    <v-text-field
-      class="hidden-sm-and-down"
-      v-model="searchText"
-      append-icon="mdi-magnify"
-      solo
-      clear-icon="mdi-close-circle"
-      clearable
-      label="Search ..."
-      type="text"
-      dense
-      style="margin-top: 20px; width: 80px"
-      @click:append="onClickSearch"
-    ></v-text-field>
+    <nav class="main-menu flex align-center">
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav js-menubar">
+          <li class="level1" v-for="(menuitem, index) of menu" :class="{'dropdown': true}" :key="index">
+            <a href="javascript:;" @click="OnClickMenu(menuitem)" v-if="!menuitem.children || menuitem.children.length === 0">{{menuitem.title.substring(0, 10)}}</a>
+            <v-menu
+              open-on-hover
+              offset-y
+              transition="scale-transition"
+              v-if="menuitem.children && menuitem.children.length > 0"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <a href="javascript:;" @click="OnClickMenu(menuitem)" v-bind="attrs"
+                   v-on="on">{{menuitem.title.substring(0, 10)}}</a>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(subitem, subindex) of menuitem.children"
+                  :key="subindex"
+                  @click="OnClickMenu(menuitem)"
+                >
+                  <v-list-item-title>{{subitem.title.substring(0, 10)}}</v-list-item-title>
+                  <!--<a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a>-->
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+          </li>
+        </ul>
+      </div>
+    </nav>
     <v-menu offset-y tile color="primary" v-if="$store.state.user.user">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -46,7 +73,7 @@
     </v-menu>
     <v-dialog
       v-model="auth"
-      width="60vw"
+      :width="mainMobile ? '100vw': '60vw'"
       v-if="!$store.state.user.user"
     >
       <template v-slot:activator="{ on, attrs }">
@@ -55,30 +82,43 @@
           style="color: white"
           v-bind="attrs"
           v-on="on"
+          color="primary"
+          v-if="!mainMobile"
         >Login / register</v-btn>
+        <v-btn
+          icon
+          color="primary"
+          v-bind="attrs"
+          v-on="on"
+          x-small
+          v-if="mainMobile"
+          style="margin-left: 5px"
+        >
+          <v-icon color="primary">mdi-lock</v-icon>
+        </v-btn>
       </template>
       <v-sheet>
         <div class="row">
           <v-sheet class="col-md-6" color="primary" style="padding: 25px">
             <div class="d-flex flex-row justify-content-center align-items-center">
               <div>
-                <img src="/logo/logo.png" alt="" style="height: 100px"/>
+                <img src="/logo/coloredlogo.jpg" alt="" style="height: 100px"/>
               </div>
             </div>
-            <h3 style="color: white; margin-top: -20px; margin-left: 10px">Get access to lot of amazing products</h3>
+            <h3 style="color: #23272b; margin-left: 10px">Get access to lot of amazing products</h3>
           </v-sheet>
           <div class="col-md-6" style="padding: 25px">
             <div>
-              <h1 class="title-white">Login</h1>
+              <h1 class="primary--text">Login</h1>
             </div>
             <div style="margin-top: 30px">
               <div>
                 <div class="form-group">
-                  <label for="inputfname_2" class=" control-label">Email <span class="f-red">*</span></label>
+                  <label for="inputfname_2" class=" control-label primary--text">Email <span class="f-red">*</span></label>
                   <a-input placeholder="email" class="form-control form-account" style="color: white" id="inputfname_2" size="large" v-model="lemail"/>
                 </div>
                 <div class="form-group">
-                  <label for="inputfname_3" class=" control-label">Password <span class="f-red">*</span></label>
+                  <label for="inputfname_3" class=" control-label primary--text">Password <span class="f-red">*</span></label>
                   <a-input placeholder="password" class="form-control form-account" style="color: white" id="inputfname_3" size="large" type="password" v-model="lpass"/>
                 </div>
                 <div class="cart-total-bottom v2">
@@ -100,7 +140,7 @@
     </v-dialog>
     <v-btn
       icon
-      color="white"
+      color="primary"
       @click="opencart = true"
       v-if="$store.state.cart.cart.length === 0"
     >
@@ -125,7 +165,7 @@
     <v-dialog
       v-model="opencart"
       color="primary"
-      width="60vw"
+      :width="mainMobile ? '100vw': '60vw'"
     >
       <v-sheet color="primary" style="padding: 20px">
         <h2 style="color: white;">Cart</h2>
@@ -183,19 +223,61 @@
         </v-card-actions>
       </v-sheet>
     </v-dialog>
+    <v-bottom-sheet v-model="menuActive" fullscreen>
+      <v-sheet elevation="4" style="height: 100%;" :style="{'padding': mainMobile ? 0 : 20}">
+        <v-card-title style="display: flex; justify-content: space-between; align-items: center;" v-if="GetDefaultStore">
+          <img v-if="!mainMobile" src="/logo/mainlogo.png" alt="" style="height: 70px; cursor: pointer; background-color: #ffbf00" @click="$router.push('/')">
+          <img v-if="mainMobile" src="/logo/mainlogo.png" alt="" style="height: 40px; cursor: pointer; background-color: #ffbf00" @click="$router.push('/')">
+          <v-btn
+            icon
+            color="primary"
+            @click="menuActive = false"
+          >
+            <v-icon color="primary">mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <hr style="border-top: 1px solid #2e3439"/>
+        <div style="margin-left: 35px">
+          <h4 :style="{'color': theme['color-primary-500']}">Golden Choice</h4>
+        </div>
+        <div class="row" style="padding: 20px">
+          <div class="col-md-4 col-sm-6 col-xs-12" v-for="(menuitem, index) of menu" :key="index">
+            <v-btn text color="primary" :x-small="mainMobile" @click="OnClickMenu(menuitem)">{{menuitem.title}}</v-btn>
+            <div v-if="menuitem.children && menuitem.children.length > 0">
+              <v-list :dense="mainMobile">
+                <v-list-item
+                  v-for="(subitem, subindex) of menuitem.children"
+                  :key="subindex"
+                  @click="OnClickMenu(subitem)"
+                >
+                  <v-list-item-title>{{subitem.title}}</v-list-item-title>
+                  <!--<a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a>-->
+                </v-list-item>
+              </v-list>
+            </div>
+          </div>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </v-app-bar>
 </template>
 
 <script lang="ts">
 import {Component, Vue, Watch} from "nuxt-property-decorator";
-import {GetDefaultStoreDocument, LoginUserDocument, Store} from "~/gql";
+import {GetDefaultStoreDocument, GetMenuDocument, LoginUserDocument, Store} from "~/gql";
 import {mapState} from "vuex";
+import { isMobile } from 'mobile-device-detect';
+import {myTheme} from "~/utils/custom-theme";
+import {getCollectionRoute, getFacetRoute} from "~/utils/routingUtils";
 
 @Component({
   apollo: {
     GetDefaultStore: {
       query: GetDefaultStoreDocument
-    }
+    },
+    GetMenu: {
+      query: GetMenuDocument
+    },
   },
   computed: {
     ...mapState({
@@ -217,6 +299,17 @@ export default class TopBar extends Vue {
   private loginin = false
 
   private searchText = ''
+  private theme = myTheme
+  private mainMobile = isMobile
+  private menuActive = false
+
+  private GetMenu
+  private menu: any[] = []
+
+  @Watch('GetMenu')
+  onGetMenu() {
+    this.menu = JSON.parse(this.GetMenu.menu)
+  }
 
   user() {
     return this.$store.state.user.user
@@ -262,6 +355,15 @@ export default class TopBar extends Vue {
         this.$message.error(error.message)
         this.loginin = false
       })
+  }
+
+  OnClickMenu(item) {
+    if (item.target === 'COLLECTION') {
+      this.$router.push(getCollectionRoute(item.targetId))
+    } else if (item.target === 'FACET') {
+      this.$router.push(getFacetRoute(item.targetId))
+    }
+    this.menuActive = false
   }
 
   onGoToCart() {

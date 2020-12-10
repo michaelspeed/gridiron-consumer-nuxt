@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #212121">
+  <div style="background-color: #23272b">
     <div class="container container-240">
       <div class="single-product-detail product-bundle product-aff">
         <ul class="breadcrumb">
@@ -7,7 +7,7 @@
           <li class="active">{{ variant.product.collection.name }}</li>
           <li class="active">{{ variant.name }}</li>
         </ul>
-        <v-sheet elevation="2">
+        <v-sheet elevation="2" color="#23272b">
           <div class="row" style="padding-bottom: 10px">
             <div class="col-xs-12 col-sm-6 col-md-6">
               <v-carousel continuous cycle show-arrows-on-hover>
@@ -29,7 +29,7 @@
               <v-expand-transition>
                 <div class="single-flex">
                   <div class="single-product-info product-info product-grid-v2 s-50">
-                    <v-sheet style="padding: 10px">
+                    <v-sheet style="padding: 10px" color="#23272b">
                       <div class="product-rating">
                         <v-rating
                           color="primary"
@@ -148,7 +148,7 @@
                   </div>
                   <div class="single-product-feature s-50 hidden-xs hidden-sm">
                     <div style="padding: 10px">
-                      <v-sheet elevation="5" class="bd-7">
+                      <v-sheet elevation="5" class="bd-7" color="#16191c">
                         <div class="single-feature-box">
                           <div class="single-feature-img">
                             <v-icon
@@ -194,9 +194,9 @@
                           </div>
                         </div>
                       </v-sheet>
-                      <div class="hot-line e-gradient" style="background-color: #212121">
-                        <p style="background-color: #212121">Hotline</p>
-                        <div class="flex align-center tele" style="background-color: #212121">
+                      <div class="hot-line e-gradient" style="background-color: #23272b">
+                        <p style="background-color: #23272b">Hotline</p>
+                        <div class="flex align-center tele" style="background-color: #23272b">
                           <img src="/img/feature/hotline.png" alt="">
                           <div class="phone-number">
                             <p>(+123) 456 789 </p>
@@ -223,8 +223,8 @@
             <v-tab-item
               :key="0"
             >
-              <v-container fluid dark>
-                <div v-html="variant.product.description" style="background-color: #212121"></div>
+              <v-container fluid dark style="background-color: #23272b">
+                <div v-html="variant.product.description" style="background-color: #23272b"></div>
               </v-container>
             </v-tab-item>
           </v-tabs>

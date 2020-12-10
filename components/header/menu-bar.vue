@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation="4" color="primary" class="header-bottom hidden-xs hidden-sm" style="margin-top: 64px; background-color: #212121; ">
+  <v-app-bar elevation="0" color="#23272b" class="header-bottom hidden-xs hidden-sm" style="margin-top: 64px; background-color: #23272b; ">
     <div class="container container-240">
       <div class="row">
         <div class="col-lg-3 widget-verticalmenu">
@@ -13,9 +13,9 @@
           </div>
           <a-popover placement="bottomLeft" v-if="$route.path !== '/'">
             <template slot="content">
-              <div style="width: 100%; background-color: white">
-                <v-sheet elevation="4" style="width: 100%;" color="primary" light>
-                  <v-list subheader style="width: 300px;" color="primary" light>
+              <div style="width: 100%; background-color: #2e3439">
+                <v-sheet elevation="4" color="primary" style="background-color: #2e3439; width: 100%;">
+                  <v-list subheader style="width: 300px;" color="primary">
                     <v-list-item v-for="child of GetCollectionTree" v-if="child.name !== 'default'" :key="child.id">
 
                       <v-list-item-content v-if="child.children.length === 0" @click="$router.push(`/collection/${child.id}`)">
@@ -33,7 +33,7 @@
                           </v-list-item-content>
                         </template>
 
-                        <v-card light>
+                        <v-card style="background-color: #2e3439">
                           <v-subheader>{{child.name}}</v-subheader>
                           <v-list v-for="childcol of child.children" :key="childcol.id">
                             <v-list-item @click="$router.push(`/collection/${childcol.id}`)" v-if="childcol.children.length === 0">
@@ -54,7 +54,7 @@
                                 </v-list-item>
                               </template>
 
-                              <v-card>
+                              <v-card style="background-color: #2e3439">
                                 <v-subheader>{{childcol.name}}</v-subheader>
                                 <v-list v-for="subitem of childcol.children" :key="subitem.id">
                                   <v-list-item @click="$router.push(`/collection/${subitem.id}`)">
@@ -84,37 +84,21 @@
         </div>
         <div class="col-lg-9 widget-left">
           <div class="flex lr" style="margin-top: -12px">
-            <nav class="main-menu flex align-center">
-              <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav js-menubar">
-                  <li class="level1" v-for="(menuitem, index) of menu" :class="{'dropdown': true}" :key="index">
-                    <a href="javascript:;" @click="OnClickMenu(menuitem)" v-if="!menuitem.children || menuitem.children.length === 0">{{menuitem.title.substring(0, 10)}}</a>
-                    <v-menu
-                      open-on-hover
-                      offset-y
-                      transition="scale-transition"
-                      v-if="menuitem.children && menuitem.children.length > 0"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <a href="javascript:;" @click="OnClickMenu(menuitem)" v-bind="attrs"
-                           v-on="on">{{menuitem.title.substring(0, 10)}}</a>
-                      </template>
-                      <v-list>
-                        <v-list-item
-                          v-for="(subitem, subindex) of menuitem.children"
-                          :key="subindex"
-                          @click="OnClickMenu(menuitem)"
-                        >
-                          <v-list-item-title>{{subitem.title.substring(0, 10)}}</v-list-item-title>
-                          <!--<a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a>-->
-                        </v-list-item>
-                      </v-list>
-                    </v-menu>
-
-                  </li>
-                </ul>
-              </div>
-            </nav>
+            <div style="margin-top: 20px; width: 400px; display: flex; justify-content: flex-end; align-items: flex-end">
+              <v-text-field
+                class="hidden-sm-and-down"
+                v-model="searchText"
+                append-icon="mdi-magnify"
+                solo
+                clear-icon="mdi-close-circle"
+                clearable
+                label="Search ..."
+                type="text"
+                dense
+                width="400px"
+                @click:append="onClickSearch"
+              ></v-text-field>
+            </div>
           </div>
         </div>
       </div>
@@ -147,10 +131,15 @@ export default class MenuBar extends Vue {
   private menu: any[] = []
   private GetMenu
   private GetCollectionTree: Collection[]
+  private searchText = ''
 
   @Watch('GetMenu')
   onGetMenu() {
     this.menu = JSON.parse(this.GetMenu.menu)
+  }
+
+  onClickSearch() {
+
   }
 
   OnClickMenu(item) {

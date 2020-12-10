@@ -10,7 +10,9 @@
     <v-card v-if="!$apollo.queries.getProductAsset.loading" style="padding: 15px;" @mouseover="hover = true"
             @mouseleave="hover = false" elevation="4">
       <div class="product-img">
-        <a href="javascript:;" @click="onClickSelection"><img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive" style="background-color: #212121"></a>
+        <a href="javascript:;" @click="onClickSelection">
+          <img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive" style="background-color: #212121">
+        </a>
       </div>
       <div class="product-info">
         <div class="color-group"></div>

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #212121">
+  <div style="background-color: #23272b">
     <div class="container container-240">
       <div class="e-product">
         <ul class="breadcrumb v4">

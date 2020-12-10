@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #212121">
+  <div style="background-color: #23272b">
     <div class="container container-240 shop-collection catleft">
       <ul class="breadcrumb">
         <li><a href="/">Home</a></li>
@@ -23,7 +23,7 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title>All Categories</v-list-item-title>
+                  <v-list-item-title class="primary--text">All Categories</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
@@ -40,7 +40,7 @@
             </v-list>
           </v-card>
           <v-card elevation="4">
-            <v-card-title>Filters</v-card-title>
+            <v-card-title class="primary--text">Filters</v-card-title>
             <v-card-text>
               <v-expansion-panels accordion flat>
                 <v-expansion-panel>
