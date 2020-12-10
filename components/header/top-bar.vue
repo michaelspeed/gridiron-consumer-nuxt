@@ -102,38 +102,13 @@
           <v-sheet class="col-md-6" color="primary" style="padding: 25px">
             <div class="d-flex flex-row justify-content-center align-items-center">
               <div>
-                <img src="/logo/coloredlogo.jpg" alt="" style="height: 100px"/>
+                <img src="/logo/coloredlogo.jpg" alt="" style="height: 200px"/>
               </div>
             </div>
             <h3 style="color: #23272b; margin-left: 10px">Get access to lot of amazing products</h3>
           </v-sheet>
           <div class="col-md-6" style="padding: 25px">
-            <div>
-              <h1 class="primary--text">Login</h1>
-            </div>
-            <div style="margin-top: 30px">
-              <div>
-                <div class="form-group">
-                  <label for="inputfname_2" class=" control-label primary--text">Email <span class="f-red">*</span></label>
-                  <a-input placeholder="email" class="form-control form-account" style="color: white" id="inputfname_2" size="large" v-model="lemail"/>
-                </div>
-                <div class="form-group">
-                  <label for="inputfname_3" class=" control-label primary--text">Password <span class="f-red">*</span></label>
-                  <a-input placeholder="password" class="form-control form-account" style="color: white" id="inputfname_3" size="large" type="password" v-model="lpass"/>
-                </div>
-                <div class="cart-total-bottom v2">
-                  <v-btn color="primary" tile @click="onClickLogin" v-if="!loginin">Login</v-btn>
-                  <v-progress-circular
-                    indeterminate
-                    color="primary"
-                    v-if="loginin"
-                  ></v-progress-circular>
-                </div>
-              </div>
-            </div>
-            <div class="mt-5">
-              <a href="javascript:;" @click="onClickAccount">New here? Register</a>
-            </div>
+            <Auth/>
           </div>
         </div>
       </v-sheet>
@@ -269,8 +244,10 @@ import {mapState} from "vuex";
 import { isMobile } from 'mobile-device-detect';
 import {myTheme} from "~/utils/custom-theme";
 import {getCollectionRoute, getFacetRoute} from "~/utils/routingUtils";
+import Auth from "~/components/auth/auth.vue";
 
 @Component({
+  components: {Auth},
   apollo: {
     GetDefaultStore: {
       query: GetDefaultStoreDocument
@@ -294,9 +271,6 @@ export default class TopBar extends Vue {
   private carts = false
 
   private opencart = false;
-  private lemail = ''
-  private lpass = ''
-  private loginin = false
 
   private searchText = ''
   private theme = myTheme
@@ -318,43 +292,6 @@ export default class TopBar extends Vue {
   mounted() {
     this.$store.dispatch('user/autoLogin')
     this.$store.dispatch('defstore/setDefault')
-  }
-
-  onClickLogin() {
-    if (this.lemail === ''){
-      this.$message.error('Please enter your Email')
-      return
-    }
-    if (this.lpass === ''){
-      this.$message.error('Please enter your Password')
-      return
-    }
-    this.loginin = true
-    this.$apollo.mutate({
-      mutation: LoginUserDocument,
-      variables: {
-        email: this.lemail,
-        password: this.lpass
-      }
-    })
-      .then(value => {
-        this.loginin = false
-        this.$message.success('Welcome Back')
-        this.$apolloHelpers.onLogin(value!.data!.LoginUser!.token)
-        this.$store.dispatch('user/loginUser', {
-          id: value.data.LoginUser.user.id,
-          email: value.data.LoginUser.user.email,
-          phone: value.data.LoginUser.user.phoneNumber,
-          verified: value.data.LoginUser.user.verified,
-          firstName: value.data.LoginUser.user.firstName,
-          lastName: value.data.LoginUser.user.lastName
-        })
-        this.$router.push('/')
-      })
-      .catch(error => {
-        this.$message.error(error.message)
-        this.loginin = false
-      })
   }
 
   OnClickMenu(item) {

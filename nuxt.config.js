@@ -68,6 +68,7 @@ export default {
     '~/plugins/antd-vue-plugin.ts',
     {src: '~/plugins/jquery-plugin.ts', mode: 'client'},
     {src: '~/plugins/slick-plugin.ts', mode: 'client'},
+    {src: '~/plugins/hooper.ts', mode: 'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

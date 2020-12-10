@@ -2,7 +2,7 @@
   <div style="background-color: #23272b">
     <div class="container container-240">
       <div class="single-product-detail product-bundle product-aff">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" style="margin-top: 60px">
           <li><a href="javascript:;" @click="$router.push('/')" class="title-white">Home</a></li>
           <li class="active">{{ variant.product.collection.name }}</li>
           <li class="active">{{ variant.name }}</li>
@@ -14,7 +14,7 @@
                 <v-carousel-item
                   v-for="asset of variant.product.assets" :key="asset.id"
                 >
-                  <v-img aspect-ratio="2" contain :src="`${assetLink}/${asset.asset.source}`" alt="photo"/>
+                  <v-img aspect-ratio="2" contain :src="`${assetLink}/${asset.asset.source}`" alt="photo" style="height: 100%"/>
                 </v-carousel-item>
               </v-carousel>
 
@@ -29,7 +29,7 @@
               <v-expand-transition>
                 <div class="single-flex">
                   <div class="single-product-info product-info product-grid-v2 s-50">
-                    <v-sheet style="padding: 10px" color="#23272b">
+                    <v-sheet color="#23272b" :style="{'padding': mainMobile ? '20px' : '10px'}">
                       <div class="product-rating">
                         <v-rating
                           color="primary"
@@ -266,6 +266,7 @@ import {assetsURL} from "~/utils/global-constants";
 import {myTheme} from "~/utils/custom-theme";
 import {getProdRoute} from "~/utils/routingUtils";
 import {ICartItem} from "~/store/cart";
+import {isMobile} from "mobile-device-detect";
 
 @Component({
   layout: 'default',
@@ -307,6 +308,8 @@ export default class ProductView extends Vue {
   private gettingPrice = false
   private availablePrice: ProductVariantPrice[] = []
   private priceRequested = false
+
+  private mainMobile = isMobile
 
   lowPrice() {
     let mainPrice = 0

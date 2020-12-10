@@ -143,45 +143,20 @@
             <div class="ecome-heading style2" style="background-color: #23272b">
               <h1 style="background-color: #23272b" class="title-white">{{listitem.name}}</h1>
             </div>
-            <v-row>
+            <hooper :itemsToSlide="2" v-if="mainMobile" :infiniteScroll="false" :itemsToShow="2" style="height: 400px">
+              <slide v-for="(sublistitem, subindex) of listitem.items" :key="subindex" style="height: 400px">
+                <v-col sm="6" md="3" lg="3">
+                  <HomeListItem :item="sublistitem"/>
+                </v-col>
+              </slide>
+            </hooper>
+            <v-row v-if="!mainMobile">
               <v-col sm="6" md="3" lg="3" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">
                 <HomeListItem :item="sublistitem"/>
               </v-col>
             </v-row>
-            <!--<div class="row">
-              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 product-item" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">
-                <HomeListItem :item="sublistitem"/>
-              </div>
-            </div>-->
           </div>
         </client-only>
-        <!--<div class="row">
-          <div class="col-md-3 col-sm-4 col-xs-12">
-            <ul class="tab-link">
-              <li v-for="(listitem,index) of getHomePage.single.lists" :class="{'active': index === listIndex}">
-                <a data-toggle="tab" href="#" aria-expanded="true" @click="listIndex = index">
-                  <div class="tab-link-info flex align-center">
-                    &lt;!&ndash;<img src="img/category/1.png" alt="">&ndash;&gt;
-                    <span>{{listitem.name}}</span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-9 col-sm-8 col-xs-12">
-            <client-only>
-              <div class="tab-content">
-                <div class="tab-pane" v-for="(listitem,index) of getHomePage.single.lists" :id="`main-list-${index}`" :class="{'fade active in': index === listIndex}">
-                  <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 product-item" v-for="(sublistitem, subindex) of listitem.items" :key="subindex">
-                      <HomeListItem :item="sublistitem"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </client-only>
-          </div>
-        </div>-->
       </div>
     </div>
   </section>
@@ -195,9 +170,10 @@ import HomeListItem from "~/components/Home/HomeListItem.vue";
 import {getProdRoute, getVariantRoute} from "~/utils/routingUtils";
 import VueSlickCarousel from 'vue-slick-carousel'
 import {isMobile} from "mobile-device-detect";
+import { Hooper, Slide } from 'hooper';
 
 @Component({
-  components: {HomeListItem, VueSlickCarousel},
+  components: {HomeListItem, VueSlickCarousel, Hooper, Slide},
   layout: 'default',
   apollo: {
     GetCollectionTree:{
@@ -261,5 +237,8 @@ export default class Index extends Vue {
 .e-slide .slick-slide img {
   height: 450px !important;
   object-fit: contain;
+}
+ul {
+  padding-left: 0 !important;
 }
 </style>

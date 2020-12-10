@@ -8,10 +8,10 @@
       ></v-progress-circular>
     </div>
     <v-card v-if="!$apollo.queries.getProductAsset.loading" style="padding: 15px;" @mouseover="hover = true"
-            @mouseleave="hover = false" elevation="4">
+            @mouseleave="hover = false" :color="mainMobile ? '#23272b' : '#16191c'" :elevation="mainMobile ? 0 : 4">
       <div class="product-img">
         <a href="javascript:;" @click="onClickSelection">
-          <img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive" style="background-color: #212121">
+          <img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive" :style="{'background-color': mainMobile ? '#23272b' : '#212121'}">
         </a>
       </div>
       <div class="product-info">
@@ -77,6 +77,7 @@ import {GetProductAssetDocument, SingProductPriceDocument} from "~/gql";
 import {assetsURL} from "~/utils/global-constants";
 import VariantQuickView from "~/components/Home/VariantQuickView.vue";
 import {getProdRoute, getVariantRoute} from "~/utils/routingUtils";
+import {isMobile} from "mobile-device-detect";
 
 @Component({
   components: {
@@ -118,6 +119,8 @@ export default class HomeListItem extends Vue {
   private view: boolean = false
   private lowPrice = 0
   private hover = false
+
+  private mainMobile = isMobile
 
   @Watch('singProductPrice')
   onGetPrice() {
