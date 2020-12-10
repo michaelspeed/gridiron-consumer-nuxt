@@ -241,7 +241,6 @@
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import {GetDefaultStoreDocument, GetMenuDocument, LoginUserDocument, Store} from "~/gql";
 import {mapState} from "vuex";
-import { isMobile } from 'mobile-device-detect';
 import {myTheme} from "~/utils/custom-theme";
 import {getCollectionRoute, getFacetRoute} from "~/utils/routingUtils";
 import Auth from "~/components/auth/auth.vue";
@@ -274,7 +273,7 @@ export default class TopBar extends Vue {
 
   private searchText = ''
   private theme = myTheme
-  private mainMobile = isMobile
+  private mainMobile = this.$device.isMobile
   private menuActive = false
 
   private GetMenu

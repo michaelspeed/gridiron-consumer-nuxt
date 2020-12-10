@@ -1,77 +1,79 @@
 <template>
-  <section class="all-s" style="background-color: #23272b">
+  <section class="all-s" style="background-color: #23272b;" :style="{'margin-top': mainMobile? '60px': '0'}">
     <div class="ads-group v2 nospc">
       <div class="container container-240">
         <div class="row" v-if="getHomePage.single.main">
-          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 set-w hidden-xs hidden-sm ">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 set-w" v-if="!mainMobile">
             <v-sheet class="vertical-wrapper" v-if="$route.path === '/'" elevation="4">
-              <v-list subheader>
-                <v-list-item v-for="child of GetCollectionTree" :key="child.id" v-if="child.name !== 'default'">
+              <client-only>
+                <v-list subheader>
+                  <v-list-item v-for="child of GetCollectionTree" :key="child.id" v-if="child.name !== 'default'">
 
-                  <v-list-item-content v-if="child.children.length === 0" @click="$router.push(`/collection/${child.id}`)">
-                    <v-list-item-title>{{child.name}}</v-list-item-title>
-                  </v-list-item-content>
-                  <v-menu
-                    open-on-hover
-                    offset-x
-                    v-if="child.children.length > 0"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-list-item-content v-bind="attrs"
-                                           v-on="on" @click="$router.push(`/collection/${child.id}`)">
-                        <v-list-item-title>{{child.name}}</v-list-item-title>
-                      </v-list-item-content>
-                    </template>
+                    <v-list-item-content v-if="child.children.length === 0" @click="$router.push(`/collection/${child.id}`)">
+                      <v-list-item-title>{{child.name}}</v-list-item-title>
+                    </v-list-item-content>
+                    <v-menu
+                      open-on-hover
+                      offset-x
+                      v-if="child.children.length > 0"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-list-item-content v-bind="attrs"
+                                             v-on="on" @click="$router.push(`/collection/${child.id}`)">
+                          <v-list-item-title>{{child.name}}</v-list-item-title>
+                        </v-list-item-content>
+                      </template>
 
-                    <v-card>
-                      <v-subheader>{{child.name}}</v-subheader>
-                      <v-list v-for="childcol of child.children" :key="childcol.id">
-                        <v-list-item @click="$router.push(`/collection/${childcol.id}`)" v-if="childcol.children.length === 0">
-                          <v-list-item-content>
-                            <v-list-item-title>{{childcol.name}}</v-list-item-title>
-                          </v-list-item-content>
-                        </v-list-item>
-                        <v-menu
-                          open-on-hover
-                          offset-x
-                          v-if="childcol.children.length > 0"
-                        >
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-list-item @click="$router.push(`/collection/${childcol.id}`)">
-                              <v-list-item-content>
-                                <v-list-item-title>{{childcol.name}}</v-list-item-title>
-                              </v-list-item-content>
-                            </v-list-item>
-                          </template>
-
-                          <v-card>
-                            <v-subheader>{{childcol.name}}</v-subheader>
-                            <v-list v-for="subitem of childcol.children" :key="subitem.id">
-                              <v-list-item @click="$router.push(`/collection/${subitem.id}`)">
+                      <v-card>
+                        <v-subheader>{{child.name}}</v-subheader>
+                        <v-list v-for="childcol of child.children" :key="childcol.id">
+                          <v-list-item @click="$router.push(`/collection/${childcol.id}`)" v-if="childcol.children.length === 0">
+                            <v-list-item-content>
+                              <v-list-item-title>{{childcol.name}}</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-menu
+                            open-on-hover
+                            offset-x
+                            v-if="childcol.children.length > 0"
+                          >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-list-item @click="$router.push(`/collection/${childcol.id}`)">
                                 <v-list-item-content>
-                                  <v-list-item-title>{{subitem.name}}</v-list-item-title>
+                                  <v-list-item-title>{{childcol.name}}</v-list-item-title>
                                 </v-list-item-content>
                               </v-list-item>
-                            </v-list>
-                          </v-card>
-                        </v-menu>
-                      </v-list>
-                    </v-card>
-                  </v-menu>
-                </v-list-item>
-              </v-list>
+                            </template>
+
+                            <v-card>
+                              <v-subheader>{{childcol.name}}</v-subheader>
+                              <v-list v-for="subitem of childcol.children" :key="subitem.id">
+                                <v-list-item @click="$router.push(`/collection/${subitem.id}`)">
+                                  <v-list-item-content>
+                                    <v-list-item-title>{{subitem.name}}</v-list-item-title>
+                                  </v-list-item-content>
+                                </v-list-item>
+                              </v-list>
+                            </v-card>
+                          </v-menu>
+                        </v-list>
+                      </v-card>
+                    </v-menu>
+                  </v-list-item>
+                </v-list>
+              </client-only>
             </v-sheet>
           </div>
           <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 set-flex ">
-            <div class="slide-home3" style="height: 500px !important;">
-              <v-carousel cycle continuous hide-delimiters>
+            <div class="slide-home3">
+              <v-carousel cycle continuous hide-delimiters :height="mainMobile ? '300px' : '500px'">
                 <v-carousel-item
                   v-for="(mainitems, index) of getHomePage.single.main" @click="onClickCarousel(mainitems)" :key="index"
                 >
-                  <div class="e-slide-img" style="height: 500px !important; background-color: #23272b">
-                    <a href="javascript:;" @click="onClickCarousel(mainitems)" style="height: 450px !important;">
+                  <div style="background-color: #23272b">
+                    <a href="javascript:;" @click="onClickCarousel(mainitems)">
                       <!--<img :src="`${assetLink}/${mainitems.preview.preview}`" alt="" style="height: 450px; object-fit: contain; opacity: 0.4">-->
-                      <v-img :src="`${assetLink}/${mainitems.preview.preview}`" contain height="450px"></v-img>
+                      <v-img :src="`${assetLink}/${mainitems.preview.preview}`" contain :height="mainMobile ? 300 : 500 "></v-img>
                     </a>
                     <v-sheet class="slide-content v2" style="padding: 20px;" color="primary" elevation="2">
                       <h2 class="v2 font-weight-bold" style="font-weight: bolder !important; color: white" v-if="mainitems.type === 'product' && !mainMobile">{{mainitems.target.productName.substring(0, 30)}}</h2>
@@ -169,7 +171,6 @@ import {assetsURL} from "~/utils/global-constants";
 import HomeListItem from "~/components/Home/HomeListItem.vue";
 import {getProdRoute, getVariantRoute} from "~/utils/routingUtils";
 import VueSlickCarousel from 'vue-slick-carousel'
-import {isMobile} from "mobile-device-detect";
 import { Hooper, Slide } from 'hooper';
 
 @Component({
@@ -199,7 +200,7 @@ export default class Index extends Vue {
 
   private listIndex = 0
 
-  private mainMobile = isMobile
+  private mainMobile = this.$device.isMobile
 
   onClickCarousel(item) {
     if (item.type === 'variant') {
@@ -209,15 +210,6 @@ export default class Index extends Vue {
     }
   }
 
-  mounted() {
-    console.log(this.getHomePage)
-    /*(<any>$('.js-slider-3items')).not('.slick-initialized').slick({
-      autoplay: true,
-      infinite: true,
-      arrows: true,
-      dots: true
-    });*/
-  }
 }
 </script>
 
@@ -227,16 +219,6 @@ export default class Index extends Vue {
   font-size: 40px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-.slick-slider {
-  height: 500px !important;
-}
-.e-slide-img {
-  height: 450px !important;
-}
-.e-slide .slick-slide img {
-  height: 450px !important;
-  object-fit: contain;
 }
 ul {
   padding-left: 0 !important;

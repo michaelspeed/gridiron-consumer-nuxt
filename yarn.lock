@@ -1833,6 +1833,11 @@
     consola "^2.15.0"
     defu "^3.1.0"
 
+"@nuxtjs/device@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/device/-/device-1.2.7.tgz#ccb6f33b1eed0c7725ab8668526da92534624154"
+  integrity sha512-Vyhw2ZSaUigFtRed5DjscV9jKevenvgFD5527rVAUzpSUQTcLau8NN+Zdf463bUr5xLwCDl7wUA4+1rGROmA5w==
+
 "@nuxtjs/proxy@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@nuxtjs/proxy/-/proxy-2.0.1.tgz#2469b6e316311aa8c60d348502a54bfe6d5536aa"
@@ -3806,7 +3811,7 @@ bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
-bluebird@^3.1.1, bluebird@^3.4.1, bluebird@^3.5.5, bluebird@^3.7.2:
+bluebird@^3.1.1, bluebird@^3.5.5, bluebird@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
@@ -4441,11 +4446,6 @@ cli-progress@^3.4.0:
   dependencies:
     colors "^1.1.2"
     string-width "^4.2.0"
-
-cli-spinner@^0.2.10:
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/cli-spinner/-/cli-spinner-0.2.10.tgz#f7d617a36f5c47a7bc6353c697fc9338ff782a47"
-  integrity sha512-U0sSQ+JJvSLi1pAYuJykwiA8Dsr15uHEy85iCJ6A+0DjVxivr3d+N2Wjvodeg89uP5K6TswFkKBfAD7B3YSn/Q==
 
 cli-truncate@^0.2.1:
   version "0.2.1"
@@ -6311,19 +6311,6 @@ fragment-cache@^0.2.1:
   integrity sha1-QpD60n8T6Jvn8zeZxrxaCr//DRk=
   dependencies:
     map-cache "^0.2.2"
-
-framevuerk-builder@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/framevuerk-builder/-/framevuerk-builder-2.0.8.tgz#6613e93ecaa66aedb2bacde8c12b548b17fa914c"
-  integrity sha512-MMq5MvKSnzHyrKF1ifUHjOrqfgOKrcvuMLzp2bhbcQQueuothLhczsCf6idpV0pI8ace/kAshSAq52xwnHj+sg==
-  dependencies:
-    cli-spinner "^0.2.10"
-    npm-programmatic "0.0.12"
-
-framevuerk@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/framevuerk/-/framevuerk-2.4.2.tgz#202c400a0aaaf42b894a6bb74960f78f89d7eddd"
-  integrity sha512-FDMwd+7yhJp/OcpaYuSoZi096x/pzEn4BtxQC9jbmBeAfHE2GQJu3i6PtJL2mTRe32kaI00NiSpC8ACoZFCf6w==
 
 fresh@0.5.2, fresh@^0.5.2:
   version "0.5.2"
@@ -8854,13 +8841,6 @@ normalize-url@^3.0.0, normalize-url@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
-
-npm-programmatic@0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/npm-programmatic/-/npm-programmatic-0.0.12.tgz#566ba2452c886c7fd3a41586bd559cdc872fa77e"
-  integrity sha512-fvZdiJS038ZH31z59cEiIywOcgX1u23aLc0wAKF4btyhbYQxE93wTQjzs/URERK+GhS/QghDILQmEvgxu77/zQ==
-  dependencies:
-    bluebird "^3.4.1"
 
 npm-run-path@^2.0.0:
   version "2.0.2"

@@ -7,8 +7,6 @@
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
-    "build:framevuerk": "framevuerk-builder -c ./framevuerk-config.js",
-    "prepublish": "yarn build:framevuerk",
     "gql": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
@@ -16,11 +14,11 @@
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/apollo": "^4.0.1-rc.3",
     "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/device": "^1.2.7",
     "@nuxtjs/pwa": "^3.0.2",
     "@vue/apollo-composable": "^4.0.0-alpha.10",
     "ant-design-vue": "^1.6.5",
     "core-js": "^3.6.5",
-    "framevuerk": "^2.4.2",
     "hooper": "^0.3.4",
     "jquery": "^3.5.1",
     "less": "^3.12.2",
@@ -46,7 +44,6 @@
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/vuetify": "^1.11.2",
     "@types/jquery": "^3.5.2",
-    "framevuerk-builder": "^2.0.8",
     "less-loader": "^7.0.1"
   }
 }

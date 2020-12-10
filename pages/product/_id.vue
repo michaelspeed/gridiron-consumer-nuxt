@@ -266,16 +266,10 @@ import {assetsURL} from "~/utils/global-constants";
 import {myTheme} from "~/utils/custom-theme";
 import {getProdRoute} from "~/utils/routingUtils";
 import {ICartItem} from "~/store/cart";
-import {isMobile} from "mobile-device-detect";
 
 @Component({
   layout: 'default',
   scrollToTop: true,
-  head: {
-    script: [
-      {src: '/js/main.js', body: true},
-    ]
-  },
   async asyncData(context: any) {
     const client = context.app.apolloProvider.defaultClient
     const variant = await client.query({
@@ -309,7 +303,7 @@ export default class ProductView extends Vue {
   private availablePrice: ProductVariantPrice[] = []
   private priceRequested = false
 
-  private mainMobile = isMobile
+  private mainMobile = this.$device.isMobile
 
   lowPrice() {
     let mainPrice = 0
@@ -376,64 +370,6 @@ export default class ProductView extends Vue {
       this.gettingPrice = false
       console.log(error)
     })
-  }
-
-  updated() {
-    (<any>$('.js-click-product')).not('.slick-initialized').slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      asNavFor: '.js-product-slider',
-      dots: false,
-      focusOnSelect: true,
-      infinite: true,
-      arrows: false,
-      vertical: true,
-      responsive: [
-
-        {
-          breakpoint: 1367,
-          settings: {
-            vertical: false
-          }
-        }
-      ]
-    });
-    (<any>$('.js-product-slider')).not('.slick-initialized').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      asNavFor: '.js-click-product'
-    });
-  }
-
-  mounted() {
-    console.log(this.variant);
-
-    (<any>$('.js-click-product')).not('.slick-initialized').slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      asNavFor: '.js-product-slider',
-      dots: false,
-      focusOnSelect: true,
-      infinite: true,
-      arrows: false,
-      vertical: true,
-      responsive: [
-
-        {
-          breakpoint: 1367,
-          settings: {
-            vertical: false
-          }
-        }
-      ]
-    });
-    (<any>$('.js-product-slider')).not('.slick-initialized').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      asNavFor: '.js-click-product'
-    });
   }
 
   splitNames(name) {

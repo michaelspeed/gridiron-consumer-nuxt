@@ -1,12 +1,16 @@
 <template>
   <v-app dark>
     <div>
-      <top-bar/>
+      <client-only>
+        <top-bar/>
+      </client-only>
       <v-sheet
         id="scrolling-techniques-6"
         class="overflow-y-auto"
       >
-        <menu-bar/>
+        <client-only>
+          <menu-bar/>
+        </client-only>
         <nuxt />
         <Footer/>
       </v-sheet>

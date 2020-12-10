@@ -14,14 +14,14 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     script: [
-      {src: '/js/jquery.js', body: true},
+      /*{src: '/js/jquery.js', body: true},
       {src: '/js/bootstrap.js', body: true},
 
       {src: '/js/owl.carousel.min.js', body: true},
       {src: '/js/slick.js', body: true},
       {src: '/js/countdown.js', body: true},
       {src: '/js/bootstrap-slider.min.js', body: true},
-      {src: '/js/main.js', body: true},
+      {src: '/js/main.js', body: true},*/
       {src: 'https://checkout.razorpay.com/v1/checkout.js', body: true}
     ],
     link: [
@@ -58,13 +58,11 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'framevuerk/dist/framevuerk-nuxt.min.css',
     {src: 'ant-design-vue/dist/antd.less', lang: 'less'},
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '@/plugins/framevuerk',
     '~/plugins/antd-vue-plugin.ts',
     {src: '~/plugins/jquery-plugin.ts', mode: 'client'},
     {src: '~/plugins/slick-plugin.ts', mode: 'client'},
@@ -102,10 +100,11 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    // '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    '@nuxtjs/device'
   ],
 
   apollo: {
