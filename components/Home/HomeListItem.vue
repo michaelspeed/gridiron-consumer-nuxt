@@ -8,9 +8,9 @@
       ></v-progress-circular>
     </div>
     <v-card v-if="!$apollo.queries.getProductAsset.loading" style="padding: 15px;" @mouseover="hover = true"
-            @mouseleave="hover = false" :color="mainMobile ? '#23272b' : '#16191c'" :elevation="mainMobile ? 0 : 4">
+            @mouseleave="hover = false" color="#2e3439" :elevation="mainMobile ? 0 : 2">
       <div class="product-img">
-        <a href="javascript:;" @click="onClickSelection">
+        <a href="javascript:;" @click="onClickSelection" style="padding: 10px">
           <img :src="`${assetLink}/${getProductAsset.preview}`" alt="" class="img-reponsive" :style="{'background-color': mainMobile ? '#23272b' : '#212121'}">
         </a>
       </div>

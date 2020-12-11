@@ -93,7 +93,7 @@
           <v-container>
             <div class="e-product" ref="slider">
               <div class="pd-banner">
-                <a href="#" class="image-bd effect_img2"><img src="/img/o-banner2.jpg" alt="" class="img-responsive"></a>
+                <a href="#" class="image-bd effect_img2"><img src="/banner/1.png" alt="" class="img-responsive"></a>
               </div>
               <div style="margin-bottom: 10px;" v-if="dirty">
                 <div style="display: flex; align-items: center;">
@@ -122,7 +122,7 @@
               </div>
               <v-row v-if="GetAllProdsWithPriceRangeAndFacet">
                 <v-col sm="6" md="3" v-for="vars of GetAllProdsWithPriceRangeAndFacet" :key="vars.id">
-                  <v-card style="padding: 10px" elevation="4" @click="onGoToProdRoute(vars.id)">
+                  <v-card style="padding: 10px; background-color: #2e3439" elevation="1" @click="onGoToProdRoute(vars.id)">
                     <div class="product-inner">
                       <div class="product-img" style="display: flex; align-items: center; justify-content: center;">
                         <a href="#">
