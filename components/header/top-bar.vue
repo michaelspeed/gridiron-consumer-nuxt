@@ -13,8 +13,8 @@
     >
       <v-icon color="primary">mdi-arrange-bring-to-front</v-icon>
     </v-btn>
-    <img v-if="!mainMobile" src="/logo/mainlogo.png" alt="" style="height: 70px; cursor: pointer; background-color: #ffbf00" @click="$router.push('/')">
-    <img v-if="mainMobile" src="/logo/mainlogo.png" alt="" style="height: 40px; cursor: pointer; background-color: #ffbf00" @click="$router.push('/')">
+    <img v-if="!mainMobile" src="/logo/logo-g.png" alt="" style="height: 70px; cursor: pointer;" @click="$router.push('/')">
+    <img v-if="mainMobile" src="/logo/logo-g.png" alt="" style="height: 40px; cursor: pointer;" @click="$router.push('/')">
     <v-spacer></v-spacer>
     <nav class="main-menu flex align-center">
       <div class="collapse navbar-collapse" id="myNavbar">
