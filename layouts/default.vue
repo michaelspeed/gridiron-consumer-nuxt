@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <div>
       <client-only>
         <top-bar/>

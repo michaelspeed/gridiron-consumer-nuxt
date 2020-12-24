@@ -54,7 +54,7 @@ export default {
     }
   },
 
-  loading: {color: '#ffbf00', continuous: true, height: '5px'},
+  loading: {color: '#D50000', continuous: true, height: '5px'},
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
@@ -81,7 +81,7 @@ export default {
 
   vuetify: {
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: '#ffbf00', // #E53935
@@ -89,9 +89,9 @@ export default {
           accent: '#ffdc73', // #3F51B5
         },
         light: {
-          primary: '#ffbf00', // #E53935
-          secondary: '#a67c00',
-          accent: '#ffdc73', // #3F51B5
+          primary: '#D50000', // #E53935
+          secondary: '#F44336',
+          accent: '#455A64', // #3F51B5
         },
       },
     },
@@ -137,7 +137,7 @@ export default {
           javascriptEnabled: true,
           modifyVars: {
             'primary-color': '#ffbf00',
-            'component-background': '#212121'
+            'component-background': '#FFFFFF'
           }
         }
       }

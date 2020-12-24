@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    color="#23272b"
+    color="white"
     absolute
     elevation="0"
     style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000"
@@ -36,6 +36,7 @@
                   v-for="(subitem, subindex) of menuitem.children"
                   :key="subindex"
                   @click="OnClickMenu(menuitem)"
+                  style="cursor: pointer"
                 >
                   <v-list-item-title>{{subitem.title.substring(0, 10)}}</v-list-item-title>
                   <!--<a href="javascript:;" @click="OnClickMenu(menuitem)" title="">{{subitem.title}}</a>-->
@@ -51,7 +52,6 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           text
-          style="color: white"
           v-bind="attrs"
           v-on="on"
         >{{$store.state.user.user.firstName}}</v-btn>
@@ -211,7 +211,7 @@
             <v-icon color="primary">mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <hr style="border-top: 1px solid #2e3439"/>
+        <hr style="border-top: 1px solid #CFD8DC"/>
         <div style="margin-left: 35px">
           <h4 :style="{'color': theme['color-primary-500']}">Golden Choice</h4>
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation="0" color="#23272b" class="header-bottom hidden-xs hidden-sm" style="margin-top: 64px; background-color: #23272b; ">
+  <v-app-bar elevation="0" color="#23272b" class="header-bottom hidden-xs hidden-sm" style="margin-top: 64px; background-color: white; ">
     <div class="container container-240">
       <div class="row">
         <div class="col-lg-3 widget-verticalmenu">

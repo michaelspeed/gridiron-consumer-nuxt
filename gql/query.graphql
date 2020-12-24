@@ -120,10 +120,20 @@ query getProductAsset($prodId: ID, $variantId: ID) {
 
 query GetDefaultStore {
     GetDefaultStore {
-        id
-        storeName
-        phoneNumber
-        officialemail
+      id
+      storeName
+      phoneNumber
+      officialemail
+      zipcode
+      streetAddress1
+      streetAddress2
+      GSTIN
+      singleStore
+      rentalStore
+      channelMarkets
+      assetAPI
+      mainAPI
+      services
     }
 }
 

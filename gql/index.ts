@@ -470,6 +470,7 @@ export type Collection = {
   children: Array<Collection>;
   products: Array<Product>;
   seo: Seo;
+  asset: Asset;
   agreements: Array<BillingAgreement>;
   cartPrice: CartPriceRules;
 };
@@ -688,6 +689,9 @@ export type CountryStoresCountAggregate = {
   singleStore?: Maybe<Scalars['Int']>;
   rentalStore?: Maybe<Scalars['Int']>;
   channelMarkets?: Maybe<Scalars['Int']>;
+  services?: Maybe<Scalars['Int']>;
+  assetAPI?: Maybe<Scalars['Int']>;
+  mainAPI?: Maybe<Scalars['Int']>;
 };
 
 export type CountryStoresMaxAggregate = {
@@ -702,6 +706,8 @@ export type CountryStoresMaxAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type CountryStoresMinAggregate = {
@@ -716,6 +722,8 @@ export type CountryStoresMinAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type CountryZonesCountAggregate = {
@@ -901,12 +909,6 @@ export enum CurrencyCode {
   Zmw = 'ZMW',
   Zwl = 'ZWL'
 }
-
-export type DataSource = {
-  __typename?: 'DataSource';
-  sum: Scalars['Float'];
-  amount: Scalars['Float'];
-};
 
 
 export type Delivery = {
@@ -1819,6 +1821,7 @@ export type OrderLine = {
   store: Store;
   invoice: Array<Invoice>;
   refund: Refund;
+  serviceable: ServiceableOrders;
 };
 
 export type OrderLineCountAggregate = {
@@ -2097,11 +2100,6 @@ export enum PricePromoType {
   Percentage = 'PERCENTAGE'
 }
 
-export type ProdDataSource = {
-  __typename?: 'ProdDataSource';
-  sum: Scalars['Float'];
-};
-
 export type Product = {
   __typename?: 'Product';
   id: Scalars['ID'];
@@ -2118,6 +2116,7 @@ export type Product = {
   facets: Array<FacetValue>;
   assets?: Maybe<Array<ProductAsset>>;
   variants: Array<ProductVariant>;
+  serviceable: Serviceable;
   viewcode: Array<Scalars['String']>;
 };
 
@@ -2933,7 +2932,7 @@ export type Query = {
   getProductVariantByProduct: Array<ProductVariant>;
   getProductAsset: Asset;
   GetSingleProductPrice: ProductVariantPrice;
-  GetDefaultStore: Store;
+  GetDefaultStore?: Maybe<Store>;
   GetCurrentUser: User;
   GetUserAddress: Array<Address>;
   GetAllSearch: Array<Search>;
@@ -3217,6 +3216,127 @@ export type SeoMinAggregate = {
   deletedAt?: Maybe<Scalars['DateTime']>;
   urlKey?: Maybe<Scalars['String']>;
   metatitle?: Maybe<Scalars['String']>;
+};
+
+export type Serviceable = {
+  __typename?: 'Serviceable';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  name: Scalars['String'];
+  type: ServiceableTypes;
+  mode: ServiceableOrderTypes;
+};
+
+export type ServiceableCountAggregate = {
+  __typename?: 'ServiceableCountAggregate';
+  id?: Maybe<Scalars['Int']>;
+  createdAt?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['Int']>;
+  mode?: Maybe<Scalars['Int']>;
+};
+
+export type ServiceableMaxAggregate = {
+  __typename?: 'ServiceableMaxAggregate';
+  id?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<ServiceableTypes>;
+  mode?: Maybe<ServiceableOrderTypes>;
+};
+
+export type ServiceableMinAggregate = {
+  __typename?: 'ServiceableMinAggregate';
+  id?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<ServiceableTypes>;
+  mode?: Maybe<ServiceableOrderTypes>;
+};
+
+export type ServiceableOrders = {
+  __typename?: 'ServiceableOrders';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  dateTime: Scalars['DateTime'];
+};
+
+export enum ServiceableOrderTypes {
+  Immediate = 'IMMEDIATE',
+  Date = 'DATE'
+}
+
+export type ServiceableProductsCountAggregate = {
+  __typename?: 'ServiceableProductsCountAggregate';
+  id?: Maybe<Scalars['Int']>;
+  createdAt?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['Int']>;
+  deletedAt?: Maybe<Scalars['Int']>;
+  productName?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['Int']>;
+};
+
+export type ServiceableProductsMaxAggregate = {
+  __typename?: 'ServiceableProductsMaxAggregate';
+  id?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  deletedAt?: Maybe<Scalars['DateTime']>;
+  productName?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ServiceableProductsMinAggregate = {
+  __typename?: 'ServiceableProductsMinAggregate';
+  id?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  deletedAt?: Maybe<Scalars['DateTime']>;
+  productName?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export enum ServiceableTypes {
+  Vendor = 'VENDOR',
+  Product = 'PRODUCT'
+}
+
+export type ServiceableVendorsCountAggregate = {
+  __typename?: 'ServiceableVendorsCountAggregate';
+  id?: Maybe<Scalars['Int']>;
+  createdAt?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['Int']>;
+  vendorName?: Maybe<Scalars['Int']>;
+  phoneNumber?: Maybe<Scalars['Int']>;
+  email?: Maybe<Scalars['Int']>;
+};
+
+export type ServiceableVendorsMaxAggregate = {
+  __typename?: 'ServiceableVendorsMaxAggregate';
+  id?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  vendorName?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+};
+
+export type ServiceableVendorsMinAggregate = {
+  __typename?: 'ServiceableVendorsMinAggregate';
+  id?: Maybe<Scalars['ID']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  vendorName?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
 };
 
 export type SettlementsAvgAggregate = {
@@ -3547,6 +3667,9 @@ export type Store = {
   singleStore: Scalars['Boolean'];
   rentalStore: Scalars['Boolean'];
   channelMarkets: Scalars['Boolean'];
+  services: Scalars['Boolean'];
+  assetAPI: Scalars['String'];
+  mainAPI: Scalars['String'];
   type: StoreTypeEnum;
   vendor?: Maybe<Vendor>;
   cart: Array<CartItem>;
@@ -3618,6 +3741,9 @@ export type StoreCountAggregate = {
   singleStore?: Maybe<Scalars['Int']>;
   rentalStore?: Maybe<Scalars['Int']>;
   channelMarkets?: Maybe<Scalars['Int']>;
+  services?: Maybe<Scalars['Int']>;
+  assetAPI?: Maybe<Scalars['Int']>;
+  mainAPI?: Maybe<Scalars['Int']>;
 };
 
 export type StoreInvoicesAvgAggregate = {
@@ -3688,6 +3814,8 @@ export type StoreMaxAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type StoreMinAggregate = {
@@ -3702,6 +3830,8 @@ export type StoreMinAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type StorePricesAvgAggregate = {
@@ -4494,6 +4624,9 @@ export type ZipStoresCountAggregate = {
   singleStore?: Maybe<Scalars['Int']>;
   rentalStore?: Maybe<Scalars['Int']>;
   channelMarkets?: Maybe<Scalars['Int']>;
+  services?: Maybe<Scalars['Int']>;
+  assetAPI?: Maybe<Scalars['Int']>;
+  mainAPI?: Maybe<Scalars['Int']>;
 };
 
 export type ZipStoresMaxAggregate = {
@@ -4508,6 +4641,8 @@ export type ZipStoresMaxAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type ZipStoresMinAggregate = {
@@ -4522,6 +4657,8 @@ export type ZipStoresMinAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type ZipSumAggregate = {
@@ -4629,6 +4766,9 @@ export type ZoneStoresCountAggregate = {
   singleStore?: Maybe<Scalars['Int']>;
   rentalStore?: Maybe<Scalars['Int']>;
   channelMarkets?: Maybe<Scalars['Int']>;
+  services?: Maybe<Scalars['Int']>;
+  assetAPI?: Maybe<Scalars['Int']>;
+  mainAPI?: Maybe<Scalars['Int']>;
 };
 
 export type ZoneStoresMaxAggregate = {
@@ -4643,6 +4783,8 @@ export type ZoneStoresMaxAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type ZoneStoresMinAggregate = {
@@ -4657,6 +4799,8 @@ export type ZoneStoresMinAggregate = {
   streetAddress1?: Maybe<Scalars['String']>;
   streetAddress2?: Maybe<Scalars['String']>;
   GSTIN?: Maybe<Scalars['String']>;
+  assetAPI?: Maybe<Scalars['String']>;
+  mainAPI?: Maybe<Scalars['String']>;
 };
 
 export type ZoneTaxratesAvgAggregate = {
@@ -4750,27 +4894,6 @@ export type CreateNewAddressMutation = (
   ) }
 );
 
-export type CreateUserMutationVariables = Exact<{
-  fname: Scalars['String'];
-  lname: Scalars['String'];
-  phone: Scalars['String'];
-  password: Scalars['String'];
-  email: Scalars['String'];
-}>;
-
-
-export type CreateUserMutation = (
-  { __typename?: 'Mutation' }
-  & { CreateUser: (
-    { __typename?: 'UserResponse' }
-    & Pick<UserResponse, 'token'>
-    & { user: (
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'email' | 'phoneNumber' | 'verified' | 'firstName' | 'lastName'>
-    ) }
-  ) }
-);
-
 export type AddToCartMutationVariables = Exact<{
   userId: Scalars['ID'];
   store: Scalars['ID'];
@@ -4856,6 +4979,27 @@ export type CreateViewMutation = (
   & { createView: (
     { __typename?: 'View' }
     & Pick<View, 'id'>
+  ) }
+);
+
+export type CreateUserMutationVariables = Exact<{
+  lname: Scalars['String'];
+  fname: Scalars['String'];
+  phone: Scalars['String'];
+  password: Scalars['String'];
+  email: Scalars['String'];
+}>;
+
+
+export type CreateUserMutation = (
+  { __typename?: 'Mutation' }
+  & { CreateUser: (
+    { __typename?: 'UserResponse' }
+    & Pick<UserResponse, 'token'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email' | 'verified' | 'verificationToken' | 'lastLogin' | 'firstName' | 'lastName' | 'phoneNumber'>
+    ) }
   ) }
 );
 
@@ -4983,10 +5127,10 @@ export type GetDefaultStoreQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetDefaultStoreQuery = (
   { __typename?: 'Query' }
-  & { GetDefaultStore: (
+  & { GetDefaultStore?: Maybe<(
     { __typename?: 'Store' }
-    & Pick<Store, 'id' | 'storeName' | 'phoneNumber' | 'officialemail'>
-  ) }
+    & Pick<Store, 'id' | 'storeName' | 'phoneNumber' | 'officialemail' | 'zipcode' | 'streetAddress1' | 'streetAddress2' | 'GSTIN' | 'singleStore' | 'rentalStore' | 'channelMarkets' | 'assetAPI' | 'mainAPI' | 'services'>
+  )> }
 );
 
 export type GetCollectionTreeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -5404,21 +5548,6 @@ export const CreateNewAddressDocument = gql`
   }
 }
     `;
-export const CreateUserDocument = gql`
-    mutation CreateUser($fname: String!, $lname: String!, $phone: String!, $password: String!, $email: String!) {
-  CreateUser(fname: $fname, lname: $lname, phone: $phone, password: $password, email: $email) {
-    user {
-      id
-      email
-      phoneNumber
-      verified
-      firstName
-      lastName
-    }
-    token
-  }
-}
-    `;
 export const AddToCartDocument = gql`
     mutation AddToCart($userId: ID!, $store: ID!, $variant: ID!, $price: ID!, $quantity: Int!) {
   addToCart(userId: $userId, store: $store, variant: $variant, price: $price, quantity: $quantity) {
@@ -5458,6 +5587,23 @@ export const CreateViewDocument = gql`
     mutation createView($id: String!, $variant: ViewEnum!) {
   createView(id: $id, variant: $variant) {
     id
+  }
+}
+    `;
+export const CreateUserDocument = gql`
+    mutation createUser($lname: String!, $fname: String!, $phone: String!, $password: String!, $email: String!) {
+  CreateUser(lname: $lname, fname: $fname, phone: $phone, password: $password, email: $email) {
+    user {
+      id
+      email
+      verified
+      verificationToken
+      lastLogin
+      firstName
+      lastName
+      phoneNumber
+    }
+    token
   }
 }
     `;
@@ -5593,6 +5739,16 @@ export const GetDefaultStoreDocument = gql`
     storeName
     phoneNumber
     officialemail
+    zipcode
+    streetAddress1
+    streetAddress2
+    GSTIN
+    singleStore
+    rentalStore
+    channelMarkets
+    assetAPI
+    mainAPI
+    services
   }
 }
     `;

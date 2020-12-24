@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #23272b">
+  <div style="background-color: white;">
     <div class="container container-240 shop-collection catleft">
       <ul class="breadcrumb">
         <li><a href="/">Home</a></li>

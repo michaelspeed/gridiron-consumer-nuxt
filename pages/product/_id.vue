@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #23272b">
+  <div style="background-color: white;">
     <div class="container container-240">
       <div class="single-product-detail product-bundle product-aff">
         <ul class="breadcrumb" style="margin-top: 60px">
@@ -7,7 +7,7 @@
           <li class="active">{{ variant.product.collection.name }}</li>
           <li class="active">{{ variant.name }}</li>
         </ul>
-        <v-sheet elevation="2" color="#23272b">
+        <v-sheet elevation="0">
           <div class="row" style="padding-bottom: 10px">
             <div class="col-xs-12 col-sm-6 col-md-6">
               <v-carousel continuous cycle show-arrows-on-hover>
@@ -29,7 +29,7 @@
               <v-expand-transition>
                 <div class="single-flex">
                   <div class="single-product-info product-info product-grid-v2 s-50">
-                    <v-sheet color="#23272b" :style="{'padding': mainMobile ? '20px' : '10px'}">
+                    <v-sheet :style="{'padding': mainMobile ? '20px' : '10px'}">
                       <div class="product-rating">
                         <v-rating
                           color="primary"
@@ -94,7 +94,7 @@
                               <span>Please enter zip code</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center">
-                              <a-input placeholder="Please enter your zipcode" style="color: white" v-model="zipcode"></a-input>
+                              <a-input placeholder="Please enter your zipcode" v-model="zipcode"></a-input>
                               <div>
                                 <v-btn
                                   elevation="2"
@@ -148,7 +148,7 @@
                   </div>
                   <div class="single-product-feature s-50 hidden-xs hidden-sm">
                     <div style="padding: 10px">
-                      <v-sheet elevation="5" class="bd-7" color="#16191c">
+                      <v-sheet elevation="5" class="bd-7">
                         <div class="single-feature-box">
                           <div class="single-feature-img">
                             <v-icon
@@ -159,7 +159,7 @@
                             </v-icon>
                           </div>
                           <div class="single-feature-info">
-                            <h3 class="title-white">Safe Payment</h3>
+                            <h3>Safe Payment</h3>
                             <p>Pay with the world’s most payment methods.</p>
                           </div>
                         </div>
@@ -174,7 +174,7 @@
                             </v-icon>
                           </div>
                           <div class="single-feature-info">
-                            <h3 class="title-white">Confidence</h3>
+                            <h3>Confidence</h3>
                             <p>Protection covers your purchase</p>
                           </div>
                         </div>
@@ -189,14 +189,14 @@
                             </v-icon>
                           </div>
                           <div class="single-feature-info">
-                            <h3 class="title-white">Worldwide Delivery</h3>
+                            <h3>Worldwide Delivery</h3>
                             <p>Ship to over 200 countries & regions.</p>
                           </div>
                         </div>
                       </v-sheet>
-                      <div class="hot-line e-gradient" style="background-color: #23272b">
-                        <p style="background-color: #23272b">Hotline</p>
-                        <div class="flex align-center tele" style="background-color: #23272b">
+                      <div class="hot-line e-gradient">
+                        <p>Hotline</p>
+                        <div class="flex align-center tele">
                           <img src="/img/feature/hotline.png" alt="">
                           <div class="phone-number">
                             <p>(+123) 456 789 </p>
@@ -223,8 +223,8 @@
             <v-tab-item
               :key="0"
             >
-              <v-container fluid dark style="background-color: #23272b">
-                <div v-html="variant.product.description" style="background-color: #23272b"></div>
+              <v-container fluid>
+                <div v-html="variant.product.description"></div>
               </v-container>
             </v-tab-item>
           </v-tabs>
@@ -394,18 +394,18 @@ export default class ProductView extends Vue {
 }
 
 .btn-gradient {
-  background: #ffbf00;
-  background-image: linear-gradient(122deg, #ffbf00, #a67c00);
+  background: #F44336;
+  background-image: linear-gradient(122deg, #F44336, #D50000);
 }
 
 .e-gradient {
   background: #EAFC9D;
-  background-image: linear-gradient(122deg, #D9F66B, #71A206);
+  background-image: linear-gradient(122deg, #F44336, #71A206);
 }
 
 .hot-line {
-  background: -webkit-gradient(linear, left top, right top, from(#ffbf00), to(#a67c00));
-  background-image: linear-gradient(122deg, #ffbf00, #a67c00);
+  background: -webkit-gradient(linear, left top, right top, from(#F44336), to(#D50000));
+  background-image: linear-gradient(122deg, #F44336, #D50000);
 }
 .title-white {
   color: white;
